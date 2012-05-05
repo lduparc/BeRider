@@ -1,0 +1,20 @@
+﻿<local:FluxViewModel 
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"       
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:Rider.ViewModels">
+
+    <local:FluxViewModel.WebsiteFeed>
+        <local:RssViewModel Title="A la une" Description="Ceci est une description 1" Guid="Le guid"  Link="http://www.google.fr" />
+        <local:RssViewModel Title="A la deux" Description="Ceci est une description 2" Guid="Le guid"  Link="http://www.google.fr" />
+        <local:RssViewModel Title="A la trois" Description="Ceci est une description 3" Guid="Le guid"  Link="http://www.google.fr" />
+    </local:FluxViewModel.WebsiteFeed>
+
+    <local:FluxViewModel.TwitterFeed>
+        <local:TweetViewModel Author="Jean michel oublie tout" Title="Ceci est un titre de tweet" Avatar=""  Published="" />
+        <local:TweetViewModel Author="Jean michel boit tout le temps" Title="Ceci est un titre de tweet" Avatar=""  Published="" />
+        <local:TweetViewModel Author="Jean michel se gratte le nez" Title="Ceci est un titre de tweet" Avatar=""  Published="" />
+        <local:TweetViewModel Author="Jean michel a la dalle " Title="Ceci est un titre de tweet" Avatar=""  Published="" />
+    </local:FluxViewModel.TwitterFeed>
+
+
+</local:FluxViewModel>

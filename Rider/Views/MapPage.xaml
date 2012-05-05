@@ -1,0 +1,61 @@
+﻿<phone:PhoneApplicationPage 
+    x:Class="Rider.Views.MapPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:Microsoft_Phone_Controls_Maps="clr-namespace:Microsoft.Phone.Controls.Maps;assembly=Microsoft.Phone.Controls.Maps" 
+    xmlns:MSPCMCore="clr-namespace:Microsoft.Phone.Controls.Maps.Core;assembly=Microsoft.Phone.Controls.Maps" 
+    xmlns:helpers="clr-namespace:Rider.Utils" 
+    xmlns:Custom="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity" 
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="PortraitOrLandscape" Orientation="Portrait"
+    mc:Ignorable="d" d:DesignHeight="696" d:DesignWidth="480"
+    Loaded="PhoneApplicationPage_Loaded" Unloaded="PhoneApplicationPage_Unloaded"
+    shell:SystemTray.IsVisible="True">
+
+    <!--LayoutRoot is the root grid where all page content is placed-->
+    <Grid x:Name="LayoutRoot" Background="Transparent" DataContext="{Binding MapViewModel, Source={StaticResource Locator}}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!--TitlePanel contient le nom de l'application et le titre de la page-->
+        <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28" Orientation="Horizontal">
+            <Canvas Width="15" Background="{StaticResource PhoneAccentBrush}" />
+            <StackPanel VerticalAlignment="Top" Orientation="Vertical">
+                <TextBlock x:Name="PageTitle" Text="{Binding LocalizedValue.Map, Source={StaticResource LocalizedStrings}}" Margin="9,-10,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
+                <StackPanel Margin="0,-5,0,0" VerticalAlignment="Top" Orientation="Horizontal">
+                    <StackPanel Margin="0,-10,0,0" VerticalAlignment="Top" Orientation="Horizontal">
+                        <TextBlock Height="Auto" FontSize="22" VerticalAlignment="Bottom" x:Name="ApplicationTitleFirst" Text="{Binding LocalizedValue.ApplicationTitleFirst, Source={StaticResource LocalizedStrings}}" Style="{StaticResource PhoneTextNormalStyle}"/>
+                        <TextBlock Height="Auto" FontSize="26" VerticalAlignment="Bottom" Margin="-7, 0, 0, -1" x:Name="ApplicationTitleSecond" Foreground="{StaticResource PhoneAccentBrush}" Text="{Binding LocalizedValue.ApplicationTitleSecond, Source={StaticResource LocalizedStrings}}" Style="{StaticResource PhoneTextNormalStyle}"/>
+                        <TextBlock Height="Auto" FontSize="22" VerticalAlignment="Bottom" x:Name="sep" Text="-" Style="{StaticResource PhoneTextNormalStyle}"/>
+                        <TextBlock Height="Auto" FontSize="22" VerticalAlignment="Bottom"  Margin="-2, 0, 0, 0" x:Name="ApplicationTitleThird" Text="{Binding LocalizedValue.MapSubTitle, Source={StaticResource LocalizedStrings}}" Style="{StaticResource PhoneTextNormalStyle}" Foreground="{StaticResource PhoneAccentBrush}"/>
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+        <!--ContentPanel - place additional content here-->
+        <Microsoft_Phone_Controls_Maps:Map x:Name="Map" Grid.Row="1"               
+	            CredentialsProvider="AvE3HGyonE4kxWzsslco5zPkeCP7BEiUV0jKsSDKG88WCTGhhfaPZ4YOHwxIjcaF" 
+                Center="{Binding MapViewModel.MapCenter, Source={StaticResource Locator}}" ZoomLevel="{Binding MapViewModel.ZoomLevel, Mode=TwoWay, Source={StaticResource Locator}}" helpers:BindingHelpers.TileSource="{Binding CurrentMap}" LogoVisibility="Collapsed" ScaleVisibility="Collapsed">
+            <Microsoft_Phone_Controls_Maps:Map.Mode>
+                <MSPCMCore:MercatorMode />
+            </Microsoft_Phone_Controls_Maps:Map.Mode>
+        </Microsoft_Phone_Controls_Maps:Map>
+        <TextBlock Grid.Column="1" TextWrapping="Wrap" Text="{Binding MapViewModel.CurrentMap.Name, Source={StaticResource Locator}}" Margin="0,23,0,0" HorizontalAlignment="Center"/>
+    </Grid>
+
+    <phone:PhoneApplicationPage.ApplicationBar>
+        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
+            <shell:ApplicationBarIconButton x:Name="about" IconUri="/Images/maps/params.png" Text="Binding" IsEnabled="True" Click="about_Click"/>
+            <shell:ApplicationBarIconButton x:Name="parametre" IconUri="/Images/maps/params.png" Text="Binding" IsEnabled="True" Click="parametre_Click"/>
+        </shell:ApplicationBar>
+    </phone:PhoneApplicationPage.ApplicationBar>
+
+</phone:PhoneApplicationPage>

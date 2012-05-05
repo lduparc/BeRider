@@ -1,0 +1,428 @@
+﻿<phone:PhoneApplicationPage 
+    x:Class="Rider.Views.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:ts="clr-namespace:ScottIsAFool.Controls;assembly=TileSlider"
+    d:DataContext="{d:DesignData DesignData/MainViewModelData.xaml}" 
+    mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="696" 
+    xmlns:local="clr-namespace:Rider.ViewModels"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Portrait"  Orientation="Portrait"
+    shell:SystemTray.IsVisible="True">
+
+    <phone:PhoneApplicationPage.Resources>
+        <Style x:Key="HyperlinkButtonStyle" TargetType="HyperlinkButton">
+            <Setter Property="Foreground" Value="{StaticResource PhoneForegroundBrush}"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="FontSize" Value="{StaticResource PhoneFontSizeMedium}"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="HyperlinkButton">
+                        <Border Background="Transparent">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal"/>
+                                    <VisualState x:Name="MouseOver"/>
+                                    <VisualState x:Name="Pressed">
+                                        <Storyboard>
+                                            <DoubleAnimation Duration="0" To="0.5" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="TextElement"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Disabled">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="TextElement">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource PhoneDisabledBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="FocusStates">
+                                    <VisualState x:Name="Unfocused"/>
+                                    <VisualState x:Name="Focused"/>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <Border Background="{TemplateBinding Background}" Margin="{StaticResource PhoneHorizontalMargin}" Padding="{TemplateBinding Padding}">
+                                <TextBlock x:Name="TextElement" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Text="{TemplateBinding Content}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                            </Border>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="TileSliderStyle" TargetType="ts:TileSlider">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ts:TileSlider">
+                        <Grid x:Name="theGrid" Background="Transparent" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Center">
+                            <Grid.Resources>
+                                <Storyboard x:Name="moveTileDown">
+                                    <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="theText">
+                                        <EasingDoubleKeyFrame KeyTime="0:0:3" Value="0"/>
+                                        <EasingDoubleKeyFrame KeyTime="0:0:3.5" Value="84"/>
+                                        <EasingDoubleKeyFrame KeyTime="0:0:6.5" Value="84"/>
+                                        <EasingDoubleKeyFrame KeyTime="0:0:7" Value="173"/>
+                                        <EasingDoubleKeyFrame KeyTime="0:0:10" Value="173"/>
+                                        <EasingDoubleKeyFrame KeyTime="0:0:10.5" Value="0"/>
+                                    </DoubleAnimationUsingKeyFrames>
+                                    <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="theImage">
+                                        <EasingDoubleKeyFrame KeyTime="0:0:3" Value="0"/>
+                                        <EasingDoubleKeyFrame KeyTime="0:0:3.5" Value="84"/>
+                                        <EasingDoubleKeyFrame KeyTime="0:0:6.5" Value="84"/>
+                                        <EasingDoubleKeyFrame KeyTime="0:0:7" Value="173"/>
+                                        <EasingDoubleKeyFrame KeyTime="0:0:10" Value="173"/>
+                                        <EasingDoubleKeyFrame KeyTime="0:0:10.5" Value="0"/>
+                                    </DoubleAnimationUsingKeyFrames>
+                                </Storyboard>
+                                <Storyboard x:Name="moveTileUp">
+                                    <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="theText">
+                                        <EasingDoubleKeyFrame KeyTime="0:0:3" Value="0"/>
+                                        <EasingDoubleKeyFrame KeyTime="0:0:3.5" Value="-84"/>
+                                        <EasingDoubleKeyFrame KeyTime="0:0:6.5" Value="-84"/>
+                                        <EasingDoubleKeyFrame KeyTime="0:0:7" Value="-173"/>
+                                        <EasingDoubleKeyFrame KeyTime="0:0:10" Value="-173"/>
+                                        <EasingDoubleKeyFrame KeyTime="0:0:10.5" Value="0"/>
+                                    </DoubleAnimationUsingKeyFrames>
+                                    <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="theImage">
+                                        <EasingDoubleKeyFrame KeyTime="0:0:3" Value="0"/>
+                                        <EasingDoubleKeyFrame KeyTime="0:0:3.5" Value="-84"/>
+                                        <EasingDoubleKeyFrame KeyTime="0:0:6.5" Value="-84"/>
+                                        <EasingDoubleKeyFrame KeyTime="0:0:7" Value="-173"/>
+                                        <EasingDoubleKeyFrame KeyTime="0:0:10" Value="-173"/>
+                                        <EasingDoubleKeyFrame KeyTime="0:0:10.5" Value="0"/>
+                                    </DoubleAnimationUsingKeyFrames>
+                                </Storyboard>
+                                <Storyboard x:Name="moveTileLeft">
+                                    <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="theText">
+                                        <EasingDoubleKeyFrame KeyTime="0:0:3" Value="0"/>
+                                        <EasingDoubleKeyFrame KeyTime="0:0:3.5" Value="-84"/>
+                                        <EasingDoubleKeyFrame KeyTime="0:0:6.5" Value="-84"/>
+                                        <EasingDoubleKeyFrame KeyTime="0:0:7" Value="-173"/>
+                                        <EasingDoubleKeyFrame KeyTime="0:0:10" Value="-173"/>
+                                        <EasingDoubleKeyFrame KeyTime="0:0:10.5" Value="0"/>
+                                    </DoubleAnimationUsingKeyFrames>
+                                    <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="theImage">
+                                        <EasingDoubleKeyFrame KeyTime="0:0:3" Value="0"/>
+                                        <EasingDoubleKeyFrame KeyTime="0:0:3.5" Value="-84"/>
+                                        <EasingDoubleKeyFrame KeyTime="0:0:6.5" Value="-84"/>
+                                        <EasingDoubleKeyFrame KeyTime="0:0:7" Value="-173"/>
+                                        <EasingDoubleKeyFrame KeyTime="0:0:10" Value="-173"/>
+                                        <EasingDoubleKeyFrame KeyTime="0:0:10.5" Value="0"/>
+                                    </DoubleAnimationUsingKeyFrames>
+                                </Storyboard>
+                                <Storyboard x:Name="moveTileRight">
+                                    <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="theText">
+                                        <EasingDoubleKeyFrame KeyTime="0:0:3" Value="0"/>
+                                        <EasingDoubleKeyFrame KeyTime="0:0:3.5" Value="84"/>
+                                        <EasingDoubleKeyFrame KeyTime="0:0:6.5" Value="84"/>
+                                        <EasingDoubleKeyFrame KeyTime="0:0:7" Value="173"/>
+                                        <EasingDoubleKeyFrame KeyTime="0:0:10" Value="173"/>
+                                        <EasingDoubleKeyFrame KeyTime="0:0:10.5" Value="0"/>
+                                    </DoubleAnimationUsingKeyFrames>
+                                    <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="theImage">
+                                        <EasingDoubleKeyFrame KeyTime="0:0:3" Value="0"/>
+                                        <EasingDoubleKeyFrame KeyTime="0:0:3.5" Value="84"/>
+                                        <EasingDoubleKeyFrame KeyTime="0:0:6.5" Value="84"/>
+                                        <EasingDoubleKeyFrame KeyTime="0:0:7" Value="173"/>
+                                        <EasingDoubleKeyFrame KeyTime="0:0:10" Value="173"/>
+                                        <EasingDoubleKeyFrame KeyTime="0:0:10.5" Value="0"/>
+                                    </DoubleAnimationUsingKeyFrames>
+                                </Storyboard>
+                                <Storyboard x:Name="spinTile">
+                                    <DoubleAnimationUsingKeyFrames x:Name="popInX" BeginTime="0:0:0.5" Storyboard.TargetProperty="(ScaleX)" Storyboard.TargetName="gridTransform">
+                                        <SplineDoubleKeyFrame KeySpline="0,0,0,1" KeyTime="0:0:1" Value="1"/>
+                                        <SplineDoubleKeyFrame KeySpline="0,0,0,1" KeyTime="0:0:1.5" Value="0.9"/>
+                                        <SplineDoubleKeyFrame KeySpline="0,0,0,1" KeyTime="0:0:2" Value="1"/>
+                                        <SplineDoubleKeyFrame KeySpline="0,0,0,1" KeyTime="0:0:5" Value="1"/>
+                                        <SplineDoubleKeyFrame KeySpline="0,0,0,1" KeyTime="0:0:5.5" Value="0.9"/>
+                                        <SplineDoubleKeyFrame KeySpline="0,0,0,1" KeyTime="0:0:6" Value="1"/>
+                                    </DoubleAnimationUsingKeyFrames>
+                                    <DoubleAnimationUsingKeyFrames x:Name="popInY" BeginTime="0:0:0.5" Storyboard.TargetProperty="(ScaleY)" Storyboard.TargetName="gridTransform">
+                                        <SplineDoubleKeyFrame KeySpline="0,0,0,1" KeyTime="0:0:1" Value="1"/>
+                                        <SplineDoubleKeyFrame KeySpline="0,0,0,1" KeyTime="0:0:1.5" Value="0.9"/>
+                                        <SplineDoubleKeyFrame KeySpline="0,0,0,1" KeyTime="0:0:2" Value="1"/>
+                                        <SplineDoubleKeyFrame KeySpline="0,0,0,1" KeyTime="0:0:5" Value="1"/>
+                                        <SplineDoubleKeyFrame KeySpline="0,0,0,1" KeyTime="0:0:5.5" Value="0.9"/>
+                                        <SplineDoubleKeyFrame KeySpline="0,0,0,1" KeyTime="0:0:6" Value="1"/>
+                                    </DoubleAnimationUsingKeyFrames>
+                                    <DoubleAnimationUsingKeyFrames x:Name="rotateForward" BeginTime="0:0:0.5" Storyboard.TargetProperty="(RotationX)" Storyboard.TargetName="projection">
+                                        <SplineDoubleKeyFrame KeySpline="0,0,0,1" KeyTime="0:0:1" Value="0"/>
+                                        <SplineDoubleKeyFrame KeySpline="0,0,0,1" KeyTime="0:0:2" Value="180"/>
+                                        <SplineDoubleKeyFrame KeySpline="0,0,0,1" KeyTime="0:0:5" Value="180"/>
+                                        <SplineDoubleKeyFrame KeySpline="0,0,0,1" KeyTime="0:0:6" Value="0"/>
+                                    </DoubleAnimationUsingKeyFrames>
+                                    <DoubleAnimationUsingKeyFrames x:Name="longTextrotateForward" BeginTime="0:0:0.5" Storyboard.TargetProperty="(RotationX)" Storyboard.TargetName="theLongTextStack">
+                                        <SplineDoubleKeyFrame KeySpline="0,0,0,1" KeyTime="0:0:1" Value="-180"/>
+                                        <SplineDoubleKeyFrame KeySpline="0,0,0,1" KeyTime="0:0:2" Value="0"/>
+                                        <SplineDoubleKeyFrame KeySpline="0,0,0,1" KeyTime="0:0:5" Value="0"/>
+                                        <SplineDoubleKeyFrame KeySpline="0,0,0,1" KeyTime="0:0:6" Value="-180"/>
+                                    </DoubleAnimationUsingKeyFrames>
+                                    <DoubleAnimationUsingKeyFrames x:Name="longTextStackrotateForward" BeginTime="0:0:0.5" Storyboard.TargetProperty="(RotationX)" Storyboard.TargetName="theLongText">
+                                        <SplineDoubleKeyFrame KeySpline="0,0,0,1" KeyTime="0:0:1" Value="-180"/>
+                                        <SplineDoubleKeyFrame KeySpline="0,0,0,1" KeyTime="0:0:2" Value="0"/>
+                                        <SplineDoubleKeyFrame KeySpline="0,0,0,1" KeyTime="0:0:5" Value="0"/>
+                                        <SplineDoubleKeyFrame KeySpline="0,0,0,1" KeyTime="0:0:6" Value="-180"/>
+                                    </DoubleAnimationUsingKeyFrames>
+                                    <DoubleAnimationUsingKeyFrames x:Name="hideNormalText" BeginTime="0:0:0.5" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="theText">
+                                        <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="1"/>
+                                        <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="0"/>
+                                        <EasingDoubleKeyFrame KeyTime="0:0:5.9" Value="0"/>
+                                        <EasingDoubleKeyFrame KeyTime="0:0:6" Value="1"/>
+                                    </DoubleAnimationUsingKeyFrames>
+                                    <DoubleAnimationUsingKeyFrames x:Name="hideImage" BeginTime="0:0:0.5" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="theStack">
+                                        <EasingDoubleKeyFrame KeyTime="0:0:1.1" Value="1"/>
+                                        <EasingDoubleKeyFrame KeyTime="0:0:1.2" Value="0"/>
+                                        <EasingDoubleKeyFrame KeyTime="0:0:5.1" Value="0"/>
+                                        <EasingDoubleKeyFrame KeyTime="0:0:5.2" Value="1"/>
+                                    </DoubleAnimationUsingKeyFrames>
+                                    <DoubleAnimationUsingKeyFrames x:Name="showLongTextStack" BeginTime="0:0:0.5" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="longText">
+                                        <EasingDoubleKeyFrame KeyTime="0:0:1.1" Value="0"/>
+                                        <EasingDoubleKeyFrame KeyTime="0:0:1.2" Value="1"/>
+                                        <EasingDoubleKeyFrame KeyTime="0:0:5.1" Value="1"/>
+                                        <EasingDoubleKeyFrame KeyTime="0:0:5.2" Value="0"/>
+                                    </DoubleAnimationUsingKeyFrames>
+                                    <DoubleAnimationUsingKeyFrames x:Name="showLongText" BeginTime="0:0:0.5" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="longStack">
+                                        <EasingDoubleKeyFrame KeyTime="0:0:1.1" Value="0"/>
+                                        <EasingDoubleKeyFrame KeyTime="0:0:1.2" Value="1"/>
+                                        <EasingDoubleKeyFrame KeyTime="0:0:5.1" Value="1"/>
+                                        <EasingDoubleKeyFrame KeyTime="0:0:5.2" Value="0"/>
+                                    </DoubleAnimationUsingKeyFrames>
+                                </Storyboard>
+                            </Grid.Resources>
+                            <Grid.RenderTransform>
+                                <ScaleTransform x:Name="gridTransform" CenterY="0" CenterX="0" ScaleY="1" ScaleX="1"/>
+                            </Grid.RenderTransform>
+                            <StackPanel x:Name="longStack" Background="{TemplateBinding TileBackground}" Opacity="0">
+                                <StackPanel.Projection>
+                                    <PlaneProjection x:Name="theLongTextStack" RotationX="-180"/>
+                                </StackPanel.Projection>
+                                <TextBlock x:Name="longText" MaxHeight="{TemplateBinding Height}" Opacity="0" RenderTransformOrigin="0.5,0.5" Style="{StaticResource PhoneTextNormalStyle}" TextWrapping="Wrap" Text="{TemplateBinding LongText}" FontSize="28" Margin="15,0,12,0">
+									<TextBlock.Projection>
+										<PlaneProjection x:Name="theLongText" RotationX="-180"/>
+									</TextBlock.Projection>
+                                </TextBlock>
+                            </StackPanel>
+                            <StackPanel x:Name="theStack" Background="{TemplateBinding TileBackground}" Orientation="Vertical" VerticalAlignment="Top">
+                                <StackPanel.Projection>
+                                    <PlaneProjection x:Name="projection" RotationX="0"/>
+                                </StackPanel.Projection>
+                                <TextBlock x:Name="theText" MaxWidth="{TemplateBinding Width}" MaxHeight="{TemplateBinding Height}" Style="{TemplateBinding TextStyle}" TextWrapping="Wrap" Text="{TemplateBinding Text}" VerticalAlignment="Bottom" FontSize="36" Margin="20,-173,0,0">
+									<TextBlock.RenderTransform>
+										<CompositeTransform/>
+									</TextBlock.RenderTransform>
+                                </TextBlock>
+                                <Image x:Name="theImage" Height="{TemplateBinding Height}" MaxWidth="{TemplateBinding Width}" Source="{TemplateBinding ImageSource}" Stretch="{TemplateBinding Stretch}" Width="{TemplateBinding Width}">
+                                    <Image.RenderTransform>
+                                        <CompositeTransform/>
+                                    </Image.RenderTransform>
+                                </Image>
+                            </StackPanel>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </phone:PhoneApplicationPage.Resources>
+
+    <!--LayoutRoot est la grille racine où tout le contenu de la page est placé-->
+    <Grid x:Name="LayoutRoot" Background="Transparent">
+
+        <controls:Panorama x:Name="panorama">
+            <controls:Panorama.Title>
+                <StackPanel x:Name="TitlePanel" Margin="0, 20, 0, 0" VerticalAlignment="Bottom" Orientation="Horizontal">
+                    <TextBlock FontSize="132" Margin="0, 0, 0, -20"  VerticalAlignment="Bottom" x:Name="ApplicationTitleFirst" Text="Be" />
+                    <TextBlock Height="212" VerticalAlignment="Bottom" Margin="0, 0, 0, 0" x:Name="ApplicationTitleSecond" Foreground="{StaticResource PhoneAccentBrush}" Text="Rider" />
+                </StackPanel>
+            </controls:Panorama.Title>
+
+            <controls:PanoramaItem Header="{Binding PanoramaHomeTitle}" Width="446">
+                <Grid HorizontalAlignment="Left" VerticalAlignment="Top">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Row="0" Height="Auto" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,0,0,-30">
+                        <TextBlock Text="Duree" TextWrapping="Wrap"  Style="{StaticResource PhoneTextSubtleStyle}" VerticalAlignment="Bottom" FontSize="16" Foreground="{StaticResource PhoneAccentBrush}" HorizontalAlignment="Left" Margin="9,0,0,45" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="False" d:LayoutRounding="Auto" >
+                        	<TextBlock.RenderTransform>
+                        		<CompositeTransform Rotation="-90"/>
+                        	</TextBlock.RenderTransform>
+                        </TextBlock>
+                        <TextBlock FontSize="96" Text="00" TextWrapping="Wrap"  Style="{StaticResource PhoneTextLargeStyle}" Margin="9,0,5,0"/>
+                        <TextBlock Text=":" TextWrapping="Wrap"  Style="{StaticResource PhoneTextSubtleStyle}" VerticalAlignment="Center" Margin="0" FontSize="21.333"/>
+                        <TextBlock FontSize="96" Text="00" TextWrapping="Wrap"  Style="{StaticResource PhoneTextLargeStyle}" Margin="5,0"/>
+                        <TextBlock Text=":" TextWrapping="Wrap"  Style="{StaticResource PhoneTextSubtleStyle}" VerticalAlignment="Center" Margin="0" FontSize="21.333"/>
+                        <TextBlock FontSize="96" Text="00" TextWrapping="Wrap"  Style="{StaticResource PhoneTextLargeStyle}" Margin="5,0,0,0"/>
+                    </StackPanel>
+
+                    <StackPanel Height="Auto" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0" Grid.Row="1">
+                        <TextBlock Text="Distance" TextWrapping="Wrap"  Style="{StaticResource PhoneTextSubtleStyle}" VerticalAlignment="Bottom" FontSize="16" Foreground="{StaticResource PhoneAccentBrush}" HorizontalAlignment="Left" Margin="0,0,0,45" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="False" d:LayoutRounding="Auto" >
+                        	<TextBlock.RenderTransform>
+                        		<CompositeTransform Rotation="-90"/>
+                        	</TextBlock.RenderTransform>
+                        </TextBlock>
+                        <TextBlock FontSize="96" Text="00" TextWrapping="Wrap"  Style="{StaticResource PhoneTextLargeStyle}" Margin="0,0,5,0"/>
+                        <TextBlock Text=":" TextWrapping="Wrap"  Style="{StaticResource PhoneTextSubtleStyle}" VerticalAlignment="Center" Margin="0" FontSize="21.333"/>
+                        <TextBlock FontSize="96" Text="00" TextWrapping="Wrap"  Style="{StaticResource PhoneTextLargeStyle}" Margin="5,0"/>
+                        <TextBlock Text=":" TextWrapping="Wrap"  Style="{StaticResource PhoneTextSubtleStyle}" VerticalAlignment="Center" Margin="0" FontSize="21.333"/>
+                        <TextBlock FontSize="96" Text="00" TextWrapping="Wrap"  Style="{StaticResource PhoneTextLargeStyle}" Margin="5,0,0,0"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="2" Height="Auto" Orientation="Horizontal" VerticalAlignment="Top" Margin="0,-5,0,0" HorizontalAlignment="Left">
+                        <StackPanel Height="Auto" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Left">
+                            <TextBlock Text="Vit. Moy" TextWrapping="Wrap"  Style="{StaticResource PhoneTextSubtleStyle}" VerticalAlignment="Bottom" FontSize="16" Foreground="{StaticResource PhoneAccentBrush}" HorizontalAlignment="Left" Margin="0,0,0,23" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="False" d:LayoutRounding="Auto" >
+                        		<TextBlock.RenderTransform>
+                        			<CompositeTransform Rotation="-90"/>
+                        		</TextBlock.RenderTransform>
+                            </TextBlock>
+                            <TextBlock FontSize="48" Text="0.0" TextWrapping="Wrap"  Style="{StaticResource PhoneTextLargeStyle}" Margin="5,0" VerticalAlignment="Bottom"/>
+                            <TextBlock Text="km/h" TextWrapping="Wrap"  Style="{StaticResource PhoneTextSubtleStyle}" VerticalAlignment="Bottom" Margin="0,0,0,7" FontSize="21.333"/>
+                        </StackPanel>
+                        <StackPanel Height="Auto" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Right">
+                            <TextBlock Text="Calories" TextWrapping="Wrap"  Style="{StaticResource PhoneTextSubtleStyle}" VerticalAlignment="Bottom" FontSize="16" Foreground="{StaticResource PhoneAccentBrush}" HorizontalAlignment="Left" Margin="0,0,0,23" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="False" d:LayoutRounding="Auto" >
+                        		<TextBlock.RenderTransform>
+                        			<CompositeTransform Rotation="-90"/>
+                        		</TextBlock.RenderTransform>
+                            </TextBlock>
+                            <TextBlock FontSize="48" Text="0" TextWrapping="Wrap"  Style="{StaticResource PhoneTextLargeStyle}" Margin="5,0" VerticalAlignment="Bottom"/>
+                            <TextBlock Text="kcal" TextWrapping="Wrap"  Style="{StaticResource PhoneTextSubtleStyle}" VerticalAlignment="Bottom" Margin="0,0,0,7" FontSize="21.333"/>
+                        </StackPanel>
+                    </StackPanel>
+                    
+                    <Button Grid.Row="3" Margin="53,10,-6,0" Content="Demarrer la session"  HorizontalAlignment="Center" ToolTipService.ToolTip="Demarrer la session" VerticalAlignment="Top" Width="349" />
+
+                </Grid>
+            </controls:PanoramaItem>
+
+
+        </controls:Panorama>
+
+
+
+
+
+        <!--<controls:Panorama x:Name="panorama">
+            <controls:Panorama.Title>
+                <StackPanel x:Name="TitlePanel" Margin="0, 20, 0, 0" VerticalAlignment="Bottom" Orientation="Horizontal">
+                    <TextBlock FontSize="132" Margin="0, 0, 0, -20"  VerticalAlignment="Bottom" x:Name="ApplicationTitleFirst" Text="Be" />
+                    <TextBlock Height="212" VerticalAlignment="Bottom" Margin="0, 0, 0, 0" x:Name="ApplicationTitleSecond" Foreground="{StaticResource PhoneAccentBrush}" Text="Rider" />
+                </StackPanel>
+
+            </controls:Panorama.Title>
+
+            <controls:PanoramaItem Header="{Binding PanoramaHomeTitle}" Width="446">
+
+                <ListBox Margin="0,0,-12,0" ItemsSource="{Binding Home}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Margin="0,0,0,17" Width="432" Height="Auto">
+                                <HyperlinkButton Tag="{Binding Identifier}" Content="{Binding Title}" VerticalAlignment="Center" HorizontalAlignment="Left" BorderThickness="0" FontSize="48" Style="{StaticResource HyperlinkButtonStyle}" Click="Home_Click"/>
+                                <TextBlock Text="{Binding Details}" TextWrapping="Wrap" Margin="12,-6,12,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </controls:PanoramaItem>
+
+            <controls:PanoramaItem Header="{Binding PanoramaNewsTitle}" Width="446" >
+                    <ListBox Margin="0,0,0,0" ItemsSource="{Binding News}" >
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal" Margin="0,0,0,17">
+                                    <ts:TileSlider 
+                                    Margin="12,60,9,0" 
+                                        TextSlidesFrom="Top" 
+                                    Size="173" Width="173"
+                                   Text="{Binding Title}" 
+                                    Foreground="#FFFFFF"
+                                    LongText="{Binding SmartInfo}" 
+                                   TextStyle="{StaticResource PhoneTextLargeStyle}" 
+                                   TileBackground="DodgerBlue" Tag="{Binding Link}"
+                                     ImageSource="/Rider;component/Images/panorama.jpg" 
+                                 Stretch="Fill" Style="{StaticResource TileSliderStyle}" Click="GoToPageLink"/>
+                                    <StackPanel Width="311">
+                                    <HyperlinkButton Tag="{Binding Link}" Content="{Binding Title}" VerticalAlignment="Center" HorizontalAlignment="Left" BorderThickness="0" FontSize="48" Style="{StaticResource HyperlinkButtonStyle}" Click="GoToPageLink"/>
+                                        <TextBlock Text="{Binding Details}" TextWrapping="Wrap" Margin="12,-6,90,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+            </controls:PanoramaItem>
+
+            <controls:PanoramaItem Header="{Binding PanoramaMapsTitle}" Width="446" >
+                <ListBox Margin="0,0,0,0" ItemsSource="{Binding Maps}"  >
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,17" Width="442">
+                                <ts:TileSlider 
+                                    Margin="12,60,9,0" 
+                                    TextSlidesFrom="Top" 
+                                    Size="173" Width="173"
+                                   Text="{Binding Title}" 
+                                    Foreground="#FFFFFF"
+                                    LongText="{Binding SmartInfo}" 
+                                   TextStyle="{StaticResource PhoneTextLargeStyle}" 
+                                   TileBackground="YellowGreen" Tag="{Binding Link}" Click="GoToPageLink"
+                                    ImageSource="/Rider;component/Images/panorama.jpg" 
+                                  Stretch="Fill" Style="{StaticResource TileSliderStyle}" HorizontalAlignment="Center" FontWeight="Normal"/>
+                                <StackPanel Width="311">
+                                    <HyperlinkButton Tag="{Binding Link}" Content="{Binding Title}" VerticalAlignment="Center" HorizontalAlignment="Left" BorderThickness="0" FontSize="48" 
+                                                     Style="{StaticResource HyperlinkButtonStyle}" Click="GoToPageLink"/>
+                                    <TextBlock Text="{Binding Details}" TextWrapping="Wrap" Margin="12,-6,67,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+
+            </controls:PanoramaItem>
+
+            <controls:PanoramaItem Header="{Binding PanoramaGalleryTitle}" Width="446">
+                <ListBox Margin="0,0,0,0" ItemsSource="{Binding Gallery}"  >
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,17">
+                                <ts:TileSlider 
+                                    Margin="12,60,9,0"
+                                    TextSlidesFrom="Top"
+                                    Size="173" Width="173"
+                                   Text="{Binding Title}" 
+                                    Foreground="#FFFFFF"
+                                    LongText="{Binding SmartInfo}" 
+                                   TextStyle="{StaticResource PhoneTextLargeStyle}" 
+                                   TileBackground="Crimson" 
+                                   ImageSource="/Rider;component/Images/panorama.jpg" 
+                                   Stretch="Fill" Style="{StaticResource TileSliderStyle}"/>
+                                <StackPanel Width="310">
+                                    <HyperlinkButton Content="{Binding Title}" VerticalAlignment="Center" HorizontalAlignment="Left" BorderThickness="0" FontSize="48" Style="{StaticResource HyperlinkButtonStyle}"/>
+                                    <TextBlock Text="{Binding Details}" TextWrapping="Wrap" Margin="12,-6,90,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </controls:PanoramaItem>
+
+        </controls:Panorama>-->
+
+    </Grid>
+
+    <phone:PhoneApplicationPage.ApplicationBar>
+        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
+            <shell:ApplicationBarIconButton x:Name="carte" IconUri="/Images/maps/params.png" Text="Binding" IsEnabled="True" Click="carte_Click"/>
+            <shell:ApplicationBarIconButton x:Name="about" IconUri="/Images/maps/params.png" Text="Binding" IsEnabled="True" Click="about_Click"/>
+            <shell:ApplicationBarIconButton x:Name="parametre" IconUri="/Images/maps/params.png" Text="Binding" IsEnabled="True" Click="parametre_Click"/>
+        </shell:ApplicationBar>
+    </phone:PhoneApplicationPage.ApplicationBar>
+
+</phone:PhoneApplicationPage>        
