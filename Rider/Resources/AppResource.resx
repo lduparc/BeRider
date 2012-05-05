@@ -123,6 +123,13 @@
   <data name="AboutAppBarTitle" xml:space="preserve">
     <value>A propos</value>
   </data>
+  <data name="AboutCollaboratorContent" xml:space="preserve">
+    <value>Developpeur web - Bordeaux (France)
+Ruby on Rails</value>
+  </data>
+  <data name="AboutCollaboratorTitle" xml:space="preserve">
+    <value>Merci a Pierre Jambet</value>
+  </data>
   <data name="AboutLocationServicePolicy" xml:space="preserve">
     <value>BeRider utilise les donnees gps de votre telephone afin de determiner les centres d'equipements les plus proches de votre position. Ces informations sont enregistrees uniquement si vous souhaitez sauvegarder votre parcours. Aucune diffusion n'est faites de notre part. Activer ou desactiver cette fonctionnalite a tout moment.</value>
   </data>
@@ -163,6 +170,9 @@ IOS - Android - Windows Phone 7</value>
   <data name="FeedBack" xml:space="preserve">
     <value>support</value>
   </data>
+  <data name="LockerAppBarTitle" xml:space="preserve">
+    <value>Centrer</value>
+  </data>
   <data name="Map" xml:space="preserve">
     <value>Mode Carte</value>
   </data>
@@ -171,6 +181,21 @@ IOS - Android - Windows Phone 7</value>
   </data>
   <data name="MapSubTitle" xml:space="preserve">
     <value>Navigation en temps reel</value>
+  </data>
+  <data name="NextMapTileAppBarTitle" xml:space="preserve">
+    <value>Mode suivant</value>
+  </data>
+  <data name="PhotosAppBarTitle" xml:space="preserve">
+    <value>Capturer un photo</value>
+  </data>
+  <data name="PreviousMapTileAppBarTitle" xml:space="preserve">
+    <value>Mode precedent</value>
+  </data>
+  <data name="sessionStartAppBarTitle" xml:space="preserve">
+    <value>demarrer la session</value>
+  </data>
+  <data name="sessionStopAppBarTitle" xml:space="preserve">
+    <value>stopper la session</value>
   </data>
   <data name="Settings" xml:space="preserve">
     <value>Parametres</value>

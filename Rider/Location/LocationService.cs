@@ -22,8 +22,6 @@ namespace Rider.Location
 {
     public class LocationService
     {
-        private static string DesiredMovementThreshold = "DesiredMovementThreshold";
-
         public enum State
         {
             Init = 0,
@@ -37,7 +35,8 @@ namespace Rider.Location
             JsonFile = 0,
             Web
         };
-
+        
+        private static string DesiredMovementThreshold = "DesiredMovementThreshold";
         private const string TAG = "LocationService";
         public static string locationChanged = "locationChanged";
         public static string locationStateChanged = "locationStateChanged";
@@ -46,17 +45,15 @@ namespace Rider.Location
         private EventHandler<GeoPositionChangedEventArgs<GeoCoordinate>> positionEvent;
         private IGeoPositionWatcher<GeoCoordinate> watcher;
         private Mode selectedMode = Mode.JsonFile;
-        private bool isRunning { get; set; }
+        private bool isRunning;
         private GeoCoordinate lastLocation;
         private double accuracy;
         private Random random;
+        private static LocationService instance;
 
-        public GeoPositionStatus CurrentState
-        {
-            get { return watcher.Status; }
-        }
+        #region Constructors
 
-        public LocationService()
+        private LocationService()
         {
             lastLocation = null;
             if (Configuration.FAKE_LOCATION_ENABLED)
@@ -71,10 +68,19 @@ namespace Rider.Location
             }
         }
 
-        public LocationService(FakeLocationMessenger w)
+        public static LocationService Instance
         {
-            watcher = w;
+            get
+            {
+                if (instance == null)
+                    instance = new LocationService();
+                return instance;
+            }
         }
+
+        #endregion
+
+        #region manager
 
         public void StartLocationWatcher()
         {
@@ -111,29 +117,41 @@ namespace Rider.Location
             DebugUtils.Log(TAG, "LocationService Stoppped");
         }
 
-        public bool IsRunnig()
+        #endregion
+
+        #region properties
+
+        public bool IsRunnig
         {
-            return this.isRunning;
+            get
+            {
+                return this.isRunning;
+            }
         }
+
+        public GeoPositionStatus CurrentState
+        {
+            get { return watcher.Status; }
+        }
+
+        #endregion
+
+        #region events
 
         void StatusChanged(object sender, GeoPositionStatusChangedEventArgs e)
         {
             switch (e.Status)
             {
                 case GeoPositionStatus.Initializing:
-                    DebugUtils.Log(TAG, "Initialization");
                     Messenger.Default.Send(State.Init, locationStateChanged);
                     break;
                 case GeoPositionStatus.Ready:
-                    DebugUtils.Log(TAG, "Ready");
                     Messenger.Default.Send(State.Ready, locationStateChanged);
                     break;
                 case GeoPositionStatus.Disabled:
-                    DebugUtils.Log(TAG, "location is unsupported on this device");
                     Messenger.Default.Send(State.Disabled, locationStateChanged);
                     break;
                 case GeoPositionStatus.NoData:
-                    DebugUtils.Log(TAG, "data unavailable");
                     Messenger.Default.Send(State.Error, locationStateChanged);
                     break;
             }
@@ -169,5 +187,7 @@ namespace Rider.Location
             }
             else Messenger.Default.Send(State.Error, locationStateChanged);
         }
+
+        #endregion
     }
 }

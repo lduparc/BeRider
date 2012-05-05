@@ -12,10 +12,15 @@ using System.Windows.Media;
 using System.Windows;
 using System;
 using System.Windows.Controls;
+using System.Collections.ObjectModel;
+using Rider.Models;
+
 namespace Rider.ViewModels
 {
     public class MapViewModel : BaseViewModel
     {
+        public static string PinLocationChanged = "PinLocationChanged";
+
         private Pushpin currentLocationPin = new Pushpin();
         private Image arrowImage = new Image();
         private int defaultZoom = 15;
@@ -24,21 +29,19 @@ namespace Rider.ViewModels
         private BaseTileSource _currentMap;
         private bool pinLocationLoaded;
 
-        public static string PinLocationChanged = "PinLocationChanged";
-
         public MapViewModel()
         {
             _availableMapSources = new List<BaseTileSource> 
             {
-                new Mapnik {Name = "OSM Mapnik"},
                 new Google {Name = "Google Street", MapType = GoogleType.Street},
                 new Google {Name = "Google Hybrid", MapType = GoogleType.Hybrid},
                 new BingRoad {Name = "Bing Road"},
                 new BingAerial{ Name = "Bing Aerial"},
-                new OsmaRender {Name = "OsmaRender"},
+//                new Mapnik {Name = "OSM Mapnik"},
+//                new OsmaRender {Name = "OsmaRender"},
             };
 
-            //ZoomLevel = defaultZoom;
+            ZoomLevel = defaultZoom;
             Messenger.Default.Register<GeoCoordinate>(this, Location.LocationService.locationChanged, newLocation => OnLocationChanged(newLocation));
         }
 
@@ -74,6 +77,8 @@ namespace Rider.ViewModels
 
             Messenger.Default.Send(currentLocationPin, PinLocationChanged);
         }
+
+        #region map properties
 
         public GeoCoordinate MapCenter
         {
@@ -140,29 +145,22 @@ namespace Rider.ViewModels
             }
         }
 
-        public ICommand NextMap
+        #endregion
+
+        #region actions
+
+        public void ShowNextMap()
         {
-            get
-            {
-                return new RelayCommand(() =>
-                {
-                    var newIdx = AvailableMapSources.IndexOf(CurrentMap) + 1 ;
-                    CurrentMap = AvailableMapSources[newIdx > AvailableMapSources.Count - 1? 0 : newIdx];
-                });
-            }
+            var newIdx = AvailableMapSources.IndexOf(CurrentMap) + 1;
+            CurrentMap = AvailableMapSources[newIdx > AvailableMapSources.Count - 1 ? 0 : newIdx];
         }
 
-        public ICommand PreviousMap
+        public void ShowPreviousMap()
         {
-            get
-            {
-                return new RelayCommand(() =>
-                {
-                    var newIdx = AvailableMapSources.IndexOf(CurrentMap) -1;
-                    CurrentMap = AvailableMapSources[newIdx < 0 ? AvailableMapSources.Count - 1 : newIdx];
-                });
-            }
+            var newIdx = AvailableMapSources.IndexOf(CurrentMap) - 1;
+            CurrentMap = AvailableMapSources[newIdx < 0 ? AvailableMapSources.Count - 1 : newIdx];
         }
 
+        #endregion
     }
 }

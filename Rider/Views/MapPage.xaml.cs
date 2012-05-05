@@ -15,6 +15,8 @@ using GalaSoft.MvvmLight.Messaging;
 using Microsoft.Phone.Controls.Maps;
 using Microsoft.Phone.Shell;
 using Rider.Resources;
+using System.Data.Services.Client;
+using Microsoft.Phone.Tasks;
 
 namespace Rider.Views
 {
@@ -22,50 +24,120 @@ namespace Rider.Views
     {
         private Pushpin currentLocationPin;
         private bool pinLocationLoaded;
+        private bool lockMode;
 
         public MapPage()
         {
             InitializeComponent();
             InitializeApplicationBar();
+
             pinLocationLoaded = false;
+            lockMode = true;
+            DataContext = ViewModelController.MapViewModel;
         }
 
         #region Load/Unload
 
         private void InitializeApplicationBar()
         {
-            ApplicationBarIconButton aboutButton = ApplicationBar.Buttons[0] as ApplicationBarIconButton;
+            ApplicationBarIconButton previousModeButton = ApplicationBar.Buttons[0] as ApplicationBarIconButton;
+            if (previousModeButton != null)
+                previousModeButton.Text = AppResource.ResourceManager.GetString("PreviousMapTileAppBarTitle");
+            ApplicationBarIconButton lockerButton = ApplicationBar.Buttons[1] as ApplicationBarIconButton;
+            if (lockerButton != null)
+                lockerButton.Text = AppResource.ResourceManager.GetString("LockerAppBarTitle");
+            ApplicationBarIconButton sessionButton = ApplicationBar.Buttons[2] as ApplicationBarIconButton;
+            if (sessionButton != null)
+            {
+                bool isStarted = ViewModelController.TrackingService.IsRunning;
+                sessionButton.Text = AppResource.ResourceManager.GetString(isStarted ? "sessionStopAppBarTitle" : "sessionStartAppBarTitle");
+            }
+            ApplicationBarIconButton nextModeButton = ApplicationBar.Buttons[3] as ApplicationBarIconButton;
+            if (nextModeButton != null)
+                nextModeButton.Text = AppResource.ResourceManager.GetString("NextMapTileAppBarTitle");
+
+            ApplicationBarMenuItem aboutButton = ApplicationBar.MenuItems[0] as ApplicationBarMenuItem;
+            ApplicationBarMenuItem settingsButton = ApplicationBar.MenuItems[1] as ApplicationBarMenuItem;
+            ApplicationBarMenuItem photoButton = ApplicationBar.MenuItems[2] as ApplicationBarMenuItem;
             if (aboutButton != null)
                 aboutButton.Text = AppResource.ResourceManager.GetString("AboutAppBarTitle");
-            ApplicationBarIconButton settingsButton = ApplicationBar.Buttons[1] as ApplicationBarIconButton;
             if (settingsButton != null)
                 settingsButton.Text = AppResource.ResourceManager.GetString("SettingsAppBarTitle");
+            if (photoButton != null)
+                photoButton.Text = AppResource.ResourceManager.GetString("PhotosAppBarTitle");
         }
 
         private void PhoneApplicationPage_Loaded(object sender, RoutedEventArgs e)
         {
-            ViewModelController.StartLocationService();
             Messenger.Default.Register<Pushpin>(this, MapViewModel.PinLocationChanged, pin => OnPinLocationChanged(pin));
-            //Map.ZoomLevel = 15;
         }
 
         private void PhoneApplicationPage_Unloaded(object sender, RoutedEventArgs e)
         {
-            ViewModelController.StopLocationService();
+            Messenger.Default.Unregister<Pushpin>(this);
+            if (Map.Children.Contains(currentLocationPin))
+                Map.Children.Remove(currentLocationPin);
+            pinLocationLoaded = false;
+            currentLocationPin = null;
         }
 
         #endregion
 
         #region AppBarAction
 
-        private void about_Click(object sender, EventArgs e)
+        private void previous_Click(object sender, EventArgs e)
         {
-            NavigationService.Navigate(new Uri("/Views/About.xaml", UriKind.Relative));
+            ViewModelController.MapViewModel.ShowPreviousMap();
+            if (Map.Children.Contains(currentLocationPin))
+                Map.Children.Remove(currentLocationPin);
+            pinLocationLoaded = false;
+            currentLocationPin = null;
         }
 
-        private void parametre_Click(object sender, EventArgs e)
+        private void next_Click(object sender, EventArgs e)
+        {
+            ViewModelController.MapViewModel.ShowNextMap();
+            if (Map.Children.Contains(currentLocationPin))
+                Map.Children.Remove(currentLocationPin);
+            pinLocationLoaded = false;
+            currentLocationPin = null;
+        }
+
+        private void locker_Click(object sender, EventArgs e)
+        {
+            //TODO change icon
+            lockMode = !lockMode;
+        }
+
+        private void session_Click(object sender, EventArgs e)
+        {
+            bool isStarted = ViewModelController.TrackingService.IsRunning;
+            ApplicationBarIconButton sessionButton = ApplicationBar.Buttons[2] as ApplicationBarIconButton;
+
+            if (isStarted)
+            {
+                ViewModelController.TrackingService.StopSession();
+                sessionButton.Text = AppResource.ResourceManager.GetString("sessionStartAppBarTitle");
+            }
+            else
+            {
+                ViewModelController.TrackingService.StartSession();
+                sessionButton.Text = AppResource.ResourceManager.GetString("sessionStartAppBarTitle");
+            }
+        }
+
+        private void ApplicationBarMenuItemSettings_Click(object sender, EventArgs e)
         {
             NavigationService.Navigate(new Uri("/Views/Settings.xaml", UriKind.Relative));
+        }
+
+        private void ApplicationBarMenuItemCapture_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void ApplicationBarMenuItemAbout_Click(object sender, EventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/Views/About.xaml", UriKind.Relative));
         }
 
         #endregion
@@ -78,11 +150,14 @@ namespace Rider.Views
 
                 if (!pinLocationLoaded)
                 {
-                    Map.Children.Add(currentLocationPin);
+                    if (!Map.Children.Contains(currentLocationPin))
+                        Map.Children.Add(currentLocationPin);
                     pinLocationLoaded = true;
                 }
+
+                if (lockMode) Map.Center = currentLocationPin.Location;
             }
-        
+
         }
     }
 }

@@ -19,6 +19,7 @@
     shell:SystemTray.IsVisible="True">
 
     <!--LayoutRoot is the root grid where all page content is placed-->
+    <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent" DataContext="{Binding MapViewModel, Source={StaticResource Locator}}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -42,19 +43,42 @@
         </StackPanel>
         <!--ContentPanel - place additional content here-->
         <Microsoft_Phone_Controls_Maps:Map x:Name="Map" Grid.Row="1"               
-	            CredentialsProvider="AvE3HGyonE4kxWzsslco5zPkeCP7BEiUV0jKsSDKG88WCTGhhfaPZ4YOHwxIjcaF" 
+	            CredentialsProvider="Aprdz297lJHaf70RDy9aaAHe2P1BzIUNQHcya3xG7mhbqgmtYY5c43gePEdyqrjx" 
                 Center="{Binding MapViewModel.MapCenter, Source={StaticResource Locator}}" ZoomLevel="{Binding MapViewModel.ZoomLevel, Mode=TwoWay, Source={StaticResource Locator}}" helpers:BindingHelpers.TileSource="{Binding CurrentMap}" LogoVisibility="Collapsed" ScaleVisibility="Collapsed">
             <Microsoft_Phone_Controls_Maps:Map.Mode>
                 <MSPCMCore:MercatorMode />
             </Microsoft_Phone_Controls_Maps:Map.Mode>
+            <!--<Microsoft_Phone_Controls_Maps:MapItemsControl ItemsSource="{Binding MapViewModel.Pushpins, Source={StaticResource Locator}}">
+                <Microsoft_Phone_Controls_Maps:MapItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Microsoft_Phone_Controls_Maps:Pushpin Location="{Binding MapViewModel.MapCenter, Source={StaticResource Locator}}">
+                            <Microsoft_Phone_Controls_Maps:Pushpin.Template>
+                                <ControlTemplate>
+                                    <ContentPresenter/>
+                                </ControlTemplate>
+                            </Microsoft_Phone_Controls_Maps:Pushpin.Template>
+                            <Image Source="/Images/maps/params/.png" Height="40" Width="40" />
+                        </Microsoft_Phone_Controls_Maps:Pushpin>
+                    </DataTemplate>
+                </Microsoft_Phone_Controls_Maps:MapItemsControl.ItemTemplate>
+            </Microsoft_Phone_Controls_Maps:MapItemsControl>-->
+
         </Microsoft_Phone_Controls_Maps:Map>
-        <TextBlock Grid.Column="1" TextWrapping="Wrap" Text="{Binding MapViewModel.CurrentMap.Name, Source={StaticResource Locator}}" Margin="0,23,0,0" HorizontalAlignment="Center"/>
+        <TextBlock x:Name="textBlock" VerticalAlignment="Bottom" Grid.Row="1" TextWrapping="Wrap" Text="{Binding MapViewModel.CurrentMap.Name, Source={StaticResource Locator}}" Margin="12, 0, 0, 20" HorizontalAlignment="Left" RenderTransformOrigin="0.5,0.5">
+        </TextBlock>
     </Grid>
 
     <phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
-            <shell:ApplicationBarIconButton x:Name="about" IconUri="/Images/maps/params.png" Text="Binding" IsEnabled="True" Click="about_Click"/>
-            <shell:ApplicationBarIconButton x:Name="parametre" IconUri="/Images/maps/params.png" Text="Binding" IsEnabled="True" Click="parametre_Click"/>
+            <shell:ApplicationBarIconButton x:Name="previous" IconUri="/Images/maps/params.png" Text="Binding" IsEnabled="True" Click="previous_Click"/>
+            <shell:ApplicationBarIconButton x:Name="locker" IconUri="/Images/maps/params.png" Text="Binding" IsEnabled="True" Click="locker_Click"/>
+            <shell:ApplicationBarIconButton x:Name="startstop" IconUri="/Images/maps/params.png" Text="Binding" IsEnabled="True" Click="session_Click"/>
+            <shell:ApplicationBarIconButton x:Name="next" IconUri="/Images/maps/params.png" Text="Binding" IsEnabled="True" Click="next_Click"/>
+            <shell:ApplicationBar.MenuItems>
+                <shell:ApplicationBarMenuItem Text="binding" Click="ApplicationBarMenuItemAbout_Click"/>
+                <shell:ApplicationBarMenuItem Text="binding" Click="ApplicationBarMenuItemSettings_Click"/>
+                <shell:ApplicationBarMenuItem Text="binding" Click="ApplicationBarMenuItemCapture_Click"/>
+            </shell:ApplicationBar.MenuItems>
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>
 

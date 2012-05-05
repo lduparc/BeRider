@@ -79,6 +79,25 @@ namespace Rider.Resources {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Developpeur web - Bordeaux (France)
+        ///Ruby on Rails.
+        /// </summary>
+        public static string AboutCollaboratorContent {
+            get {
+                return ResourceManager.GetString("AboutCollaboratorContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Merci a Pierre Jambet.
+        /// </summary>
+        public static string AboutCollaboratorTitle {
+            get {
+                return ResourceManager.GetString("AboutCollaboratorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à BeRider utilise les donnees gps de votre telephone afin de determiner les centres d&apos;equipements les plus proches de votre position. Ces informations sont enregistrees uniquement si vous souhaitez sauvegarder votre parcours. Aucune diffusion n&apos;est faites de notre part. Activer ou desactiver cette fonctionnalite a tout moment..
         /// </summary>
         public static string AboutLocationServicePolicy {
@@ -197,6 +216,15 @@ namespace Rider.Resources {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Centrer.
+        /// </summary>
+        public static string LockerAppBarTitle {
+            get {
+                return ResourceManager.GetString("LockerAppBarTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Mode Carte.
         /// </summary>
         public static string Map {
@@ -220,6 +248,51 @@ namespace Rider.Resources {
         public static string MapSubTitle {
             get {
                 return ResourceManager.GetString("MapSubTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Mode suivant.
+        /// </summary>
+        public static string NextMapTileAppBarTitle {
+            get {
+                return ResourceManager.GetString("NextMapTileAppBarTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Capturer un photo.
+        /// </summary>
+        public static string PhotosAppBarTitle {
+            get {
+                return ResourceManager.GetString("PhotosAppBarTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Mode precedent.
+        /// </summary>
+        public static string PreviousMapTileAppBarTitle {
+            get {
+                return ResourceManager.GetString("PreviousMapTileAppBarTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à demarrer la session.
+        /// </summary>
+        public static string sessionStartAppBarTitle {
+            get {
+                return ResourceManager.GetString("sessionStartAppBarTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à stopper la session.
+        /// </summary>
+        public static string sessionStopAppBarTitle {
+            get {
+                return ResourceManager.GetString("sessionStopAppBarTitle", resourceCulture);
             }
         }
         

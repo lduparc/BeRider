@@ -65,6 +65,10 @@
       <HintPath>..\packages\Newtonsoft.Json.4.5.4\lib\sl4-windowsphone71\Newtonsoft.Json.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="System.Data.Services.Client, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Desktop\ODataClient_BinariesAndCodeGenToolForWinPhone7\System.Data.Services.Client.dll</HintPath>
+    </Reference>
     <Reference Include="System.Device" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Servicemodel.Web" />
@@ -98,6 +102,8 @@
     <Compile Include="Maps\GoogleType.cs" />
     <Compile Include="Maps\Mapnik.cs" />
     <Compile Include="Maps\OsmaRender.cs" />
+    <Compile Include="Models\Coord.cs" />
+    <Compile Include="Models\Session.cs" />
     <Compile Include="Persistent\Configuration.cs" />
     <Compile Include="Resources\AppResource.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -110,6 +116,7 @@
       <DependentUpon>AppResource.en-US.resx</DependentUpon>
     </Compile>
     <Compile Include="Resources\LocalizedStrings.cs" />
+    <Compile Include="Tracking\TrackingService.cs" />
     <Compile Include="Utils\ApplicationExtensions.cs" />
     <Compile Include="Utils\BindingHelpers.cs" />
     <Compile Include="Utils\MathUtils.cs" />

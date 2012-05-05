@@ -30,6 +30,9 @@ namespace Rider.Views
 
             this.Loaded += new RoutedEventHandler(MainPage_Loaded);
             this.DataContext = ViewModelController.MainViewModel;
+
+            bool isStarted = ViewModelController.TrackingService.IsRunning;
+            sessionButton.Content = AppResource.ResourceManager.GetString(isStarted ? "sessionStopAppBarTitle" : "sessionStartAppBarTitle");
         }
 
         private void InitializeApplicationBar()
@@ -76,6 +79,23 @@ namespace Rider.Views
         private void parametre_Click(object sender, EventArgs e)
         {
             NavigationService.Navigate(new Uri("/Views/Settings.xaml", UriKind.Relative));
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            bool isStarted = ViewModelController.TrackingService.IsRunning;
+
+            if (isStarted)
+            {
+                ViewModelController.TrackingService.StopSession();
+                (sender as Button).Content = AppResource.ResourceManager.GetString("sessionStartAppBarTitle");
+            }
+            else
+            {
+                ViewModelController.TrackingService.StartSession();
+                (sender as Button).Content = AppResource.ResourceManager.GetString("sessionStopAppBarTitle");
+            }
+
         }
 
     }

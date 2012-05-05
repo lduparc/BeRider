@@ -15,6 +15,7 @@ using Rider.Models;
 using System.Windows.Data;
 using Rider.Resources;
 using System.Threading;
+using Rider.ViewModels;
 
 namespace Rider.Views
 {
@@ -54,6 +55,7 @@ namespace Rider.Views
             {
                 UserData.Add<bool>(UserData.LocationToggleKey, true);
                 ToggleLocationService.Content = locationServiceEnabled;
+                ViewModelController.StartLocationService();
             }
         }
 
@@ -63,6 +65,7 @@ namespace Rider.Views
             {
                 UserData.Add<bool>(UserData.LocationToggleKey, false);
                 ToggleLocationService.Content = locationServiceDisabled;
+                ViewModelController.StopLocationService();
             }
         }
 

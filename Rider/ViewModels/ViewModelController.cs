@@ -1,5 +1,6 @@
 using GalaSoft.MvvmLight;
 using Rider.Location;
+using Rider.Tracking;
 
 namespace Rider.ViewModels
 {
@@ -10,9 +11,9 @@ namespace Rider.ViewModels
         private static MapViewModel mapViewModel = null;
 
         private static LocationService locationservice = null;
+        private static TrackingService trackingService = null;
 
-        public ViewModelController()
-        { }
+        public ViewModelController() { }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance",
             "CA1822:MarkMembersAsStatic", Justification = "This non-static member is needed for data binding purposes.")]
@@ -61,7 +62,7 @@ namespace Rider.ViewModels
             get
             {
                 if (locationservice == null)
-                    locationservice = new LocationService();
+                    locationservice = Location.LocationService.Instance;
 
                 return locationservice;
             }
@@ -78,5 +79,33 @@ namespace Rider.ViewModels
         }
 
         #endregion
+
+        #region TrackingService
+
+        public static TrackingService TrackingService
+        {
+            get
+            {
+                if (trackingService == null)
+                    trackingService = Tracking.TrackingService.Instance;
+
+                return trackingService;
+            }
+        }
+
+        public static void StartTrackingService()
+        {
+            if (!TrackingService.IsRunning)
+                TrackingService.StartSession();
+        }
+
+        public static void StopTrackingService()
+        {
+            if (TrackingService.IsRunning)
+                TrackingService.StopSession();
+        }
+
+        #endregion
+
     }
 }
