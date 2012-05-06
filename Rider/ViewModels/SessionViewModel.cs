@@ -19,18 +19,38 @@ namespace Rider.ViewModels
 {
     public class SessionViewModel
     {
+        public static readonly string TABLE_NAME = "sessions";
+        public static readonly string ID_COLUMN_NAME = "id";
+        public static readonly string TITLE_COLUMN_NAME = "title";
+        public static readonly string DETAILS_COLUMN_NAME = "details";
+        public static readonly string DISTANCE_COLUMN_NAME = "distance";
+        public static readonly string DURATION_COLUMN_NAME = "duration";
+        public static readonly string AVERAGE_SPEED_COLUMN_NAME = "average_speed";
+        public static readonly string MAX_SPEED_COLUMN_NAME = "max_speed";
+        public static readonly string KCAL_COLUMN_NAME = "kcal";
+        public static readonly string SPORT_COLUMN_NAME = "sport";
+
         private DateTime startTime;
         private DateTime endTime;
         private double distance;
-        private List<double> AverageSpeeds {get; set;}
+        public List<double> AverageSpeeds { get; set; }
+        private double averageSpeed;
         private LocationCollection coords;
         private int kcal;
+        private string title = "Session #1";
+        private string details = "some description";
+        private int sport;
+        private double maxSpeed;
+        private string duration;
 
         public SessionViewModel()
         {
         }
 
         #region properties
+
+        public int Identifer
+        { get; set; }
 
         public LocationCollection Coords
         {
@@ -40,27 +60,47 @@ namespace Rider.ViewModels
             }
         }
 
-        public string Sport
+        public string Title
         {
             get
             {
-                return "Roller";
+                return this.title;
+            }
+            set
+            {
+                this.title = value;
             }
         }
 
-        public string SmartInfo
+        public string Details
         {
             get
             {
-                return "";
+                return this.details;
+            }
+            set
+            {
+                this.details = value;
+            }
+        }
+
+        public int Sport
+        {
+            get
+            {
+                return this.sport;
+            }
+            set
+            {
+                this.sport = value;
             }
         }
 
         public DateTime StartTime
         {
             get
-            { 
-                return this.startTime; 
+            {
+                return this.startTime;
             }
             set
             {
@@ -71,12 +111,12 @@ namespace Rider.ViewModels
         public DateTime EndTime
         {
             get
-            { 
-                return this.endTime; 
+            {
+                return this.endTime;
             }
             set
             {
-                this.endTime = value; 
+                this.endTime = value;
             }
         }
 
@@ -108,35 +148,49 @@ namespace Rider.ViewModels
         {
             get
             {
-                return (this.endTime - this.startTime); 
+                return (this.endTime - this.startTime);
+            }
+        }
+
+        public string DurationHistory
+        {
+            get
+            {
+                return this.duration;
+            }
+            set
+            {
+                this.duration = value;
             }
         }
 
         public double Distance
         {
             get
-            { return this.distance; }
+            { 
+                return this.distance; 
+            }
             set
             {
-                if (!double.IsNaN(value) && value > 0)
-                {
-                    this.distance += value;
-                }
+                this.distance = value;
             }
-
         }
 
         public double MaxSpeed
         {
             get
             {
-                return (this.AverageSpeeds != null && this.AverageSpeeds.Count > 0) ? this.AverageSpeeds.Max() : 0; 
+                return this.maxSpeed;
+            }
+            set
+            {
+                this.maxSpeed = value;
             }
         }
 
         public double AverageSpeed
         {
-            get 
+            get
             {
                 if (this.AverageSpeeds == null)
                     this.AverageSpeeds = new List<double>();
@@ -144,11 +198,29 @@ namespace Rider.ViewModels
             }
         }
 
+        public double AverageSpeedHistory
+        {
+            get
+            {
+                return Speed.MetersToUserSpeedUnit(this.averageSpeed);
+            }
+            set
+            {
+                this.averageSpeed = value;
+            }
+
+        }
+
         // TODO : calculate KCal
         public int KCal
         {
             get
             { return this.kcal; }
+            set
+            {
+                this.kcal = value;
+            }
+
         }
 
         #endregion

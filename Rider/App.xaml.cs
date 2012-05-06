@@ -16,16 +16,15 @@ using Rider.ViewModels;
 using System.Threading;
 using System.Globalization;
 using Rider.Persistent;
+using Rider.Utils;
 
 namespace Rider
 {
     public partial class App : Application
     {
         public PhoneApplicationFrame RootFrame { get; private set; }
+        public static DatabaseManager database;
 
-        /// <summary>
-        /// Constructeur pour l'objet Application.
-        /// </summary>
         public App()
         {
             // Gestionnaire global pour les exceptions non interceptées. 
@@ -63,37 +62,45 @@ namespace Rider
             Thread.CurrentThread.CurrentUICulture = new CultureInfo(culture);
         }
 
-        // Code à exécuter lorsque l'application démarre (par exemple, à partir de Démarrer)
-        // Ce code ne s'exécute pas lorsque l'application est réactivée
         private void Application_Launching(object sender, LaunchingEventArgs e)
         {
             if (UserData.Get<bool>(UserData.LocationToggleKey))
                 ViewModelController.StartLocationService();
+
+            if (database == null)
+                database = new DatabaseManager();
+            database.Open();
         }
 
-        // Code à exécuter lorsque l'application est activée (affichée au premier plan)
-        // Ce code ne s'exécute pas lorsque l'application est démarrée pour la première fois
         private void Application_Activated(object sender, ActivatedEventArgs e)
         {
             if (UserData.Get<bool>(UserData.LocationToggleKey))
                 ViewModelController.StartLocationService();
+            if (database == null)
+                database = new DatabaseManager();
+            database.Open();
         }
 
-        // Code à exécuter lorsque l'application est désactivée (envoyée à l'arrière-plan)
-        // Ce code ne s'exécute pas lors de la fermeture de l'application
         private void Application_Deactivated(object sender, DeactivatedEventArgs e)
         {
             ViewModelController.StopLocationService();
+            if (database != null)
+            {
+                database.Close();
+                database = null;
+            }
         }
 
-        // Code à exécuter lors de la fermeture de l'application (par exemple, lorsque l'utilisateur clique sur Précédent)
-        // Ce code ne s'exécute pas lorsque l'application est désactivée
         private void Application_Closing(object sender, ClosingEventArgs e)
         {
             ViewModelController.StopLocationService();
+            if (database != null)
+            {
+                database.Close();
+                database = null;
+            }
         }
 
-        // Code à exécuter en cas d'échec d'une navigation
         private void RootFrame_NavigationFailed(object sender, NavigationFailedEventArgs e)
         {
             if (System.Diagnostics.Debugger.IsAttached)
@@ -103,7 +110,6 @@ namespace Rider
             }
         }
 
-        // Code à exécuter sur les exceptions non gérées
         private void Application_UnhandledException(object sender, ApplicationUnhandledExceptionEventArgs e)
         {
             if (System.Diagnostics.Debugger.IsAttached)

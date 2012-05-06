@@ -254,7 +254,7 @@
                     </Grid.RowDefinitions>
 
                     <StackPanel Grid.Row="0" Height="Auto" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,0,0,-30">
-                        <TextBlock Text="Duree" TextWrapping="Wrap"  Style="{StaticResource PhoneTextSubtleStyle}" VerticalAlignment="Bottom" FontSize="16" Foreground="{StaticResource PhoneAccentBrush}" HorizontalAlignment="Left" Margin="9,0,0,45" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="False" d:LayoutRounding="Auto" >
+                        <TextBlock Text="{Binding LocalizedValue.TimeTitle, Source={StaticResource LocalizedStrings}}" TextWrapping="Wrap"  Style="{StaticResource PhoneTextSubtleStyle}" VerticalAlignment="Bottom" FontSize="16" Foreground="{StaticResource PhoneAccentBrush}" HorizontalAlignment="Left" Margin="9,0,0,45" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="False" d:LayoutRounding="Auto" >
                         	<TextBlock.RenderTransform>
                         		<CompositeTransform Rotation="-90"/>
                         	</TextBlock.RenderTransform>
@@ -263,27 +263,27 @@
                     </StackPanel>
 
                     <StackPanel Height="Auto" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0" Grid.Row="1">
-                        <TextBlock Text="Distance" TextWrapping="Wrap"  Style="{StaticResource PhoneTextSubtleStyle}" VerticalAlignment="Bottom" FontSize="16" Foreground="{StaticResource PhoneAccentBrush}" HorizontalAlignment="Left" Margin="0,0,0,45" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="False" d:LayoutRounding="Auto" >
+                        <TextBlock Text="{Binding LocalizedValue.DistanceTitle, Source={StaticResource LocalizedStrings}}" TextWrapping="Wrap"  Style="{StaticResource PhoneTextSubtleStyle}" VerticalAlignment="Bottom" FontSize="16" Foreground="{StaticResource PhoneAccentBrush}" HorizontalAlignment="Left" Margin="0,0,0,45" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="False" d:LayoutRounding="Auto" >
                         	<TextBlock.RenderTransform>
                         		<CompositeTransform Rotation="-90"/>
                         	</TextBlock.RenderTransform>
                         </TextBlock>
                         <TextBlock FontSize="96" Text="{Binding TrackingService.DistanceSession, Source={StaticResource Locator}}" TextWrapping="Wrap"  Style="{StaticResource PhoneTextLargeStyle}" Margin="0,0,5,0"/>
-                        <TextBlock x:Name="distanceText" VerticalAlignment="Bottom" Margin="0,0,0,20" Text="" TextWrapping="Wrap"  Style="{StaticResource PhoneTextSubtleStyle}" FontSize="28"/>
+                        <TextBlock x:Name="distanceText" VerticalAlignment="Bottom" Margin="0,0,0,20" Text="{Binding MainViewModel.UnitChanged, Source={StaticResource Locator}}" TextWrapping="Wrap"  Style="{StaticResource PhoneTextSubtleStyle}" FontSize="28"/>
                     </StackPanel>
 
                     <StackPanel Grid.Row="2" Height="Auto" Orientation="Horizontal" VerticalAlignment="Top" Margin="0,-5,0,0" HorizontalAlignment="Left">
                         <StackPanel Height="Auto" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Left">
-                            <TextBlock Text="Vit. Moy" TextWrapping="Wrap"  Style="{StaticResource PhoneTextSubtleStyle}" VerticalAlignment="Bottom" FontSize="16" Foreground="{StaticResource PhoneAccentBrush}" HorizontalAlignment="Left" Margin="0,0,0,23" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="False" d:LayoutRounding="Auto" >
+                            <TextBlock Text="{Binding LocalizedValue.SpeedTitle, Source={StaticResource LocalizedStrings}}" TextWrapping="Wrap"  Style="{StaticResource PhoneTextSubtleStyle}" VerticalAlignment="Bottom" FontSize="16" Foreground="{StaticResource PhoneAccentBrush}" HorizontalAlignment="Left" Margin="5,0,0,23" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="False" d:LayoutRounding="Auto" >
                         		<TextBlock.RenderTransform>
                         			<CompositeTransform Rotation="-90"/>
                         		</TextBlock.RenderTransform>
                             </TextBlock>
-                            <TextBlock FontSize="48" Text="{Binding TrackingService.AverageSpeed, Source={StaticResource Locator}}" TextWrapping="Wrap"  Style="{StaticResource PhoneTextLargeStyle}" Margin="5,0" VerticalAlignment="Bottom"/>
-                            <TextBlock x:Name="speedText" Text="" TextWrapping="Wrap" Style="{StaticResource PhoneTextSubtleStyle}" VerticalAlignment="Bottom" Margin="0,0,0,7" FontSize="21.333"/>
+                            <TextBlock FontSize="48" Text="{Binding TrackingService.CurrentSpeed, Source={StaticResource Locator}}" TextWrapping="Wrap"  Style="{StaticResource PhoneTextLargeStyle}" Margin="10,0, 0, 0" VerticalAlignment="Bottom"/>
+                            <TextBlock x:Name="speedText" Text="{Binding MainViewModel.UnitChanged, Source={StaticResource Locator}, StringFormat='\{0\}/h'}" TextWrapping="Wrap" Style="{StaticResource PhoneTextSubtleStyle}" VerticalAlignment="Bottom" Margin="0,0,0,7" FontSize="21.333"/>
                         </StackPanel>
                         <StackPanel Height="Auto" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Right">
-                            <TextBlock Text="Calories" TextWrapping="Wrap"  Style="{StaticResource PhoneTextSubtleStyle}" VerticalAlignment="Bottom" FontSize="16" Foreground="{StaticResource PhoneAccentBrush}" HorizontalAlignment="Left" Margin="0,0,0,23" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="False" d:LayoutRounding="Auto" >
+                            <TextBlock Text="{Binding LocalizedValue.CaloriesTitle, Source={StaticResource LocalizedStrings}}" TextWrapping="Wrap"  Style="{StaticResource PhoneTextSubtleStyle}" VerticalAlignment="Bottom" FontSize="16" Foreground="{StaticResource PhoneAccentBrush}" HorizontalAlignment="Left" Margin="0,0,0,23" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="False" d:LayoutRounding="Auto" >
                         		<TextBlock.RenderTransform>
                         			<CompositeTransform Rotation="-90"/>
                         		</TextBlock.RenderTransform>
@@ -293,11 +293,32 @@
                         </StackPanel>
                     </StackPanel>
 
-                    <Button Click="Button_Click" Content="" x:Name="sessionButton" Grid.Row="3" Margin="58,10,14,0"  HorizontalAlignment="Center" VerticalAlignment="Top" Width="363" />
+                    <Button Click="Session_Click" Content="" x:Name="sessionButton" Grid.Row="3" Margin="58,10,14,0"  HorizontalAlignment="Center" VerticalAlignment="Top" Width="363" />
 
                 </Grid>
             </controls:PanoramaItem>
 
+            <controls:PanoramaItem Header="{Binding PanoramaSpotlightsTitle}">
+                <ListBox Margin="0,0,0,0" >
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal" Margin="20,0,0,20">
+                          </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </controls:PanoramaItem>
+
+            <controls:PanoramaItem Header="{Binding PanoramaNewsTitle}">
+                <ListBox Margin="0,0,0,0" >
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal" Margin="20,0,0,20">
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </controls:PanoramaItem>
 
             <controls:PanoramaItem Header="{Binding PanoramaHistoryTitle}">
                 <ListBox Margin="0,0,0,0" ItemsSource="{Binding Sessions}"  >
@@ -306,13 +327,17 @@
                             <StackPanel Orientation="Horizontal" Margin="20,0,0,20">
                                 <toolbox:ContextMenuService.ContextMenu>
                                     <toolbox:ContextMenu Name="HistoryContextMenu" IsEnabled="True">
-                                        <toolbox:MenuItem Header="{Binding LocalizedValue.HistoryHeaderShare, Source={StaticResource LocalizedStrings}}" Click="historyShareMenuAction_Click"/>
-                                        <toolbox:MenuItem Header="{Binding LocalizedValue.HistoryHeaderDelete, Source={StaticResource LocalizedStrings}}" Click="historyDeleteMenuAction_Click"/>
+                                        <toolbox:MenuItem Header="{Binding LocalizedValue.HistoryHeaderShare, Source={StaticResource LocalizedStrings}}" 
+                                                          Command="{Binding MainViewModel.ShareCommand, Source={StaticResource Locator}}"
+                                                          CommandParameter="{Binding}"/>
+                                        <toolbox:MenuItem Header="{Binding LocalizedValue.HistoryHeaderDelete, Source={StaticResource LocalizedStrings}}" 
+                                                          Command="{Binding MainViewModel.RemoveCommand, Source={StaticResource Locator}}"
+                                                          CommandParameter="{Binding}"/>
                                     </toolbox:ContextMenu>
                                 </toolbox:ContextMenuService.ContextMenu>
                                 <ts:TileSlider TextSlidesFrom="Top" Size="150" Width="150"
-                                   Text="{Binding Sport}" Foreground="#FFFFFF"
-                                    LongText="{Binding SmartInfo}" TextStyle="{StaticResource PhoneTextLargeStyle}" 
+                                   Text="{Binding Title}" Foreground="#FFFFFF"
+                                    LongText="{Binding Details}" TextStyle="{StaticResource PhoneTextLargeStyle}" 
                                    TileBackground="{StaticResource PhoneAccentBrush}"
                                      ImageSource="/Rider;component/Images/panorama.jpg" Stretch="Fill" Style="{StaticResource TileSliderStyle}"/>
                                 <StackPanel Orientation="Vertical" Margin="15,0,0,0">
@@ -322,11 +347,12 @@
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock Text="Duree" FontSize="26" VerticalAlignment="Bottom" HorizontalAlignment="Left" />
-                                        <TextBlock Text="{Binding FormatedSpentTime}" Margin="10, 0, 0, -1" FontSize="26" VerticalAlignment="Bottom" HorizontalAlignment="Left" />
+                                        <TextBlock Text="{Binding DurationHistory}" Margin="10, 0, 0, -1" FontSize="26" VerticalAlignment="Bottom" HorizontalAlignment="Left" />
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock Text="Vit. Moy" FontSize="26" VerticalAlignment="Bottom" HorizontalAlignment="Left" />
-                                        <TextBlock Text="{Binding AverageSpeedFormated, StringFormat='0.0'}"  FontSize="26" Margin="10, 0, 0, 0" VerticalAlignment="Bottom" HorizontalAlignment="Left" />
+                                        <TextBlock Text="{Binding AverageSpeedHistory, StringFormat='0.0'}"  FontSize="26" Margin="10, 0, 0, 0" VerticalAlignment="Bottom" HorizontalAlignment="Left" />
+                                        <TextBlock Text="{Binding MainViewModel.UnitChanged, Source={StaticResource Locator}, StringFormat='\{0\}/h'}"  TextWrapping="Wrap"  FontSize="26" Margin="10, 0, 0, 0" VerticalAlignment="Bottom" HorizontalAlignment="Left" />
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock Text="Calorie" TextWrapping="Wrap" FontSize="26" Margin="0, 0, 0, 0" VerticalAlignment="Bottom" HorizontalAlignment="Left" />

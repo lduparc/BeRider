@@ -9,6 +9,7 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Rider.Utils;
+using System.Linq;
 using Rider.Models;
 using GalaSoft.MvvmLight.Messaging;
 using System.Device.Location;
@@ -18,6 +19,8 @@ using System.Globalization;
 using System.Collections.Generic;
 using Rider.Persistent;
 using System.Collections.ObjectModel;
+using Rider.Location;
+using Microsoft.Phone.Controls.Maps;
 
 namespace Rider.Tracking
 {
@@ -30,10 +33,11 @@ namespace Rider.Tracking
         public SessionViewModel currentSession;
         private GeoCoordinate lastLocation;
         private DispatcherTimer timer;
+        private double currentSpeed;
 
         #region constructors
 
-        private TrackingService() 
+        private TrackingService()
         {
             timer = new DispatcherTimer();
             timer.Interval = new TimeSpan(0, 0, 1);
@@ -59,14 +63,22 @@ namespace Rider.Tracking
             get { return this.isRunnig; }
         }
 
-        public string TimeSpent 
+        public string TimeSpent
         {
-            get 
+            get
             {
                 TimeSpan val = currentSession == null ? (DateTime.Now - DateTime.Now) : (DateTime.Now - currentSession.StartTime);
                 return string.Format("{0:00}:{1:00}:{2:00}", (int)val.TotalHours, val.Minutes, val.Seconds);
             }
 
+        }
+
+        public string CurrentSpeed
+        {
+            get
+            {
+                return this.currentSpeed.ToString("0.0").Replace(',', '.');
+            }
         }
 
         public string AverageSpeed
@@ -115,15 +127,6 @@ namespace Rider.Tracking
         {
             Messenger.Default.Unregister<GeoCoordinate>(this);
             currentSession.EndTime = DateTime.Now;
-            // TODO : register and/or send currentSession
-            DebugUtils.Log("trololo", "currentSession start at : " + currentSession.StartTime);
-            DebugUtils.Log("trololo", "currentSession end at : " + currentSession.EndTime);
-            DebugUtils.Log("trololo", "currentSession spent time : " +currentSession.SpentTime);
-
-            DebugUtils.Log("trololo", "currentSession distance : " + currentSession.Distance);
-            DebugUtils.Log("trololo", "currentSession vitesse max : " + Speed.MetersToUserSpeedUnit(currentSession.MaxSpeed));
-            DebugUtils.Log("trololo", "currentSession vitesse moyenne : " + Speed.MetersToUserSpeedUnit(currentSession.AverageSpeed));
-            DebugUtils.Log("trololo", "currentSession calories lost : " + currentSession.KCal);
             this.isRunnig = false;
             timer.Stop();
             SaveCurrentSession();
@@ -132,26 +135,56 @@ namespace Rider.Tracking
 
         private void SaveCurrentSession()
         {
-            ObservableCollection<SessionViewModel> listSessions = UserData.Get<ObservableCollection<SessionViewModel>>(UserData.ListSessionKey);
-            if (listSessions == null) listSessions = new ObservableCollection<SessionViewModel>();            
-            listSessions.Add(currentSession);
-            UserData.Add<ObservableCollection<SessionViewModel>>(UserData.ListSessionKey, listSessions);
+            int lastidx = UserData.Get<int>(UserData.SessionIndexKey);
+            currentSession.MaxSpeed = (currentSession.AverageSpeeds != null && currentSession.AverageSpeeds.Count > 0) ? currentSession.AverageSpeeds.Max() : 0;
+            currentSession.AverageSpeedHistory = (currentSession.AverageSpeeds != null && currentSession.AverageSpeeds.Count > 0) ? currentSession.AverageSpeeds.Average() : 0;
+            Dictionary<string, object> dictSession = new Dictionary<string, object>();
+            dictSession.Add(SessionViewModel.ID_COLUMN_NAME, lastidx == -1 ? 0 : lastidx);
+            dictSession.Add(SessionViewModel.TITLE_COLUMN_NAME, currentSession.Title);
+            dictSession.Add(SessionViewModel.DETAILS_COLUMN_NAME, currentSession.Details);
+            dictSession.Add(SessionViewModel.DISTANCE_COLUMN_NAME, currentSession.Distance);
+            dictSession.Add(SessionViewModel.DURATION_COLUMN_NAME, currentSession.FormatedSpentTime);
+            dictSession.Add(SessionViewModel.AVERAGE_SPEED_COLUMN_NAME, currentSession.AverageSpeedHistory);
+            dictSession.Add(SessionViewModel.MAX_SPEED_COLUMN_NAME, currentSession.MaxSpeed);
+            dictSession.Add(SessionViewModel.KCAL_COLUMN_NAME, currentSession.KCal);
+            dictSession.Add(SessionViewModel.SPORT_COLUMN_NAME, currentSession.Sport);
+            bool success = App.database.InsertWithContent(SessionViewModel.TABLE_NAME, dictSession);
+
+            Dictionary<string, object> dictLocations = new Dictionary<string, object>();
+            foreach (GeoCoordinate loc in currentSession.Coords)
+            {
+                dictLocations.Clear();
+                if (loc != null)
+                {
+                    dictLocations.Add(LocationService.SESSION_ID_COLUMN_NAME, lastidx == -1 ? 0 : lastidx);
+                    dictLocations.Add(LocationService.LAT_COLUMN_NAME, loc.Latitude);
+                    dictLocations.Add(LocationService.LNG_COLUMN_NAME, loc.Longitude);
+                    success = App.database.InsertWithContent(LocationService.TABLE_NAME, dictLocations);
+                }
+            }
+
+            if (success)
+                UserData.Add<int>(UserData.SessionIndexKey, lastidx + 1);
+           // else MessageBase box Error
+            
             currentSession = null;
+            currentSpeed = 0;
             NotifyPropertyChanged("TimeSpent");
-            NotifyPropertyChanged("AverageSpeed");
+            NotifyPropertyChanged("CurrentSpeed");
             NotifyPropertyChanged("DistanceSession");
             NotifyPropertyChanged("KCal");
         }
         #endregion
 
         private void OnLocationChanged(GeoCoordinate newLocation)
-        { 
+        {
             if (currentSession != null && newLocation != null)
             {
                 currentSession.AddNewCoord(newLocation.Latitude, newLocation.Longitude);
                 currentSession.AddNewSpeed(newLocation.Speed);
                 if (lastLocation != null)
                     currentSession.AddNewDistance(newLocation.GetDistanceTo(lastLocation));
+                this.currentSpeed = newLocation.Speed;
                 lastLocation = newLocation;
             }
         }
@@ -159,7 +192,8 @@ namespace Rider.Tracking
         private void UpdateGUI(object sender, EventArgs e)
         {
             NotifyPropertyChanged("TimeSpent");
-            NotifyPropertyChanged("AverageSpeed");
+            NotifyPropertyChanged("CurrentSpeed");
+            NotifyPropertyChanged("CurrentSpeed");
             NotifyPropertyChanged("DistanceSession");
             NotifyPropertyChanged("KCal");
         }

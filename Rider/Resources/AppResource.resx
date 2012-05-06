@@ -233,16 +233,34 @@ IOS - Android - Windows Phone 7</value>
   <data name="PanoramaHomeTitle" xml:space="preserve">
     <value>Seance</value>
   </data>
+  <data name="CaloriesTitle" xml:space="preserve">
+    <value>Calories</value>
+  </data>
+  <data name="DistanceTitle" xml:space="preserve">
+    <value>Distance</value>
+  </data>
   <data name="HistoryHeaderDelete" xml:space="preserve">
     <value>Supprimer</value>
   </data>
   <data name="HistoryHeaderShare" xml:space="preserve">
     <value>Partager</value>
   </data>
+  <data name="PanoramaNewsTItle" xml:space="preserve">
+    <value>Actu</value>
+  </data>
+  <data name="PanoramaSpotlightsTitle" xml:space="preserve">
+    <value>Spotlights</value>
+  </data>
   <data name="SessionLoadAppBarTitle" xml:space="preserve">
     <value>Charger une session</value>
   </data>
   <data name="SessionUnloadAppBarTitle" xml:space="preserve">
     <value>Decharger la session</value>
+  </data>
+  <data name="SpeedTitle" xml:space="preserve">
+    <value>Vitesse</value>
+  </data>
+  <data name="TimeTitle" xml:space="preserve">
+    <value>Duree</value>
   </data>
 </root>

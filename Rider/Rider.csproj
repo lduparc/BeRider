@@ -47,6 +47,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Community.CsharpSqlite.SqlLiteClient.WP7">
+      <HintPath>..\..\wikango-wp7\wikango-wp7\Libraries\Community.CsharpSqlite.SqlLiteClient.WP7.dll</HintPath>
+    </Reference>
+    <Reference Include="Community.CsharpSqlite.WP7">
+      <HintPath>..\..\wikango-wp7\wikango-wp7\Libraries\Community.CsharpSqlite.WP7.dll</HintPath>
+    </Reference>
     <Reference Include="Facebook">
       <HintPath>..\packages\Facebook.6.0.16\lib\sl4-windowsphone71\Facebook.dll</HintPath>
     </Reference>
@@ -102,8 +108,8 @@
     <Compile Include="Maps\GoogleType.cs" />
     <Compile Include="Maps\Mapnik.cs" />
     <Compile Include="Maps\OsmaRender.cs" />
-    <Compile Include="Models\Coord.cs" />
     <Compile Include="Models\Distance.cs" />
+    <Compile Include="Utils\DatabaseManager.cs" />
     <Compile Include="ViewModels\SessionViewModel.cs" />
     <Compile Include="Persistent\Configuration.cs" />
     <Compile Include="Resources\AppResource.Designer.cs">
@@ -200,6 +206,7 @@
     <Content Include="Images\maps\arrow.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\Database\rider0.db" />
     <Resource Include="Images\play.png" />
     <Content Include="Images\maps\params.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

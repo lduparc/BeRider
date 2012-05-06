@@ -15,7 +15,7 @@ namespace Rider.Models
     public class Speed
     {
         public enum Unit
-        { 
+        {
             Km = 0,
             Mi = 1
         }

@@ -22,6 +22,11 @@ namespace Rider.Location
 {
     public class LocationService
     {
+        public static readonly string TABLE_NAME = "locations";
+        public static readonly string SESSION_ID_COLUMN_NAME = "session_id";
+        public static readonly string LAT_COLUMN_NAME = "lat";
+        public static readonly string LNG_COLUMN_NAME = "lng";
+
         public enum State
         {
             Init = 0,
@@ -35,7 +40,7 @@ namespace Rider.Location
             JsonFile = 0,
             Web
         };
-        
+
         private static string DesiredMovementThreshold = "DesiredMovementThreshold";
         private const string TAG = "LocationService";
         public static string locationChanged = "locationChanged";
@@ -164,8 +169,8 @@ namespace Rider.Location
 
             if (Configuration.FAKE_LOCATION_ENABLED)
             {
-                    accuracy = 40;
-                    speed = random.Next(Configuration.FAKE_MIN_SPEED, Configuration.FAKE_MAX_SPEED);
+                accuracy = 40;
+                speed = random.Next(Configuration.FAKE_MIN_SPEED, Configuration.FAKE_MAX_SPEED);
 
                 if (double.IsNaN(location.Course))
                 {
@@ -176,7 +181,7 @@ namespace Rider.Location
                 }
             }
             else accuracy = e.Position.Location.HorizontalAccuracy;
-            
+
             if (double.IsNaN(location.Course)) location.Course = 180;
 
             if (accuracy <= 100)

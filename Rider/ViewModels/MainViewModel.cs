@@ -22,6 +22,8 @@ using Rider.Resources;
 using GalaSoft.MvvmLight.Messaging;
 using Rider.Tracking;
 using Rider.Utils;
+using GalaSoft.MvvmLight.Command;
+using System.Threading;
 
 
 namespace Rider.ViewModels
@@ -31,13 +33,33 @@ namespace Rider.ViewModels
         public ObservableCollection<SessionViewModel> Sessions { get; private set; }
         private string _panoramaHomeTitle = "";
         private string _panoramaHistoryTitle = "";
+        private string _panoramaSpotlightsTitle = "";
+        private string _panoramaNewsTitle = "";
+        private ICommand removeCommand = null;
+        private ICommand shareCommand = null;
 
         public MainViewModel()
         {
             this.Sessions = new ObservableCollection<SessionViewModel>();
+            this.removeCommand = new RelayCommand<SessionViewModel>(this.RemoveAction);
+            this.shareCommand = new RelayCommand<SessionViewModel>(this.ShareAction);
+            Messenger.Default.Register<Speed.Unit>(this, UserData.UnitChanged, unit => OnUnitChanged(unit));
         }
 
+        private void OnUnitChanged(Speed.Unit unit)
+        {
+            NotifyPropertyChanged("UnitChanged");
+        }
+        
         #region properties
+
+        public string UnitChanged
+        {
+            get
+            {
+                return UserData.Get<Speed.Unit>(UserData.UnitKey).ToString();
+            }
+        }
 
         public string PanoramaHomeTitle
         {
@@ -71,35 +93,102 @@ namespace Rider.ViewModels
             }
         }
 
+        public string PanoramaSpotlightsTitle
+        {
+            get
+            {
+                return _panoramaSpotlightsTitle;
+            }
+            set
+            {
+                if (value != _panoramaSpotlightsTitle)
+                {
+                    _panoramaSpotlightsTitle = value;
+                    NotifyPropertyChanged("PanoramaSpotlightsTitle");
+                }
+            }
+        }
+
+        public string PanoramaNewsTitle
+        {
+            get
+            {
+                return _panoramaNewsTitle;
+            }
+            set
+            {
+                if (value != _panoramaNewsTitle)
+                {
+                    _panoramaNewsTitle = value;
+                    NotifyPropertyChanged("PanoramaNewsTitle");
+                }
+            }
+        }
+
         public bool IsDataLoaded { get; private set; }
 
         #endregion
+
+        #region action
+
+        public ICommand RemoveCommand
+        {
+            get
+            {
+                return this.removeCommand;
+            }
+        }
+
+        public ICommand ShareCommand
+        {
+            get
+            {
+                return this.shareCommand;
+            }
+        }
+
+        private void RemoveAction(SessionViewModel session)
+        {
+            if (session != null)
+            {
+                this.Sessions.Remove(session);
+                App.database.DeleteWithIdentifier(SessionViewModel.TABLE_NAME, session.Identifer); 
+            }
+        }
+
+        private void ShareAction(SessionViewModel session)
+        {
+            if (session != null)
+            {
+                MessageBox.Show(string.Format("Session Distance: {0}", session.Identifer));
+            }
+        }
+
+        #endregion
+
+        #region loaders
 
         public void LoadDesignData()
         {
             this.PanoramaHomeTitle = AppResource.ResourceManager.GetString("PanoramaHomeTitle");
             this.PanoramaHistoryTitle = AppResource.ResourceManager.GetString("PanoramaHistoryTitle");
+            this.PanoramaSpotlightsTitle = AppResource.ResourceManager.GetString("PanoramaSpotlightsTitle");
+            this.PanoramaNewsTitle = AppResource.ResourceManager.GetString("PanoramaNewsTItle");
             this.IsDataLoaded = true;
         }
 
         public void LoadSessionsSaved()
         {
             Sessions.Clear();
-            ObservableCollection<SessionViewModel> sessionList = UserData.Get<ObservableCollection<SessionViewModel>>(UserData.ListSessionKey);
-            if (sessionList == null || sessionList.Count == 0)
+//            ObservableCollection<SessionViewModel> sessionList = UserData.Get<ObservableCollection<SessionViewModel>>(UserData.ListSessionKey);
+            App.database.FindClosestSessions(Sessions);
+            if (Sessions.Count == 0)
             {
                 // TODO : afficher text pas de sessions sauvegardees
             }
-            else
-            {
-                foreach (SessionViewModel svm in sessionList)
-                {
-                    Sessions.Add(svm);
-                }
-                // TODO : afficher la liste
-            }
-        
         }
+
+        #endregion
 
     }
 }

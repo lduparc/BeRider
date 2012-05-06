@@ -207,6 +207,24 @@ namespace Rider.Resources {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Calories.
+        /// </summary>
+        public static string CaloriesTitle {
+            get {
+                return ResourceManager.GetString("CaloriesTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Distance.
+        /// </summary>
+        public static string DistanceTitle {
+            get {
+                return ResourceManager.GetString("DistanceTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à support.
         /// </summary>
         public static string FeedBack {
@@ -293,6 +311,24 @@ namespace Rider.Resources {
         public static string PanoramaHomeTitle {
             get {
                 return ResourceManager.GetString("PanoramaHomeTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Actu.
+        /// </summary>
+        public static string PanoramaNewsTItle {
+            get {
+                return ResourceManager.GetString("PanoramaNewsTItle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Spotlights.
+        /// </summary>
+        public static string PanoramaSpotlightsTitle {
+            get {
+                return ResourceManager.GetString("PanoramaSpotlightsTitle", resourceCulture);
             }
         }
         
@@ -428,6 +464,24 @@ namespace Rider.Resources {
         public static string SettingsWeight {
             get {
                 return ResourceManager.GetString("SettingsWeight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Vitesse.
+        /// </summary>
+        public static string SpeedTitle {
+            get {
+                return ResourceManager.GetString("SpeedTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Duree.
+        /// </summary>
+        public static string TimeTitle {
+            get {
+                return ResourceManager.GetString("TimeTitle", resourceCulture);
             }
         }
         

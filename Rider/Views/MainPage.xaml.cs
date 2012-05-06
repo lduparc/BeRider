@@ -21,6 +21,7 @@ using Rider.Tracking;
 using Rider.Models;
 using Rider.Persistent;
 using Rider.Utils;
+using System.Threading;
 
 namespace Rider.Views
 {
@@ -56,9 +57,9 @@ namespace Rider.Views
         private void MainPage_Loaded(object sender, RoutedEventArgs e)
         {
             OnSessionStatusChanged(ViewModelController.TrackingService.IsRunning);
-            OnUnitChanged(UserData.Get<Speed.Unit>(UserData.UnitKey));
+           // OnUnitChanged(UserData.Get<Speed.Unit>(UserData.UnitKey));
             Messenger.Default.Register<bool>(this, TrackingService.SessionStatusChanged, status => OnSessionStatusChanged(status));
-            Messenger.Default.Register<Speed.Unit>(this, UserData.UnitChanged, unit => OnUnitChanged(unit));
+          //  Messenger.Default.Register<Speed.Unit>(this, UserData.UnitChanged, unit => OnUnitChanged(unit));
 
             // load data
             if (!ViewModelController.MainViewModel.IsDataLoaded) ViewModelController.MainViewModel.LoadDesignData();
@@ -70,11 +71,12 @@ namespace Rider.Views
             Messenger.Default.Unregister<Speed.Unit>(this);
         }
 
-        private void OnUnitChanged(Speed.Unit unit)
-        {
-            speedText.Text = string.Format("{0}/h", unit.ToString());
-            distanceText.Text = unit.ToString();
-        }
+        //private void OnUnitChanged(Speed.Unit unit)
+        //{
+        //    speedText.Text = string.Format("{0}/h", unit.ToString());
+        //    distanceText.Text = unit.ToString();
+        //}
+
 
         private void OnSessionStatusChanged(bool status)
         {
@@ -87,12 +89,6 @@ namespace Rider.Views
         {
             int selection = (int)(sender as HyperlinkButton).Tag;
             this.panorama.DefaultItem = this.panorama.Items[selection];
-        }
-
-        private void GoToPageLink(object sender, RoutedEventArgs e)
-        {
-            string link = (sender as Control).Tag.ToString();
-            NavigationService.Navigate(new Uri(link, UriKind.Relative));
         }
 
         private void carte_Click(object sender, EventArgs e)
@@ -110,7 +106,7 @@ namespace Rider.Views
             NavigationService.Navigate(new Uri("/Views/Settings.xaml", UriKind.Relative));
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Session_Click(object sender, RoutedEventArgs e)
         {
             if (UserData.Get<bool>(UserData.LocationToggleKey))
             {
@@ -131,8 +127,14 @@ namespace Rider.Views
         {
             switch (panorama.SelectedIndex)
             {
-                case 1:
+                case 3:
                     ViewModelController.MainViewModel.LoadSessionsSaved();
+                    break;
+                case 2:
+                    // TODO : news
+                    break;
+                case 1:
+                    // TODO : Spots
                     break;
                 case 0:
                 default:
