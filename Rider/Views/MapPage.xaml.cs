@@ -17,6 +17,8 @@ using Microsoft.Phone.Shell;
 using Rider.Resources;
 using System.Data.Services.Client;
 using Microsoft.Phone.Tasks;
+using Microsoft.Xna.Framework.GamerServices;
+using Rider.Persistent;
 
 namespace Rider.Views
 {
@@ -78,6 +80,15 @@ namespace Rider.Views
         private void PhoneApplicationPage_Loaded(object sender, RoutedEventArgs e)
         {
             Messenger.Default.Register<Pushpin>(this, MapViewModel.PinLocationChanged, pin => OnPinLocationChanged(pin));
+
+            if (!UserData.Get<bool>(UserData.LocationToggleKey))
+            {
+                string title = AppResource.ResourceManager.GetString("LocationServiceTitle");
+                string content = AppResource.ResourceManager.GetString("LocationServiceContent");
+                string accept = AppResource.ResourceManager.GetString("LocationServiceAccept");
+                string cancel = AppResource.ResourceManager.GetString("LocationServiceRefuse");
+                Guide.BeginShowMessageBox(title, content, new string[] { accept, cancel }, 0, MessageBoxIcon.Alert, MessageBoxAcceptLocationService, null);
+            }
         }
 
         private void PhoneApplicationPage_Unloaded(object sender, RoutedEventArgs e)
@@ -86,15 +97,20 @@ namespace Rider.Views
             CleanOverlays();
         }
 
+        private void MessageBoxAcceptLocationService(IAsyncResult ar) 
+        { 
+            int? indexButton = Guide.EndShowMessageBox(ar); 
+            if (indexButton.HasValue && indexButton.Value == 0) 
+            { 
+                Dispatcher.BeginInvoke(() => NavigationService.Navigate(new Uri("/Views/Settings.xaml", UriKind.Relative))); 
+            }
+        }
+
         #endregion
 
         private void CleanOverlays()
         {
             Map.Children.Clear();
-            //if (mapPoly != null && !Map.Children.Contains(mapPoly))
-            //    Map.Children.Remove(mapPoly);
-            //if (currentLocationPin != null && Map.Children.Contains(currentLocationPin))
-            //    Map.Children.Remove(currentLocationPin);
             pinLocationLoaded = false;
             currentLocationPin = null;
             mapPoly = null;

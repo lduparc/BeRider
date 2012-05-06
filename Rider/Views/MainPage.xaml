@@ -269,7 +269,7 @@
                         	</TextBlock.RenderTransform>
                         </TextBlock>
                         <TextBlock FontSize="96" Text="{Binding TrackingService.DistanceSession, Source={StaticResource Locator}}" TextWrapping="Wrap"  Style="{StaticResource PhoneTextLargeStyle}" Margin="0,0,5,0"/>
-                        <TextBlock x:Name="distanceText" VerticalAlignment="Bottom" Margin="0,0,0,20" Text="{Binding MainViewModel.UnitChanged, Source={StaticResource Locator}}" TextWrapping="Wrap"  Style="{StaticResource PhoneTextSubtleStyle}" FontSize="28"/>
+                        <TextBlock x:Name="distanceText" VerticalAlignment="Bottom" Margin="0,0,0,20" Text="" TextWrapping="Wrap"  Style="{StaticResource PhoneTextSubtleStyle}" FontSize="28"/>
                     </StackPanel>
 
                     <StackPanel Grid.Row="2" Height="Auto" Orientation="Horizontal" VerticalAlignment="Top" Margin="0,-5,0,0" HorizontalAlignment="Left">
@@ -280,7 +280,7 @@
                         		</TextBlock.RenderTransform>
                             </TextBlock>
                             <TextBlock FontSize="48" Text="{Binding TrackingService.CurrentSpeed, Source={StaticResource Locator}}" TextWrapping="Wrap"  Style="{StaticResource PhoneTextLargeStyle}" Margin="10,0, 0, 0" VerticalAlignment="Bottom"/>
-                            <TextBlock x:Name="speedText" Text="{Binding MainViewModel.UnitChanged, Source={StaticResource Locator}, StringFormat='\{0\}/h'}" TextWrapping="Wrap" Style="{StaticResource PhoneTextSubtleStyle}" VerticalAlignment="Bottom" Margin="0,0,0,7" FontSize="21.333"/>
+                            <TextBlock x:Name="speedText" Text="" TextWrapping="Wrap" Style="{StaticResource PhoneTextSubtleStyle}" VerticalAlignment="Bottom" Margin="5,0,0,7" FontSize="21.333"/>
                         </StackPanel>
                         <StackPanel Height="Auto" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Right">
                             <TextBlock Text="{Binding LocalizedValue.CaloriesTitle, Source={StaticResource LocalizedStrings}}" TextWrapping="Wrap"  Style="{StaticResource PhoneTextSubtleStyle}" VerticalAlignment="Bottom" FontSize="16" Foreground="{StaticResource PhoneAccentBrush}" HorizontalAlignment="Left" Margin="0,0,0,23" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="False" d:LayoutRounding="Auto" >
@@ -289,7 +289,7 @@
                         		</TextBlock.RenderTransform>
                             </TextBlock>
                             <TextBlock FontSize="48" Text="{Binding TrackingService.KCal, Source={StaticResource Locator}}" TextWrapping="Wrap"  Style="{StaticResource PhoneTextLargeStyle}" Margin="5,0" VerticalAlignment="Bottom"/>
-                            <TextBlock Text="kcal" TextWrapping="Wrap"  Style="{StaticResource PhoneTextSubtleStyle}" VerticalAlignment="Bottom" Margin="0,0,0,7" FontSize="21.333"/>
+                            <TextBlock Text="Kcal" TextWrapping="Wrap"  Style="{StaticResource PhoneTextSubtleStyle}" VerticalAlignment="Bottom" Margin="0,0,0,7" FontSize="21.333"/>
                         </StackPanel>
                     </StackPanel>
 

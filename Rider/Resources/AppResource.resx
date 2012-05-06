@@ -263,4 +263,16 @@ IOS - Android - Windows Phone 7</value>
   <data name="TimeTitle" xml:space="preserve">
     <value>Duree</value>
   </data>
+  <data name="LocationServiceAccept" xml:space="preserve">
+    <value>acceder</value>
+  </data>
+  <data name="LocationServiceContent" xml:space="preserve">
+    <value>L'application a besoin du service de localisation pour enregistrer le parcours d'une session. Si le service n'est pas actif, la session ne pourra pas demarrer. Souhaitez-vous acceder aux parametres de BeRider afin d'activer le service de localisation ?</value>
+  </data>
+  <data name="LocationServiceRefuse" xml:space="preserve">
+    <value>refuser</value>
+  </data>
+  <data name="LocationServiceTitle" xml:space="preserve">
+    <value>Service de localisation</value>
+  </data>
 </root>

@@ -29,6 +29,8 @@ namespace Rider.Persistent
         public static readonly string UnitChanged = "OnUnitChanged";
         public static readonly string ListSessionKey = "ListSessionKey";
         public static readonly string SessionIndexKey = "SessonIndexKey";
+        public static readonly string AlreadyLaunchedKey = "AlreadyLaunchedKey";
+        public static readonly string ShowWizardKey = "ShowWizardKey";
 
         public static void Add<TEntity>(string key, TEntity entity)
         {

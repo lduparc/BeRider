@@ -136,16 +136,16 @@ namespace Rider.Tracking
         private void SaveCurrentSession()
         {
             int lastidx = UserData.Get<int>(UserData.SessionIndexKey);
-            currentSession.MaxSpeed = (currentSession.AverageSpeeds != null && currentSession.AverageSpeeds.Count > 0) ? currentSession.AverageSpeeds.Max() : 0;
-            currentSession.AverageSpeedHistory = (currentSession.AverageSpeeds != null && currentSession.AverageSpeeds.Count > 0) ? currentSession.AverageSpeeds.Average() : 0;
+            double maxSpeed = (currentSession.AverageSpeeds != null && currentSession.AverageSpeeds.Count > 0) ? currentSession.AverageSpeeds.Max() : 0;
+            double averageSpeed = (currentSession.AverageSpeeds != null && currentSession.AverageSpeeds.Count > 0) ? currentSession.AverageSpeeds.Average() : 0;
             Dictionary<string, object> dictSession = new Dictionary<string, object>();
             dictSession.Add(SessionViewModel.ID_COLUMN_NAME, lastidx == -1 ? 0 : lastidx);
             dictSession.Add(SessionViewModel.TITLE_COLUMN_NAME, currentSession.Title);
             dictSession.Add(SessionViewModel.DETAILS_COLUMN_NAME, currentSession.Details);
             dictSession.Add(SessionViewModel.DISTANCE_COLUMN_NAME, currentSession.Distance);
             dictSession.Add(SessionViewModel.DURATION_COLUMN_NAME, currentSession.FormatedSpentTime);
-            dictSession.Add(SessionViewModel.AVERAGE_SPEED_COLUMN_NAME, currentSession.AverageSpeedHistory);
-            dictSession.Add(SessionViewModel.MAX_SPEED_COLUMN_NAME, currentSession.MaxSpeed);
+            dictSession.Add(SessionViewModel.AVERAGE_SPEED_COLUMN_NAME, averageSpeed);
+            dictSession.Add(SessionViewModel.MAX_SPEED_COLUMN_NAME, maxSpeed);
             dictSession.Add(SessionViewModel.KCAL_COLUMN_NAME, currentSession.KCal);
             dictSession.Add(SessionViewModel.SPORT_COLUMN_NAME, currentSession.Sport);
             bool success = App.database.InsertWithContent(SessionViewModel.TABLE_NAME, dictSession);
@@ -165,7 +165,6 @@ namespace Rider.Tracking
 
             if (success)
                 UserData.Add<int>(UserData.SessionIndexKey, lastidx + 1);
-           // else MessageBase box Error
             
             currentSession = null;
             currentSpeed = 0;

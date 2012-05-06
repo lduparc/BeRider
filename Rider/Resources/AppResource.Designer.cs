@@ -252,6 +252,42 @@ namespace Rider.Resources {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à acceder.
+        /// </summary>
+        public static string LocationServiceAccept {
+            get {
+                return ResourceManager.GetString("LocationServiceAccept", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à L&apos;application a besoin du service de localisation pour enregistrer le parcours d&apos;une session. Si le service n&apos;est pas actif, la session ne pourra pas demarrer. Souhaitez-vous acceder aux parametres de BeRider afin d&apos;activer le service de localisation ?.
+        /// </summary>
+        public static string LocationServiceContent {
+            get {
+                return ResourceManager.GetString("LocationServiceContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à refuser.
+        /// </summary>
+        public static string LocationServiceRefuse {
+            get {
+                return ResourceManager.GetString("LocationServiceRefuse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Service de localisation.
+        /// </summary>
+        public static string LocationServiceTitle {
+            get {
+                return ResourceManager.GetString("LocationServiceTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Centrer.
         /// </summary>
         public static string LockerAppBarTitle {

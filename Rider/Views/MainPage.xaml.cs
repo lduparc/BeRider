@@ -22,6 +22,7 @@ using Rider.Models;
 using Rider.Persistent;
 using Rider.Utils;
 using System.Threading;
+using Microsoft.Xna.Framework.GamerServices;
 
 namespace Rider.Views
 {
@@ -57,11 +58,10 @@ namespace Rider.Views
         private void MainPage_Loaded(object sender, RoutedEventArgs e)
         {
             OnSessionStatusChanged(ViewModelController.TrackingService.IsRunning);
-           // OnUnitChanged(UserData.Get<Speed.Unit>(UserData.UnitKey));
+            OnUnitChanged(UserData.Get<Speed.Unit>(UserData.UnitKey));
             Messenger.Default.Register<bool>(this, TrackingService.SessionStatusChanged, status => OnSessionStatusChanged(status));
-          //  Messenger.Default.Register<Speed.Unit>(this, UserData.UnitChanged, unit => OnUnitChanged(unit));
+            Messenger.Default.Register<Speed.Unit>(this, UserData.UnitChanged, unit => OnUnitChanged(unit));
 
-            // load data
             if (!ViewModelController.MainViewModel.IsDataLoaded) ViewModelController.MainViewModel.LoadDesignData();
         }
 
@@ -71,18 +71,15 @@ namespace Rider.Views
             Messenger.Default.Unregister<Speed.Unit>(this);
         }
 
-        //private void OnUnitChanged(Speed.Unit unit)
-        //{
-        //    speedText.Text = string.Format("{0}/h", unit.ToString());
-        //    distanceText.Text = unit.ToString();
-        //}
-
+        private void OnUnitChanged(Speed.Unit unit)
+        {
+            speedText.Text = string.Format("{0}/h", unit.ToString());
+            distanceText.Text = unit.ToString();
+        }
 
         private void OnSessionStatusChanged(bool status)
         {
-            if (UserData.Get<bool>(UserData.LocationToggleKey))
-                sessionButton.Content = status ? AppResource.ResourceManager.GetString("sessionStopAppBarTitle") : AppResource.ResourceManager.GetString("sessionStartAppBarTitle");
-            else sessionButton.Content = AppResource.ResourceManager.GetString("Settings");
+            sessionButton.Content = status ? AppResource.ResourceManager.GetString("sessionStopAppBarTitle") : AppResource.ResourceManager.GetString("sessionStartAppBarTitle");
         }
 
         private void Home_Click(object sender, RoutedEventArgs e)
@@ -118,9 +115,22 @@ namespace Rider.Views
             }
             else
             {
-                NavigationService.Navigate(new Uri("/Views/Settings.xaml", UriKind.Relative));
+                string title = AppResource.ResourceManager.GetString("LocationServiceTitle");
+                string content = AppResource.ResourceManager.GetString("LocationServiceContent");
+                string accept = AppResource.ResourceManager.GetString("LocationServiceAccept");
+                string cancel = AppResource.ResourceManager.GetString("LocationServiceRefuse");
+                Guide.BeginShowMessageBox(title, content, new string[] { accept, cancel }, 0, MessageBoxIcon.Alert, MessageBoxAcceptLocationService, null);
             }
 
+        }
+
+        private void MessageBoxAcceptLocationService(IAsyncResult ar)
+        {
+            int? indexButton = Guide.EndShowMessageBox(ar);
+            if (indexButton.HasValue && indexButton.Value == 0)
+            {
+                Dispatcher.BeginInvoke(() => NavigationService.Navigate(new Uri("/Views/Settings.xaml", UriKind.Relative)));
+            }
         }
 
         private void panorama_SelectionChanged(object sender, SelectionChangedEventArgs e)

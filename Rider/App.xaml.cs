@@ -64,12 +64,20 @@ namespace Rider
 
         private void Application_Launching(object sender, LaunchingEventArgs e)
         {
-            if (UserData.Get<bool>(UserData.LocationToggleKey))
-                ViewModelController.StartLocationService();
-
             if (database == null)
                 database = new DatabaseManager();
             database.Open();
+
+            if (!UserData.Get<bool>(UserData.AlreadyLaunchedKey))
+            {
+                UserData.Add<bool>(UserData.LocationToggleKey, true);
+                UserData.Add<bool>(UserData.ShowWizardKey, true);
+                UserData.Add<bool>(UserData.AlreadyLaunchedKey, true);
+            }
+
+            if (UserData.Get<bool>(UserData.LocationToggleKey))
+                ViewModelController.StartLocationService();
+
         }
 
         private void Application_Activated(object sender, ActivatedEventArgs e)
