@@ -227,4 +227,10 @@ IOS - Android - Windows Phone 7</value>
   <data name="Version" xml:space="preserve">
     <value>1.0.0.0</value>
   </data>
+  <data name="PanoramaHistoryTitle" xml:space="preserve">
+    <value>Historique</value>
+  </data>
+  <data name="PanoramaHomeTitle" xml:space="preserve">
+    <value>Seance</value>
+  </data>
 </root>

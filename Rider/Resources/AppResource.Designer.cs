@@ -261,6 +261,24 @@ namespace Rider.Resources {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Historique.
+        /// </summary>
+        public static string PanoramaHistoryTitle {
+            get {
+                return ResourceManager.GetString("PanoramaHistoryTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Seance.
+        /// </summary>
+        public static string PanoramaHomeTitle {
+            get {
+                return ResourceManager.GetString("PanoramaHomeTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Capturer un photo.
         /// </summary>
         public static string PhotosAppBarTitle {

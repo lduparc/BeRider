@@ -234,7 +234,7 @@
     <!--LayoutRoot est la grille racine où tout le contenu de la page est placé-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
 
-        <controls:Panorama x:Name="panorama">
+        <controls:Panorama x:Name="panorama" SelectionChanged="panorama_SelectionChanged">
             <controls:Panorama.Title>
                 <StackPanel x:Name="TitlePanel" Margin="0, 20, 0, 0" VerticalAlignment="Bottom" Orientation="Horizontal">
                     <TextBlock FontSize="132" Margin="0, 0, 0, -20"  VerticalAlignment="Bottom" x:Name="ApplicationTitleFirst" Text="Be" />
@@ -243,7 +243,7 @@
             </controls:Panorama.Title>
 
             <controls:PanoramaItem Header="{Binding PanoramaHomeTitle}" Width="446">
-                <Grid HorizontalAlignment="Left" VerticalAlignment="Top">
+                <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Width="435">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
@@ -257,11 +257,7 @@
                         		<CompositeTransform Rotation="-90"/>
                         	</TextBlock.RenderTransform>
                         </TextBlock>
-                        <TextBlock FontSize="96" Text="{Binding TrackingService.HoursTimeSpent, Source={StaticResource Locator}}" TextWrapping="Wrap"  Style="{StaticResource PhoneTextLargeStyle}" Margin="9,0,5,0"/>
-                        <TextBlock Text=":" TextWrapping="Wrap"  Style="{StaticResource PhoneTextSubtleStyle}" VerticalAlignment="Center" Margin="0" FontSize="21.333"/>
-                        <TextBlock FontSize="96" Text="{Binding TrackingService.MinutesTimeSpent, Source={StaticResource Locator}}" TextWrapping="Wrap"  Style="{StaticResource PhoneTextLargeStyle}" Margin="5,0"/>
-                        <TextBlock Text=":" TextWrapping="Wrap"  Style="{StaticResource PhoneTextSubtleStyle}" VerticalAlignment="Center" Margin="0" FontSize="21.333"/>
-                        <TextBlock FontSize="96" Text="{Binding TrackingService.SecondsTimeSpent, Source={StaticResource Locator}}" TextWrapping="Wrap"  Style="{StaticResource PhoneTextLargeStyle}" Margin="5,0,0,0"/>
+                        <TextBlock FontSize="96" Text="{Binding TrackingService.TimeSpent, Source={StaticResource Locator}}" TextWrapping="Wrap"  Style="{StaticResource PhoneTextLargeStyle}" Margin="9,0,5,0"/>
                     </StackPanel>
 
                     <StackPanel Height="Auto" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0" Grid.Row="1">
@@ -270,8 +266,8 @@
                         		<CompositeTransform Rotation="-90"/>
                         	</TextBlock.RenderTransform>
                         </TextBlock>
-                        <TextBlock FontSize="96" Text="00.0" TextWrapping="Wrap"  Style="{StaticResource PhoneTextLargeStyle}" Margin="0,0,5,0"/>
-                        <TextBlock VerticalAlignment="Bottom" Margin="0,0,0,20" Text="km" TextWrapping="Wrap"  Style="{StaticResource PhoneTextSubtleStyle}" FontSize="28"/>
+                        <TextBlock FontSize="96" Text="{Binding TrackingService.DistanceSession, Source={StaticResource Locator}}" TextWrapping="Wrap"  Style="{StaticResource PhoneTextLargeStyle}" Margin="0,0,5,0"/>
+                        <TextBlock x:Name="distanceText" VerticalAlignment="Bottom" Margin="0,0,0,20" Text="" TextWrapping="Wrap"  Style="{StaticResource PhoneTextSubtleStyle}" FontSize="28"/>
                     </StackPanel>
 
                     <StackPanel Grid.Row="2" Height="Auto" Orientation="Horizontal" VerticalAlignment="Top" Margin="0,-5,0,0" HorizontalAlignment="Left">
@@ -281,8 +277,8 @@
                         			<CompositeTransform Rotation="-90"/>
                         		</TextBlock.RenderTransform>
                             </TextBlock>
-                            <TextBlock FontSize="48" Text="0.0" TextWrapping="Wrap"  Style="{StaticResource PhoneTextLargeStyle}" Margin="5,0" VerticalAlignment="Bottom"/>
-                            <TextBlock Text="km/h" TextWrapping="Wrap"  Style="{StaticResource PhoneTextSubtleStyle}" VerticalAlignment="Bottom" Margin="0,0,0,7" FontSize="21.333"/>
+                            <TextBlock FontSize="48" Text="{Binding TrackingService.AverageSpeed, Source={StaticResource Locator}}" TextWrapping="Wrap"  Style="{StaticResource PhoneTextLargeStyle}" Margin="5,0" VerticalAlignment="Bottom"/>
+                            <TextBlock x:Name="speedText" Text="" TextWrapping="Wrap" Style="{StaticResource PhoneTextSubtleStyle}" VerticalAlignment="Bottom" Margin="0,0,0,7" FontSize="21.333"/>
                         </StackPanel>
                         <StackPanel Height="Auto" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Right">
                             <TextBlock Text="Calories" TextWrapping="Wrap"  Style="{StaticResource PhoneTextSubtleStyle}" VerticalAlignment="Bottom" FontSize="16" Foreground="{StaticResource PhoneAccentBrush}" HorizontalAlignment="Left" Margin="0,0,0,23" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="False" d:LayoutRounding="Auto" >
@@ -290,16 +286,58 @@
                         			<CompositeTransform Rotation="-90"/>
                         		</TextBlock.RenderTransform>
                             </TextBlock>
-                            <TextBlock FontSize="48" Text="0" TextWrapping="Wrap"  Style="{StaticResource PhoneTextLargeStyle}" Margin="5,0" VerticalAlignment="Bottom"/>
+                            <TextBlock FontSize="48" Text="{Binding TrackingService.KCal, Source={StaticResource Locator}}" TextWrapping="Wrap"  Style="{StaticResource PhoneTextLargeStyle}" Margin="5,0" VerticalAlignment="Bottom"/>
                             <TextBlock Text="kcal" TextWrapping="Wrap"  Style="{StaticResource PhoneTextSubtleStyle}" VerticalAlignment="Bottom" Margin="0,0,0,7" FontSize="21.333"/>
                         </StackPanel>
                     </StackPanel>
-                    
-                    <Button Click="Button_Click" x:Name="sessionButton" Grid.Row="3" Margin="53,10,-6,0" Content="Demarrer la session"  HorizontalAlignment="Center" VerticalAlignment="Top" Width="349" />
+
+                    <Button Click="Button_Click" Content="" x:Name="sessionButton" Grid.Row="3" Margin="58,10,14,0"  HorizontalAlignment="Center" VerticalAlignment="Top" Width="363" />
 
                 </Grid>
             </controls:PanoramaItem>
 
+
+            <controls:PanoramaItem Header="{Binding PanoramaHistoryTitle}">
+                <ListBox Margin="0,0,0,0" ItemsSource="{Binding Sessions}"  >
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal" Margin="20,0,0,20">
+                                <ts:TileSlider 
+                                    Margin="0,0,0,0" 
+                                    TextSlidesFrom="Top" 
+                                    Size="150" Width="150"
+                                   Text="{Binding Sport}" 
+                                    Foreground="#FFFFFF"
+                                    LongText="{Binding SmartInfo}" 
+                                   TextStyle="{StaticResource PhoneTextLargeStyle}" 
+                                   TileBackground="{StaticResource PhoneAccentBrush}"
+                                     ImageSource="/Rider;component/Images/panorama.jpg" 
+                                 Stretch="Fill" Style="{StaticResource TileSliderStyle}" Click="GoToPageLink"/>
+                                <StackPanel Orientation="Vertical" Margin="15,0,0,0">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Distance" FontSize="26" VerticalAlignment="Bottom" HorizontalAlignment="Left" />
+                                        <TextBlock Text="{Binding DistanceFormated}" Margin="0, 0, 0, -1" FontSize="26" VerticalAlignment="Bottom" HorizontalAlignment="Left" />
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Duree" FontSize="26" VerticalAlignment="Bottom" HorizontalAlignment="Left" />
+                                        <TextBlock Text="{Binding FormatedSpentTime}" Margin="10, 0, 0, -1" FontSize="26" VerticalAlignment="Bottom" HorizontalAlignment="Left" />
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Vit. Moy" FontSize="26" VerticalAlignment="Bottom" HorizontalAlignment="Left" />
+                                        <TextBlock Text="{Binding AverageSpeedFormated, StringFormat='0.0'}"  FontSize="26" Margin="10, 0, 0, 0" VerticalAlignment="Bottom" HorizontalAlignment="Left" />
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Calorie" TextWrapping="Wrap" FontSize="26" Margin="0, 0, 0, 0" VerticalAlignment="Bottom" HorizontalAlignment="Left" />
+                                        <TextBlock Text="{Binding KCal}"  TextWrapping="Wrap"  FontSize="26" Margin="10, 0, 0, 0" VerticalAlignment="Bottom" HorizontalAlignment="Left" />
+                                        <TextBlock Text="Kcal" Margin="3, 0, 0, 3" TextWrapping="Wrap"  VerticalAlignment="Bottom" HorizontalAlignment="Left" />
+                                    </StackPanel>
+                                    <TextBlock Text="{Binding StartTime, StringFormat='MM/dd/yyyy'}" VerticalAlignment="Bottom" HorizontalAlignment="Left" Foreground="{StaticResource PhoneAccentBrush}" />
+                                </StackPanel>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </controls:PanoramaItem>
 
         </controls:Panorama>
 

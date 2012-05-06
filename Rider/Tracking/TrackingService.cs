@@ -14,19 +14,22 @@ using GalaSoft.MvvmLight.Messaging;
 using System.Device.Location;
 using Rider.ViewModels;
 using System.Windows.Threading;
+using System.Globalization;
+using System.Collections.Generic;
+using Rider.Persistent;
+using System.Collections.ObjectModel;
 
 namespace Rider.Tracking
 {
     public class TrackingService : BaseViewModel
     {
+        public static string SessionStatusChanged = "SessionStatusChanged";
+
         private bool isRunnig;
         private static TrackingService instance;
-        private Session currentSession;
+        private SessionViewModel currentSession;
         private GeoCoordinate lastLocation;
         private DispatcherTimer timer;
-        private int seconds;
-        private int minutes;
-        private int hours;
 
         #region constructors
 
@@ -56,34 +59,41 @@ namespace Rider.Tracking
             get { return this.isRunnig; }
         }
 
-        public string HoursTimeSpent
-        {
-            get
-            {
-                int val = currentSession == null ? 00 : (DateTime.Now - currentSession.StartTime).Hours;
-                return string.Format("{0}{1}", val < 10 ? "0" : "", val);
-            }
-
-        }
-
-        public string MinutesTimeSpent 
+        public string TimeSpent 
         {
             get 
             {
-                int val = currentSession == null ? 00 : (DateTime.Now - currentSession.StartTime).Minutes;
-                return string.Format("{0}{1}", val < 10 ? "0" : "", val);
+                TimeSpan val = currentSession == null ? (DateTime.Now - DateTime.Now) : (DateTime.Now - currentSession.StartTime);
+                return string.Format("{0:00}:{1:00}:{2:00}", (int)val.TotalHours, val.Minutes, val.Seconds);
             }
 
         }
 
-        public string SecondsTimeSpent
+        public string AverageSpeed
         {
             get
             {
-                int val = currentSession == null ? 00 : (DateTime.Now - currentSession.StartTime).Seconds;
-                return string.Format("{0}{1}", val < 10 ? "0" : "", val);
-            }
 
+                double moy = currentSession == null ? 0 : Speed.MetersToUserSpeedUnit(currentSession.AverageSpeed);
+                return moy.ToString("0.0").Replace(',', '.');
+            }
+        }
+
+        public string DistanceSession
+        {
+            get
+            {
+                double dist = currentSession == null ? 0 : currentSession.Distance;
+                return Distance.MetersToUserDataUnit(dist).ToString("00.0").Replace(',', '.');
+            }
+        }
+
+        public int KCal
+        {
+            get
+            {
+                return currentSession == null ? 0 : currentSession.KCal;
+            }
         }
 
         #endregion
@@ -93,10 +103,12 @@ namespace Rider.Tracking
         public void StartSession()
         {
             Messenger.Default.Register<GeoCoordinate>(this, Location.LocationService.locationChanged, newLocation => OnLocationChanged(newLocation));
-            currentSession = new Session();
+            currentSession = new SessionViewModel();
+            currentSession.StartTime = DateTime.Now;
             timer.Start();
             this.isRunnig = true;
             DebugUtils.Log("trololo", "currentSession started");
+            Messenger.Default.Send<bool>(this.isRunnig, TrackingService.SessionStatusChanged);
         }
 
         public void StopSession()
@@ -109,14 +121,27 @@ namespace Rider.Tracking
             DebugUtils.Log("trololo", "currentSession spent time : " +currentSession.SpentTime);
 
             DebugUtils.Log("trololo", "currentSession distance : " + currentSession.Distance);
-            DebugUtils.Log("trololo", "currentSession vitesse max : " + currentSession.MaxSpeed);
-            DebugUtils.Log("trololo", "currentSession vitesse moyenne : " + currentSession.AverageSpeed);
+            DebugUtils.Log("trololo", "currentSession vitesse max : " + Speed.MetersToUserSpeedUnit(currentSession.MaxSpeed));
+            DebugUtils.Log("trololo", "currentSession vitesse moyenne : " + Speed.MetersToUserSpeedUnit(currentSession.AverageSpeed));
             DebugUtils.Log("trololo", "currentSession calories lost : " + currentSession.KCal);
             this.isRunnig = false;
-            currentSession = null;
             timer.Stop();
+            SaveCurrentSession();
+            Messenger.Default.Send<bool>(this.isRunnig, TrackingService.SessionStatusChanged);
         }
 
+        private void SaveCurrentSession()
+        {
+            ObservableCollection<SessionViewModel> listSessions = UserData.Get<ObservableCollection<SessionViewModel>>(UserData.ListSessionKey);
+            if (listSessions == null) listSessions = new ObservableCollection<SessionViewModel>();            
+            listSessions.Add(currentSession);
+            UserData.Add<ObservableCollection<SessionViewModel>>(UserData.ListSessionKey, listSessions);
+            currentSession = null;
+            NotifyPropertyChanged("TimeSpent");
+            NotifyPropertyChanged("AverageSpeed");
+            NotifyPropertyChanged("DistanceSession");
+            NotifyPropertyChanged("KCal");
+        }
         #endregion
 
         private void OnLocationChanged(GeoCoordinate newLocation)
@@ -127,16 +152,16 @@ namespace Rider.Tracking
                 currentSession.AddNewSpeed(newLocation.Speed);
                 if (lastLocation != null)
                     currentSession.AddNewDistance(newLocation.GetDistanceTo(lastLocation));
-
                 lastLocation = newLocation;
             }
         }
 
         private void UpdateGUI(object sender, EventArgs e)
         {
-            NotifyPropertyChanged("SecondsTimeSpent");
-            NotifyPropertyChanged("MinutesTimeSpent");
-            NotifyPropertyChanged("HoursTimeSpent");
+            NotifyPropertyChanged("TimeSpent");
+            NotifyPropertyChanged("AverageSpeed");
+            NotifyPropertyChanged("DistanceSession");
+            NotifyPropertyChanged("KCal");
         }
     }
 }

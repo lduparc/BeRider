@@ -16,6 +16,11 @@ using Rider.ViewModels;
 using Microsoft.Phone.Tasks;
 using Microsoft.Phone.Shell;
 using Rider.Resources;
+using GalaSoft.MvvmLight.Messaging;
+using Rider.Tracking;
+using Rider.Models;
+using Rider.Persistent;
+using Rider.Utils;
 
 namespace Rider.Views
 {
@@ -50,13 +55,37 @@ namespace Rider.Views
 
         private void MainPage_Loaded(object sender, RoutedEventArgs e)
         {
+            OnSessionStatusChanged(ViewModelController.TrackingService.IsRunning);
+            OnUnitChanged(UserData.Get<Speed.Unit>(UserData.UnitKey));
+            Messenger.Default.Register<bool>(this, TrackingService.SessionStatusChanged, status => OnSessionStatusChanged(status));
+            Messenger.Default.Register<Speed.Unit>(this, UserData.UnitChanged, unit => OnUnitChanged(unit));
+
             // load data
-            if (!ViewModelController.MainViewModel.IsDataLoaded) ViewModelController.MainViewModel.LoadData();
+            if (!ViewModelController.MainViewModel.IsDataLoaded) ViewModelController.MainViewModel.LoadDesignData();
+        }
+
+        private void MainPage_Unloaded(object sender, RoutedEventArgs e)
+        {
+            Messenger.Default.Unregister<bool>(this);
+            Messenger.Default.Unregister<Speed.Unit>(this);
+        }
+
+        private void OnUnitChanged(Speed.Unit unit)
+        {
+            speedText.Text = string.Format("{0}/h", unit.ToString());
+            distanceText.Text = unit.ToString();
+        }
+
+        private void OnSessionStatusChanged(bool status)
+        {
+            if (UserData.Get<bool>(UserData.LocationToggleKey))
+                sessionButton.Content = status ? AppResource.ResourceManager.GetString("sessionStopAppBarTitle") : AppResource.ResourceManager.GetString("sessionStartAppBarTitle");
+            else sessionButton.Content = AppResource.ResourceManager.GetString("Settings");
         }
 
         private void Home_Click(object sender, RoutedEventArgs e)
         {
-            int selection =(int)(sender as HyperlinkButton).Tag;
+            int selection = (int)(sender as HyperlinkButton).Tag;
             this.panorama.DefaultItem = this.panorama.Items[selection];
         }
 
@@ -83,19 +112,32 @@ namespace Rider.Views
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            bool isStarted = ViewModelController.TrackingService.IsRunning;
-
-            if (isStarted)
+            if (UserData.Get<bool>(UserData.LocationToggleKey))
             {
-                ViewModelController.TrackingService.StopSession();
-                (sender as Button).Content = AppResource.ResourceManager.GetString("sessionStartAppBarTitle");
+                bool isStarted = ViewModelController.TrackingService.IsRunning;
+                if (isStarted)
+                    ViewModelController.TrackingService.StopSession();
+                else
+                    ViewModelController.TrackingService.StartSession();
             }
             else
             {
-                ViewModelController.TrackingService.StartSession();
-                (sender as Button).Content = AppResource.ResourceManager.GetString("sessionStopAppBarTitle");
+                NavigationService.Navigate(new Uri("/Views/Settings.xaml", UriKind.Relative));
             }
 
+        }
+
+        private void panorama_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            switch (panorama.SelectedIndex)
+            {
+                case 1:
+                    ViewModelController.MainViewModel.LoadSessionsSaved();
+                    break;
+                case 0:
+                default:
+                    break;
+            }
         }
 
     }

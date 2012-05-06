@@ -1,8 +1,8 @@
-﻿<xapCache source="C:\Users\Administrator\documents\visual studio 2010\Projects\Rider\Rider\Bin\Debug\Rider.xap" wasSigned="False" certificateThumbprint="" TimeStampUrl="" lastWriteTime="06/05/2012 01:06:50">
+﻿<xapCache source="C:\Users\Administrator\documents\visual studio 2010\Projects\Rider\Rider\Bin\Debug\Rider.xap" wasSigned="False" certificateThumbprint="" TimeStampUrl="" lastWriteTime="06/05/2012 16:13:03">
   <file source="C:\Users\Administrator\documents\visual studio 2010\Projects\Rider\Rider\Bin\Debug\WMAppManifest.xml" archivePath="WMAppManifest.xml" lastWriteTime="05/05/2012 11:39:18" />
   <file source="C:\Users\Administrator\documents\visual studio 2010\Projects\Rider\Rider\Background.png" archivePath="Background.png" lastWriteTime="28/04/2012 15:10:30" />
   <file source="C:\Users\Administrator\documents\visual studio 2010\Projects\Rider\Rider\ApplicationIcon.png" archivePath="ApplicationIcon.png" lastWriteTime="28/04/2012 15:10:30" />
-  <file source="C:\Users\Administrator\documents\visual studio 2010\Projects\Rider\Rider\obj\Debug\Rider.dll" archivePath="Rider.dll" lastWriteTime="06/05/2012 01:06:48" />
+  <file source="C:\Users\Administrator\documents\visual studio 2010\Projects\Rider\Rider\obj\Debug\Rider.dll" archivePath="Rider.dll" lastWriteTime="06/05/2012 16:13:02" />
   <file source="C:\Users\Administrator\documents\visual studio 2010\Projects\Rider\packages\Facebook.6.0.16\lib\sl4-windowsphone71\Facebook.dll" archivePath="Facebook.dll" lastWriteTime="05/05/2012 10:50:13" />
   <file source="C:\Users\Administrator\documents\visual studio 2010\Projects\Rider\packages\MvvmLight.3.1.1\lib\sl4-windowsphone71\GalaSoft.MvvmLight.Extras.WP71.dll" archivePath="GalaSoft.MvvmLight.Extras.WP71.dll" lastWriteTime="29/04/2012 20:00:43" />
   <file source="C:\Users\Administrator\documents\visual studio 2010\Projects\Rider\packages\MvvmLight.3.1.1\lib\sl4-windowsphone71\GalaSoft.MvvmLight.WP71.dll" archivePath="GalaSoft.MvvmLight.WP71.dll" lastWriteTime="29/04/2012 20:00:43" />
@@ -13,13 +13,13 @@
   <file source="C:\Users\Administrator\Desktop\ODataClient_BinariesAndCodeGenToolForWinPhone7\System.Data.Services.Client.dll" archivePath="System.Data.Services.Client.dll" lastWriteTime="28/10/2010 11:45:18" />
   <file source="C:\Users\Administrator\documents\visual studio 2010\Projects\Rider\packages\MvvmLight.3.1.1\lib\sl4-windowsphone71\System.Windows.Interactivity.dll" archivePath="System.Windows.Interactivity.dll" lastWriteTime="29/04/2012 20:00:44" />
   <file source="C:\Users\Administrator\documents\visual studio 2010\Projects\Rider\packages\TileSlider.1.0.2.0\lib\sl3-wp\TileSlider.dll" archivePath="TileSlider.dll" lastWriteTime="29/04/2012 15:38:01" />
-  <file source="C:\Users\Administrator\documents\visual studio 2010\Projects\Rider\Rider\obj\Debug\en-US\Rider.resources.dll" archivePath="en-US\Rider.resources.dll" lastWriteTime="06/05/2012 01:06:48" />
+  <file source="C:\Users\Administrator\documents\visual studio 2010\Projects\Rider\Rider\obj\Debug\en-US\Rider.resources.dll" archivePath="en-US\Rider.resources.dll" lastWriteTime="06/05/2012 16:13:02" />
   <file source="C:\Users\Administrator\documents\visual studio 2010\Projects\Rider\Rider\Images\maps\arrow.png" archivePath="Images\maps\arrow.png" lastWriteTime="01/05/2012 18:05:54" />
   <file source="C:\Users\Administrator\documents\visual studio 2010\Projects\Rider\Rider\Images\maps\params.png" archivePath="Images\maps\params.png" lastWriteTime="05/05/2012 13:00:20" />
   <file source="C:\Users\Administrator\documents\visual studio 2010\Projects\Rider\Rider\Resources\JsonRoads\bordeaux_rocade.json" archivePath="Resources\JsonRoads\bordeaux_rocade.json" lastWriteTime="01/05/2012 15:44:30" />
   <file source="C:\Users\Administrator\documents\visual studio 2010\Projects\Rider\Rider\Resources\JsonRoads\thiers.json" archivePath="Resources\JsonRoads\thiers.json" lastWriteTime="01/05/2012 15:44:30" />
   <file source="C:\Users\Administrator\documents\visual studio 2010\Projects\Rider\Rider\SplashScreenImage.jpg" archivePath="SplashScreenImage.jpg" lastWriteTime="28/04/2012 15:10:30" />
-  <file source="C:\Users\Administrator\documents\visual studio 2010\Projects\Rider\Rider\Bin\Debug\AppManifest.xaml" archivePath="AppManifest.xaml" lastWriteTime="05/05/2012 19:04:25" />
+  <file source="C:\Users\Administrator\documents\visual studio 2010\Projects\Rider\Rider\Bin\Debug\AppManifest.xaml" archivePath="AppManifest.xaml" lastWriteTime="06/05/2012 15:48:13" />
   <file source="C:\Users\Administrator\documents\visual studio 2010\Projects\Rider\Rider\Bin\Debug\Images\maps\arrow.png" archivePath="Images\maps\arrow.png" lastWriteTime="01/05/2012 18:05:54" />
   <file source="C:\Users\Administrator\documents\visual studio 2010\Projects\Rider\Rider\Bin\Debug\Images\maps\params.png" archivePath="Images\maps\params.png" lastWriteTime="05/05/2012 13:00:20" />
 </xapCache>

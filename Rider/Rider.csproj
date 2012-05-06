@@ -103,7 +103,8 @@
     <Compile Include="Maps\Mapnik.cs" />
     <Compile Include="Maps\OsmaRender.cs" />
     <Compile Include="Models\Coord.cs" />
-    <Compile Include="Models\Session.cs" />
+    <Compile Include="Models\Distance.cs" />
+    <Compile Include="ViewModels\SessionViewModel.cs" />
     <Compile Include="Persistent\Configuration.cs" />
     <Compile Include="Resources\AppResource.Designer.cs">
       <AutoGen>True</AutoGen>

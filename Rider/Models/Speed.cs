@@ -8,6 +8,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
+using Rider.Persistent;
 
 namespace Rider.Models
 {
@@ -18,5 +19,20 @@ namespace Rider.Models
             Km = 0,
             Mi = 1
         }
+
+        public static double MetersToUserSpeedUnit(double value)
+        {
+            Unit unit = UserData.Get<Speed.Unit>(UserData.UnitKey);
+            switch (unit)
+            {
+                case Unit.Km:
+                    return value * 3.6;
+                case Unit.Mi:
+                    return value * 2.23693629;
+                default:
+                    return value;
+            }
+        }
+
     }
 }

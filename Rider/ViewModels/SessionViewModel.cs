@@ -10,48 +10,98 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using System.Collections.Generic;
 using System.Linq;
+using Rider.Models;
+using Rider.Persistent;
 
-namespace Rider.Models
+namespace Rider.ViewModels
 {
-    public class Session
+    public class SessionViewModel
     {
         private DateTime startTime;
         private DateTime endTime;
         private double distance;
-        private int maxSpeed;
         private List<double> averageSpeeds;
         private List<Coord> coords;
         private int kcal;
 
-        public Session()
+        public SessionViewModel()
         {
             this.averageSpeeds = new List<double>();
             this.coords = new List<Coord>();
-            startTime = DateTime.Now;
         }
 
         #region properties
 
+        public string Sport
+        {
+            get
+            {
+                return "Roller";
+            }
+        }
+
+        public string SmartInfo
+        {
+            get
+            {
+                return "";
+            }
+        }
+
         public DateTime StartTime
         {
             get
-            { return this.startTime; }
+            { 
+                return this.startTime; 
+            }
+            set
+            {
+                this.startTime = value;
+            }
         }
 
         public DateTime EndTime
         {
             get
-            { return this.endTime; }
+            { 
+                return this.endTime; 
+            }
             set
             {
-                this.endTime = value == null ? DateTime.Now : value; 
+                this.endTime = value; 
+            }
+        }
+
+        public string DistanceFormated
+        {
+            get
+            {
+                return string.Format(" {0:0.0} {1}", Models.Distance.MetersToUserDataUnit(Distance), UserData.Get<Speed.Unit>(UserData.UnitKey).ToString()).Replace(',', '.');
+            }
+        }
+
+        public string AverageSpeedFormated
+        {
+            get
+            {
+                return string.Format("{0:0.0} {1}/h", Models.Speed.MetersToUserSpeedUnit(AverageSpeed), UserData.Get<Speed.Unit>(UserData.UnitKey).ToString()).Replace(',', '.');
+            }
+        }
+
+        public string FormatedSpentTime
+        {
+            get
+            {
+                return string.Format("{0:00}H{1:00}min{2:00}s", (int)SpentTime.TotalHours, SpentTime.Minutes, SpentTime.Seconds);
             }
         }
 
         public TimeSpan SpentTime
         {
             get
-            { return (this.endTime - this.startTime); }
+            {
+                return (this.endTime - this.startTime); 
+            }
         }
 
         public double Distance
@@ -103,7 +153,6 @@ namespace Rider.Models
         public void AddNewCoord(double latitude, double longitude)
         {
             this.coords.Add(new Coord(latitude, longitude));
-            // TODO : calculate distance with last coord and newCoord;
         }
 
         public void AddNewDistance(double dist)

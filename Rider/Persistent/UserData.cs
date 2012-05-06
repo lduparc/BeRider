@@ -26,6 +26,8 @@ namespace Rider.Persistent
         public static readonly string UnitKey = "UnitKey";
         public static readonly string WeightKey = "WeightKey";
         public static readonly string LocationToggleKey = "LocationKey";
+        public static readonly string UnitChanged = "OnUnitChanged";
+        public static readonly string ListSessionKey = "ListSessionKey";
 
         public static void Add<TEntity>(string key, TEntity entity)
         {

@@ -3,24 +3,13 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="clr-namespace:Rider.ViewModels" 
     PanoramaHomeTitle="Seance"
-    PanoramaNewsTitle="A la une"
-    PanoramaMapsTitle="On the road"
-    PanoramaGalleryTitle="L'instant T">
+    PanoramaHistoryTitle="Historique" >
 
-    <local:MainViewModel.Home>
-        <local:ItemViewModel Title="A la une" Identifier="2" Details="Toute l'info a portee de main" SmartInfo="" />
-        <local:ItemViewModel Title="On the road" Identifier="3" Details="Circuits et evenements en temps reel" SmartInfo=""/>
-        <local:ItemViewModel Title="L'instant T" Identifier="4" Details="Galerie photos pour ne rien oublier !" SmartInfo=""/>
-    </local:MainViewModel.Home>
-
-    <local:MainViewModel.Maps>
-        <local:ItemViewModel SmartInfo="Bientot disponible" Title="On Live" Identifier="0" Details="Maecenas praesent accumsan bibendum dictumst eleifend facilisi faucibus habitant inceptos interdum lobortis nascetur" />
-        <local:ItemViewModel SmartInfo="Bientot disponible" Title="Mes cartes" Identifier="1" Details="Maecenas praesent accumsan bibendum dictumst eleifend facilisi faucibus habitant inceptos interdum lobortis nascetur" />
-    </local:MainViewModel.Maps>
-
-    <local:MainViewModel.Gallery>
-        <local:ItemViewModel SmartInfo="Bientot disponible" Title="En ligne" Identifier="0" Details="Maecenas praesent accumsan bibendum dictumst eleifend facilisi faucibus habitant inceptos interdum lobortis nascetur" />
-        <local:ItemViewModel SmartInfo="Bientot disponible" Title="Mes photos" Identifier="1" Details="Maecenas praesent accumsan bibendum dictumst eleifend facilisi faucibus habitant inceptos interdum lobortis nascetur" />
-    </local:MainViewModel.Gallery>
+    <local:MainViewModel.Sessions>
+        <local:SessionViewModel Distance="199.9"  />
+        <local:SessionViewModel Distance="1.56"  />
+        <local:SessionViewModel Distance="1.56"  />
+        <local:SessionViewModel Distance="1.56"  />
+    </local:MainViewModel.Sessions>
 
 </local:MainViewModel>
