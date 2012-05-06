@@ -8,7 +8,9 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     xmlns:ts="clr-namespace:ScottIsAFool.Controls;assembly=TileSlider"
-    d:DataContext="{d:DesignData DesignData/MainViewModelData.xaml}" 
+     xmlns:toolbox="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"    
+    xmlns:toolkitPrimitives="clr-namespace:Microsoft.Phone.Controls.Primitives;assembly=Microsoft.Phone.Controls.Toolkit" 
+   d:DataContext="{d:DesignData DesignData/MainViewModelData.xaml}" 
     mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="696" 
     xmlns:local="clr-namespace:Rider.ViewModels"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
@@ -237,8 +239,8 @@
         <controls:Panorama x:Name="panorama" SelectionChanged="panorama_SelectionChanged">
             <controls:Panorama.Title>
                 <StackPanel x:Name="TitlePanel" Margin="0, 20, 0, 0" VerticalAlignment="Bottom" Orientation="Horizontal">
-                    <TextBlock FontSize="132" Margin="0, 0, 0, -20"  VerticalAlignment="Bottom" x:Name="ApplicationTitleFirst" Text="Be" />
-                    <TextBlock Height="212" VerticalAlignment="Bottom" Margin="0, 0, 0, 0" x:Name="ApplicationTitleSecond" Foreground="{StaticResource PhoneAccentBrush}" Text="Rider" />
+                    <TextBlock FontSize="132" Margin="0, 0, 0, -20"  VerticalAlignment="Bottom" x:Name="ApplicationTitleFirst" Text="{Binding LocalizedValue.ApplicationTitleFirst, Source={StaticResource LocalizedStrings}}" />
+                    <TextBlock Height="212" VerticalAlignment="Bottom" Margin="0, 0, 0, 0" x:Name="ApplicationTitleSecond" Foreground="{StaticResource PhoneAccentBrush}" Text="{Binding LocalizedValue.ApplicationTitleSecond, Source={StaticResource LocalizedStrings}}" />
                 </StackPanel>
             </controls:Panorama.Title>
 
@@ -302,17 +304,17 @@
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal" Margin="20,0,0,20">
-                                <ts:TileSlider 
-                                    Margin="0,0,0,0" 
-                                    TextSlidesFrom="Top" 
-                                    Size="150" Width="150"
-                                   Text="{Binding Sport}" 
-                                    Foreground="#FFFFFF"
-                                    LongText="{Binding SmartInfo}" 
-                                   TextStyle="{StaticResource PhoneTextLargeStyle}" 
+                                <toolbox:ContextMenuService.ContextMenu>
+                                    <toolbox:ContextMenu Name="HistoryContextMenu" IsEnabled="True">
+                                        <toolbox:MenuItem Header="{Binding LocalizedValue.HistoryHeaderShare, Source={StaticResource LocalizedStrings}}" Click="historyShareMenuAction_Click"/>
+                                        <toolbox:MenuItem Header="{Binding LocalizedValue.HistoryHeaderDelete, Source={StaticResource LocalizedStrings}}" Click="historyDeleteMenuAction_Click"/>
+                                    </toolbox:ContextMenu>
+                                </toolbox:ContextMenuService.ContextMenu>
+                                <ts:TileSlider TextSlidesFrom="Top" Size="150" Width="150"
+                                   Text="{Binding Sport}" Foreground="#FFFFFF"
+                                    LongText="{Binding SmartInfo}" TextStyle="{StaticResource PhoneTextLargeStyle}" 
                                    TileBackground="{StaticResource PhoneAccentBrush}"
-                                     ImageSource="/Rider;component/Images/panorama.jpg" 
-                                 Stretch="Fill" Style="{StaticResource TileSliderStyle}" Click="GoToPageLink"/>
+                                     ImageSource="/Rider;component/Images/panorama.jpg" Stretch="Fill" Style="{StaticResource TileSliderStyle}"/>
                                 <StackPanel Orientation="Vertical" Margin="15,0,0,0">
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock Text="Distance" FontSize="26" VerticalAlignment="Bottom" HorizontalAlignment="Left" />
@@ -328,8 +330,7 @@
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock Text="Calorie" TextWrapping="Wrap" FontSize="26" Margin="0, 0, 0, 0" VerticalAlignment="Bottom" HorizontalAlignment="Left" />
-                                        <TextBlock Text="{Binding KCal}"  TextWrapping="Wrap"  FontSize="26" Margin="10, 0, 0, 0" VerticalAlignment="Bottom" HorizontalAlignment="Left" />
-                                        <TextBlock Text="Kcal" Margin="3, 0, 0, 3" TextWrapping="Wrap"  VerticalAlignment="Bottom" HorizontalAlignment="Left" />
+                                        <TextBlock Text="{Binding KCal, StringFormat='\{0\} Kcal'}"  TextWrapping="Wrap"  FontSize="26" Margin="10, 0, 0, 0" VerticalAlignment="Bottom" HorizontalAlignment="Left" />
                                     </StackPanel>
                                     <TextBlock Text="{Binding StartTime, StringFormat='MM/dd/yyyy'}" VerticalAlignment="Bottom" HorizontalAlignment="Left" Foreground="{StaticResource PhoneAccentBrush}" />
                                 </StackPanel>

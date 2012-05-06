@@ -189,7 +189,7 @@ namespace Rider.Resources {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à be.
+        ///   Recherche une chaîne localisée semblable à Be.
         /// </summary>
         public static string ApplicationTitleFirst {
             get {
@@ -212,6 +212,24 @@ namespace Rider.Resources {
         public static string FeedBack {
             get {
                 return ResourceManager.GetString("FeedBack", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Supprimer.
+        /// </summary>
+        public static string HistoryHeaderDelete {
+            get {
+                return ResourceManager.GetString("HistoryHeaderDelete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Partager.
+        /// </summary>
+        public static string HistoryHeaderShare {
+            get {
+                return ResourceManager.GetString("HistoryHeaderShare", resourceCulture);
             }
         }
         
@@ -297,6 +315,15 @@ namespace Rider.Resources {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Charger une session.
+        /// </summary>
+        public static string SessionLoadAppBarTitle {
+            get {
+                return ResourceManager.GetString("SessionLoadAppBarTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à demarrer la session.
         /// </summary>
         public static string sessionStartAppBarTitle {
@@ -311,6 +338,15 @@ namespace Rider.Resources {
         public static string sessionStopAppBarTitle {
             get {
                 return ResourceManager.GetString("sessionStopAppBarTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Decharger la session.
+        /// </summary>
+        public static string SessionUnloadAppBarTitle {
+            get {
+                return ResourceManager.GetString("SessionUnloadAppBarTitle", resourceCulture);
             }
         }
         

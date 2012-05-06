@@ -77,7 +77,8 @@
             <shell:ApplicationBar.MenuItems>
                 <shell:ApplicationBarMenuItem Text="binding" Click="ApplicationBarMenuItemAbout_Click"/>
                 <shell:ApplicationBarMenuItem Text="binding" Click="ApplicationBarMenuItemSettings_Click"/>
-                <shell:ApplicationBarMenuItem Text="binding" Click="ApplicationBarMenuItemCapture_Click"/>
+                <shell:ApplicationBarMenuItem Text="binding" Click="ApplicationBarMenuItemLoadSession_Click"/>
+                <shell:ApplicationBarMenuItem Text="binding" Click="ApplicationBarMenuItemUnloadSession_Click"/>
             </shell:ApplicationBar.MenuItems>
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>

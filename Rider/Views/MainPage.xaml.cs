@@ -140,6 +140,15 @@ namespace Rider.Views
             }
         }
 
+        private void historyShareMenuAction_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void historyDeleteMenuAction_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 
 }

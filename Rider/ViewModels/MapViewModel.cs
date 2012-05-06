@@ -14,6 +14,7 @@ using System;
 using System.Windows.Controls;
 using System.Collections.ObjectModel;
 using Rider.Models;
+using Rider.Tracking;
 
 namespace Rider.ViewModels
 {
@@ -22,12 +23,14 @@ namespace Rider.ViewModels
         public static string PinLocationChanged = "PinLocationChanged";
 
         private Pushpin currentLocationPin = new Pushpin();
+        private MapPolyline mapPolyline = new MapPolyline();
         private Image arrowImage = new Image();
         private int defaultZoom = 15;
         private GeoCoordinate _mapCenter;
         private double _zoomLevel;
         private BaseTileSource _currentMap;
         private bool pinLocationLoaded;
+        private bool sessionPolylineLoaded;
 
         public MapViewModel()
         {
@@ -42,10 +45,22 @@ namespace Rider.ViewModels
             };
 
             ZoomLevel = defaultZoom;
+            mapPolyline.Stroke = new SolidColorBrush(Colors.Orange);
+            mapPolyline.StrokeThickness = 10;
             Messenger.Default.Register<GeoCoordinate>(this, Location.LocationService.locationChanged, newLocation => OnLocationChanged(newLocation));
+            Messenger.Default.Register<bool>(this, TrackingService.SessionStatusChanged, status => OnSessionStatusChanged(status));
         }
 
-        public void OnLocationChanged(GeoCoordinate newLocation)
+        private void OnSessionStatusChanged(bool status)
+        {
+            if (status)
+            {
+                if (mapPolyline.Locations != null)
+                    mapPolyline.Locations.Clear();
+            }
+        }
+
+        private void OnLocationChanged(GeoCoordinate newLocation)
         {
             // Initialize Pin if it's not already there.
             if (!pinLocationLoaded)
@@ -75,6 +90,12 @@ namespace Rider.ViewModels
             currentLocationPin.Location = newLocation;
             MapCenter = currentLocationPin.Location;
 
+            if (ViewModelController.TrackingService.IsRunning)
+            {
+                if (mapPolyline.Locations == null)
+                    mapPolyline.Locations = new LocationCollection();
+                mapPolyline.Locations.Add(new GeoCoordinate(newLocation.Latitude, newLocation.Longitude));
+            }
             Messenger.Default.Send(currentLocationPin, PinLocationChanged);
         }
 
@@ -88,6 +109,26 @@ namespace Rider.ViewModels
                 if (_mapCenter == value) return;
                 _mapCenter = value;
                 NotifyPropertyChanged("MapCenter");
+            }
+        }
+
+        public bool SessionPolylineLoaded
+        {
+            get
+            {
+                return this.sessionPolylineLoaded;
+            }
+            set
+            {
+                this.sessionPolylineLoaded = value;
+            }
+        }
+
+        public MapPolyline PolylineMapping
+        {
+            get
+            { 
+                return this.mapPolyline;
             }
         }
 

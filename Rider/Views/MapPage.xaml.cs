@@ -23,6 +23,8 @@ namespace Rider.Views
     public partial class MapPage : PhoneApplicationPage
     {
         private Pushpin currentLocationPin;
+        private MapPolyline mapPoly;
+        private MapPolyline sessionPolyline;
         private bool pinLocationLoaded;
         private bool lockMode;
 
@@ -58,13 +60,19 @@ namespace Rider.Views
 
             ApplicationBarMenuItem aboutButton = ApplicationBar.MenuItems[0] as ApplicationBarMenuItem;
             ApplicationBarMenuItem settingsButton = ApplicationBar.MenuItems[1] as ApplicationBarMenuItem;
-            ApplicationBarMenuItem photoButton = ApplicationBar.MenuItems[2] as ApplicationBarMenuItem;
+            ApplicationBarMenuItem loadSessionButton = ApplicationBar.MenuItems[2] as ApplicationBarMenuItem;
             if (aboutButton != null)
                 aboutButton.Text = AppResource.ResourceManager.GetString("AboutAppBarTitle");
             if (settingsButton != null)
                 settingsButton.Text = AppResource.ResourceManager.GetString("SettingsAppBarTitle");
-            if (photoButton != null)
-                photoButton.Text = AppResource.ResourceManager.GetString("PhotosAppBarTitle");
+            if (loadSessionButton != null)
+                loadSessionButton.Text = AppResource.ResourceManager.GetString("SessionLoadAppBarTitle");
+            ApplicationBarMenuItem unloadSessionButton = ApplicationBar.MenuItems[3] as ApplicationBarMenuItem;
+            if (unloadSessionButton != null)
+            {
+                unloadSessionButton.IsEnabled = ViewModelController.MapViewModel.SessionPolylineLoaded;
+                unloadSessionButton.Text = AppResource.ResourceManager.GetString("SessionUnloadAppBarTitle");
+            }
         }
 
         private void PhoneApplicationPage_Loaded(object sender, RoutedEventArgs e)
@@ -75,32 +83,35 @@ namespace Rider.Views
         private void PhoneApplicationPage_Unloaded(object sender, RoutedEventArgs e)
         {
             Messenger.Default.Unregister<Pushpin>(this);
-            if (Map.Children.Contains(currentLocationPin))
-                Map.Children.Remove(currentLocationPin);
-            pinLocationLoaded = false;
-            currentLocationPin = null;
+            CleanOverlays();
         }
 
         #endregion
+
+        private void CleanOverlays()
+        {
+            Map.Children.Clear();
+            //if (mapPoly != null && !Map.Children.Contains(mapPoly))
+            //    Map.Children.Remove(mapPoly);
+            //if (currentLocationPin != null && Map.Children.Contains(currentLocationPin))
+            //    Map.Children.Remove(currentLocationPin);
+            pinLocationLoaded = false;
+            currentLocationPin = null;
+            mapPoly = null;
+        }
 
         #region AppBarAction
 
         private void previous_Click(object sender, EventArgs e)
         {
+            CleanOverlays();
             ViewModelController.MapViewModel.ShowPreviousMap();
-            if (Map.Children.Contains(currentLocationPin))
-                Map.Children.Remove(currentLocationPin);
-            pinLocationLoaded = false;
-            currentLocationPin = null;
         }
 
         private void next_Click(object sender, EventArgs e)
         {
+            CleanOverlays();
             ViewModelController.MapViewModel.ShowNextMap();
-            if (Map.Children.Contains(currentLocationPin))
-                Map.Children.Remove(currentLocationPin);
-            pinLocationLoaded = false;
-            currentLocationPin = null;
         }
 
         private void locker_Click(object sender, EventArgs e)
@@ -140,16 +151,54 @@ namespace Rider.Views
             NavigationService.Navigate(new Uri("/Views/About.xaml", UriKind.Relative));
         }
 
+        private void ApplicationBarMenuItemLoadSession_Click(object sender, EventArgs e)
+        {
+            if (ViewModelController.MainViewModel.Sessions.Count > 0)
+            {
+                if (sessionPolyline == null)
+                {
+                    sessionPolyline = new MapPolyline();
+                    sessionPolyline.Stroke = new SolidColorBrush(Colors.Red);
+                    sessionPolyline.StrokeThickness = 10;
+                }
+
+                LocationCollection collec = ViewModelController.TrackingService.currentSession.Coords;
+
+                sessionPolyline.Locations = collec;
+                if (!Map.Children.Contains(sessionPolyline))
+                    Map.Children.Add(sessionPolyline);
+                ViewModelController.MapViewModel.SessionPolylineLoaded = true;
+                ApplicationBarMenuItem unloadSessionButton = ApplicationBar.MenuItems[3] as ApplicationBarMenuItem;
+                if (unloadSessionButton != null)
+                    unloadSessionButton.IsEnabled = true;
+            }
+        }
+
+        private void ApplicationBarMenuItemUnloadSession_Click(object sender, EventArgs e)
+        {
+            if (Map.Children.Contains(sessionPolyline))
+                Map.Children.Remove(sessionPolyline);
+            ViewModelController.MapViewModel.SessionPolylineLoaded = false;
+            ApplicationBarMenuItem unloadSessionButton = ApplicationBar.MenuItems[3] as ApplicationBarMenuItem;
+            if (unloadSessionButton != null)
+                unloadSessionButton.IsEnabled = false;
+        }
+
+
         #endregion
 
         private void OnPinLocationChanged(Pushpin pin)
         {
             if ((int)pin.Tag == -1)
             {
-                currentLocationPin = pin;
-
+                if (currentLocationPin == null)
+                    currentLocationPin = pin;
+                if (mapPoly == null)
+                    mapPoly = (this.DataContext as MapViewModel).PolylineMapping;
                 if (!pinLocationLoaded)
                 {
+                    if (!Map.Children.Contains(mapPoly))
+                        Map.Children.Add(mapPoly);
                     if (!Map.Children.Contains(currentLocationPin))
                         Map.Children.Add(currentLocationPin);
                     pinLocationLoaded = true;
@@ -159,5 +208,6 @@ namespace Rider.Views
             }
 
         }
+
     }
 }

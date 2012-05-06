@@ -12,6 +12,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Rider.Models;
 using Rider.Persistent;
+using Microsoft.Phone.Controls.Maps;
+using System.Device.Location;
 
 namespace Rider.ViewModels
 {
@@ -20,17 +22,23 @@ namespace Rider.ViewModels
         private DateTime startTime;
         private DateTime endTime;
         private double distance;
-        private List<double> averageSpeeds;
-        private List<Coord> coords;
+        private List<double> AverageSpeeds {get; set;}
+        private LocationCollection coords;
         private int kcal;
 
         public SessionViewModel()
         {
-            this.averageSpeeds = new List<double>();
-            this.coords = new List<Coord>();
         }
 
         #region properties
+
+        public LocationCollection Coords
+        {
+            get
+            {
+                return this.coords;
+            }
+        }
 
         public string Sport
         {
@@ -122,7 +130,7 @@ namespace Rider.ViewModels
         {
             get
             {
-                return this.averageSpeeds.Count > 0 ? this.averageSpeeds.Max() : 0; 
+                return (this.AverageSpeeds != null && this.AverageSpeeds.Count > 0) ? this.AverageSpeeds.Max() : 0; 
             }
         }
 
@@ -130,7 +138,9 @@ namespace Rider.ViewModels
         {
             get 
             {
-                return this.averageSpeeds.Count > 0 ? this.averageSpeeds.Average() : 0;
+                if (this.AverageSpeeds == null)
+                    this.AverageSpeeds = new List<double>();
+                return this.AverageSpeeds.Count > 0 ? this.AverageSpeeds.Average() : 0;
             }
         }
 
@@ -147,12 +157,16 @@ namespace Rider.ViewModels
 
         public void AddNewSpeed(double speed)
         {
-            this.averageSpeeds.Add(speed);
+            if (this.AverageSpeeds == null)
+                this.AverageSpeeds = new List<double>();
+            this.AverageSpeeds.Add(speed);
         }
 
         public void AddNewCoord(double latitude, double longitude)
         {
-            this.coords.Add(new Coord(latitude, longitude));
+            if (this.coords == null)
+                this.coords = new LocationCollection();
+            this.coords.Add(new GeoCoordinate(latitude, longitude));
         }
 
         public void AddNewDistance(double dist)

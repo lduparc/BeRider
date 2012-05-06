@@ -162,7 +162,7 @@ IOS - Android - Windows Phone 7</value>
     <value>BeRider</value>
   </data>
   <data name="ApplicationTitleFirst" xml:space="preserve">
-    <value>be</value>
+    <value>Be</value>
   </data>
   <data name="ApplicationTitleSecond" xml:space="preserve">
     <value>Rider</value>
@@ -232,5 +232,17 @@ IOS - Android - Windows Phone 7</value>
   </data>
   <data name="PanoramaHomeTitle" xml:space="preserve">
     <value>Seance</value>
+  </data>
+  <data name="HistoryHeaderDelete" xml:space="preserve">
+    <value>Supprimer</value>
+  </data>
+  <data name="HistoryHeaderShare" xml:space="preserve">
+    <value>Partager</value>
+  </data>
+  <data name="SessionLoadAppBarTitle" xml:space="preserve">
+    <value>Charger une session</value>
+  </data>
+  <data name="SessionUnloadAppBarTitle" xml:space="preserve">
+    <value>Decharger la session</value>
   </data>
 </root>

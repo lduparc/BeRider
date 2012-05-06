@@ -27,7 +27,7 @@ namespace Rider.Tracking
 
         private bool isRunnig;
         private static TrackingService instance;
-        private SessionViewModel currentSession;
+        public SessionViewModel currentSession;
         private GeoCoordinate lastLocation;
         private DispatcherTimer timer;
 
