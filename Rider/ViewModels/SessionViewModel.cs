@@ -29,6 +29,7 @@ namespace Rider.ViewModels
         public static readonly string MAX_SPEED_COLUMN_NAME = "max_speed";
         public static readonly string KCAL_COLUMN_NAME = "kcal";
         public static readonly string SPORT_COLUMN_NAME = "sport";
+        public static readonly string DATE_COLUMN_NAME = "date";
 
         private DateTime startTime;
         private DateTime endTime;
@@ -36,12 +37,14 @@ namespace Rider.ViewModels
         public List<double> AverageSpeeds { get; set; }
         private double averageSpeed;
         private LocationCollection coords;
+        private string identifier;
         private int kcal;
         private string title = "Session #1";
         private string details = "some description";
         private int sport;
         private double maxSpeed;
         private string duration;
+        private string dateHistory;
 
         public SessionViewModel()
         {
@@ -49,8 +52,15 @@ namespace Rider.ViewModels
 
         #region properties
 
-        public int Identifer
-        { get; set; }
+        public string Identifer
+        {
+            get
+            { return this.identifier; }
+            set
+            {
+                this.identifier = value;
+            }
+        }
 
         public LocationCollection Coords
         {
@@ -164,6 +174,18 @@ namespace Rider.ViewModels
             }
         }
 
+        public string DateHistory
+        {
+            get
+            {
+                return this.dateHistory;
+            }
+            set
+            {
+                this.dateHistory = value;
+            }
+        }
+
         public double Distance
         {
             get
@@ -202,7 +224,7 @@ namespace Rider.ViewModels
         {
             get
             {
-                return Speed.MetersToUserSpeedUnit(this.averageSpeed);
+                return this.averageSpeed;
             }
             set
             {

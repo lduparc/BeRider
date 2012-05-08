@@ -190,6 +190,11 @@ namespace Rider.ViewModels
 
         #region actions
 
+        public void RefreshCurrentMap()
+        {
+            NotifyPropertyChanged("AvailableMapSources");
+        }
+
         public void ShowNextMap()
         {
             var newIdx = AvailableMapSources.IndexOf(CurrentMap) + 1;

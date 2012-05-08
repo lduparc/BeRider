@@ -21,6 +21,7 @@ using Rider.Utils;
 using Rider.ViewModels;
 using Rider.Models;
 using Rider.Location;
+using Microsoft.Phone.Controls.Maps;
 
 namespace Rider.Utils
 {
@@ -43,6 +44,7 @@ namespace Rider.Utils
         private static string maxSpeedSessionColumn;
         private static string kcalSessionColumn;
         private static string sportSessionColumn;
+        private static string dateSessionColumn;
 
         private static string idSessionLocationColumn;
         private static string latLocationColumn;
@@ -87,6 +89,7 @@ namespace Rider.Utils
                 idSessionLocationColumn = string.Format("@{0}", LocationService.SESSION_ID_COLUMN_NAME);
                 latLocationColumn = string.Format("@{0}", LocationService.LAT_COLUMN_NAME);
                 lngLocationColumn = string.Format("@{0}", LocationService.LNG_COLUMN_NAME);
+                dateSessionColumn = string.Format("@{0}", SessionViewModel.DATE_COLUMN_NAME);
 
                 cmd = database.CreateCommand();
                 cmd.Parameters.Add(idSessionColumn, null);
@@ -101,6 +104,7 @@ namespace Rider.Utils
                 cmd.Parameters.Add(idSessionLocationColumn, null);
                 cmd.Parameters.Add(latLocationColumn, null);
                 cmd.Parameters.Add(lngLocationColumn, null);
+                cmd.Parameters.Add(dateSessionColumn, null);
             }
         }
 
@@ -209,7 +213,7 @@ namespace Rider.Utils
             bool success = false;
             try
             {
-                cmd.CommandText = string.Format("INSERT INTO {0} ({1}, {2}, {3}, {4}, {5}, {6}, {7}, {8}, {9}) VALUES (@{1}, @{2}, @{3}, @{4}, @{5}, @{6}, @{7}, @{8}, @{9});",
+                cmd.CommandText = string.Format("INSERT INTO {0} ({1}, {2}, {3}, {4}, {5}, {6}, {7}, {8}, {9}, {10}) VALUES (@{1}, @{2}, @{3}, @{4}, @{5}, @{6}, @{7}, @{8}, @{9}, @{10});",
                     SessionViewModel.TABLE_NAME,
                     SessionViewModel.ID_COLUMN_NAME,
                     SessionViewModel.TITLE_COLUMN_NAME,
@@ -219,9 +223,10 @@ namespace Rider.Utils
                     SessionViewModel.AVERAGE_SPEED_COLUMN_NAME,
                     SessionViewModel.KCAL_COLUMN_NAME,
                     SessionViewModel.SPORT_COLUMN_NAME,
-                    SessionViewModel.MAX_SPEED_COLUMN_NAME
+                    SessionViewModel.MAX_SPEED_COLUMN_NAME,
+                    SessionViewModel.DATE_COLUMN_NAME
                 );
-                cmd.Parameters[idSessionColumn].Value = (int)content[SessionViewModel.ID_COLUMN_NAME];
+                cmd.Parameters[idSessionColumn].Value = (string)content[SessionViewModel.ID_COLUMN_NAME];
                 cmd.Parameters[titleSessionColumn].Value = (string)content[SessionViewModel.TITLE_COLUMN_NAME];
                 cmd.Parameters[detailsSessionColumn].Value = (string)content[SessionViewModel.DETAILS_COLUMN_NAME];
                 cmd.Parameters[distanceSessionColumn].Value = (double)content[SessionViewModel.DISTANCE_COLUMN_NAME];
@@ -230,6 +235,7 @@ namespace Rider.Utils
                 cmd.Parameters[kcalSessionColumn].Value = (int)content[SessionViewModel.KCAL_COLUMN_NAME];
                 cmd.Parameters[sportSessionColumn].Value = (int)content[SessionViewModel.SPORT_COLUMN_NAME];
                 cmd.Parameters[maxSpeedSessionColumn].Value = (double)content[SessionViewModel.MAX_SPEED_COLUMN_NAME];
+                cmd.Parameters[dateSessionColumn].Value = (string)content[SessionViewModel.DATE_COLUMN_NAME];
 
                 success = cmd.ExecuteNonQuery() == 1;
             }
@@ -253,7 +259,7 @@ namespace Rider.Utils
                     LocationService.LAT_COLUMN_NAME,
                     LocationService.LNG_COLUMN_NAME
                 );
-                cmd.Parameters[idSessionLocationColumn].Value = (int)content[LocationService.SESSION_ID_COLUMN_NAME];
+                cmd.Parameters[idSessionLocationColumn].Value = (string)content[LocationService.SESSION_ID_COLUMN_NAME];
                 cmd.Parameters[latLocationColumn].Value = (double)content[LocationService.LAT_COLUMN_NAME];
                 cmd.Parameters[lngLocationColumn].Value = (double)content[LocationService.LNG_COLUMN_NAME];
 
@@ -268,7 +274,7 @@ namespace Rider.Utils
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public bool DeleteWithIdentifier(string tableName, int id)
+        public bool DeleteWithIdentifier(string tableName, string id)
         {
             if (!IsOpen) Open();
 
@@ -287,7 +293,7 @@ namespace Rider.Utils
 
                 cmd.Parameters["@" + idColumn].Value = id;
 
-                success = cmd.ExecuteNonQuery() == 1;
+                success = cmd.ExecuteNonQuery() >= 1;
                 if (isLocations) return success;
 
                 return success && DeleteWithIdentifier(LocationService.TABLE_NAME, id);
@@ -311,16 +317,16 @@ namespace Rider.Utils
 
             if (!IsOpen) Open();
 
-
             cmd.CommandText = string.Format("SELECT {0}.* FROM {0} WHERE 1;", SessionViewModel.TABLE_NAME);
 
             int idColumnIndex = 0;
             int titleColumnIndex = 1;
             int detailsColumnIndex = 2;
             int durationColumnIndex = 4;
-            int maxColumnIndex = 6;
-            int kcalColumnIndex = 7;
-            int sportColumnIndex = 8;
+            int dateColumnIndex = 5;
+            int maxColumnIndex = 7;
+            int kcalColumnIndex = 8;
+            int sportColumnIndex = 9;
 
             try
             {
@@ -329,11 +335,12 @@ namespace Rider.Utils
                     while (reader != null && reader.Read())
                     {
                         SessionViewModel session = new SessionViewModel();
-                        session.Identifer = reader.GetInt32(idColumnIndex);
+                        session.Identifer = reader.GetString(idColumnIndex);
                         session.Title = reader.GetString(titleColumnIndex);
                         session.Details = reader.GetString(detailsColumnIndex);
                         session.Distance = (double)reader[SessionViewModel.DISTANCE_COLUMN_NAME];
                         session.DurationHistory = reader.GetString(durationColumnIndex);
+                        session.DateHistory = reader.GetString(dateColumnIndex);
                         session.AverageSpeedHistory = (double)reader[SessionViewModel.AVERAGE_SPEED_COLUMN_NAME];
                         session.MaxSpeed = reader.GetInt32(maxColumnIndex);
                         session.KCal = reader.GetInt32(kcalColumnIndex);
@@ -354,6 +361,45 @@ namespace Rider.Utils
 
             DebugUtils.Log(TAG, string.Format("Find {0} session in database", sessions.Count));
             Computing = false;
+        }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
+        public void FindClosestCoordForSessionId(string id, LocationCollection coords)
+        {
+            Computing = true;
+
+            if (!IsOpen) Open();
+
+            cmd.CommandText = string.Format("SELECT {0}.* FROM {0} WHERE {1} = {2};", LocationService.TABLE_NAME, LocationService.SESSION_ID_COLUMN_NAME, id);
+
+            int latColumnIndex = 2;
+            int lngColumnIndex = 3;
+
+            try
+            {
+                using (SqliteDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader != null && reader.Read())
+                    {
+                        GeoCoordinate coord = new GeoCoordinate();
+                        coord.Latitude = (double)reader[latColumnIndex];
+                        coord.Longitude = (double)reader[lngColumnIndex];
+                        coords.Add(coord);
+                    }
+                }
+            }
+            catch (SqliteSyntaxException e)
+            {
+                DebugUtils.Log(TAG, "SqliteSyntaxException e:[" + e.Message + "]");
+            }
+            catch (SqliteExecutionException e)
+            {
+                DebugUtils.Log(TAG, "SqliteExecutionException e:[" + e.Message + "]");
+            }
+
+            DebugUtils.Log(TAG, string.Format("Find {0} coord in database", coords.Count));
+            Computing = false;
+        
         }
 
         #endregion

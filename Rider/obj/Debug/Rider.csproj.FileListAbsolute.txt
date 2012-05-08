@@ -48,3 +48,4 @@ C:\Users\Administrator\documents\visual studio 2010\Projects\Rider\Rider\obj\Deb
 C:\Users\Administrator\documents\visual studio 2010\Projects\Rider\Rider\Bin\Debug\System.Data.Services.Client.dll
 C:\Users\Administrator\Documents\Visual Studio 2010\Projects\Rider\Rider\Bin\Debug\Community.CsharpSqlite.SqlLiteClient.WP7.dll
 C:\Users\Administrator\Documents\Visual Studio 2010\Projects\Rider\Rider\Bin\Debug\Community.CsharpSqlite.WP7.dll
+C:\Users\Administrator\documents\visual studio 2010\Projects\Rider\Rider\obj\Debug\Views\SessionsPageSelection.g.i.cs

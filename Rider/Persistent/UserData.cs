@@ -31,6 +31,7 @@ namespace Rider.Persistent
         public static readonly string SessionIndexKey = "SessonIndexKey";
         public static readonly string AlreadyLaunchedKey = "AlreadyLaunchedKey";
         public static readonly string ShowWizardKey = "ShowWizardKey";
+        public static readonly string SessionSelectedIndexKey = "SessionSelectedIndexKey";
 
         public static void Add<TEntity>(string key, TEntity entity)
         {

@@ -275,4 +275,16 @@ IOS - Android - Windows Phone 7</value>
   <data name="LocationServiceTitle" xml:space="preserve">
     <value>Service de localisation</value>
   </data>
+  <data name="SessionSelectionSubTitle" xml:space="preserve">
+    <value>Charger un itineraire</value>
+  </data>
+  <data name="SessionSelectionTitle" xml:space="preserve">
+    <value>Mes sessions</value>
+  </data>
+  <data name="LoadingSessions" xml:space="preserve">
+    <value>Chargement des session en cours ...</value>
+  </data>
+  <data name="SaveSession" xml:space="preserve">
+    <value>Sauvegarde de la session en cours ...</value>
+  </data>
 </root>

@@ -233,6 +233,13 @@
         </Style>
     </phone:PhoneApplicationPage.Resources>
 
+    <shell:SystemTray.ProgressIndicator>
+        <shell:ProgressIndicator x:Name="shellProgress" 
+                                 IsIndeterminate="True" 
+                                 IsVisible="False" 
+                                 Text="" />
+    </shell:SystemTray.ProgressIndicator>
+
     <!--LayoutRoot est la grille racine où tout le contenu de la page est placé-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
 
@@ -293,7 +300,7 @@
                         </StackPanel>
                     </StackPanel>
 
-                    <Button Click="Session_Click" Content="" x:Name="sessionButton" Grid.Row="3" Margin="58,10,14,0"  HorizontalAlignment="Center" VerticalAlignment="Top" Width="363" />
+                    <Button toolbox:TiltEffect.IsTiltEnabled="True" Click="Session_Click" Content="" x:Name="sessionButton" Grid.Row="3" Margin="58,10,14,0"  HorizontalAlignment="Center" VerticalAlignment="Top" Width="363" />
 
                 </Grid>
             </controls:PanoramaItem>
@@ -324,7 +331,7 @@
                 <ListBox Margin="0,0,0,0" ItemsSource="{Binding Sessions}"  >
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <StackPanel Orientation="Horizontal" Margin="20,0,0,20">
+                            <StackPanel toolbox:TiltEffect.IsTiltEnabled="True" Orientation="Horizontal" Margin="20,0,0,20">
                                 <toolbox:ContextMenuService.ContextMenu>
                                     <toolbox:ContextMenu Name="HistoryContextMenu" IsEnabled="True">
                                         <toolbox:MenuItem Header="{Binding LocalizedValue.HistoryHeaderShare, Source={StaticResource LocalizedStrings}}" 
@@ -358,7 +365,7 @@
                                         <TextBlock Text="Calorie" TextWrapping="Wrap" FontSize="26" Margin="0, 0, 0, 0" VerticalAlignment="Bottom" HorizontalAlignment="Left" />
                                         <TextBlock Text="{Binding KCal, StringFormat='\{0\} Kcal'}"  TextWrapping="Wrap"  FontSize="26" Margin="10, 0, 0, 0" VerticalAlignment="Bottom" HorizontalAlignment="Left" />
                                     </StackPanel>
-                                    <TextBlock Text="{Binding StartTime, StringFormat='MM/dd/yyyy'}" VerticalAlignment="Bottom" HorizontalAlignment="Left" Foreground="{StaticResource PhoneAccentBrush}" />
+                                    <TextBlock Text="{Binding DateHistory}" VerticalAlignment="Bottom" HorizontalAlignment="Left" Foreground="{StaticResource PhoneAccentBrush}" />
                                 </StackPanel>
                             </StackPanel>
                         </DataTemplate>
@@ -421,59 +428,6 @@
                     </ListBox>
             </controls:PanoramaItem>
 
-            <controls:PanoramaItem Header="{Binding PanoramaMapsTitle}" Width="446" >
-                <ListBox Margin="0,0,0,0" ItemsSource="{Binding Maps}"  >
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel Orientation="Horizontal" Margin="0,0,0,17" Width="442">
-                                <ts:TileSlider 
-                                    Margin="12,60,9,0" 
-                                    TextSlidesFrom="Top" 
-                                    Size="173" Width="173"
-                                   Text="{Binding Title}" 
-                                    Foreground="#FFFFFF"
-                                    LongText="{Binding SmartInfo}" 
-                                   TextStyle="{StaticResource PhoneTextLargeStyle}" 
-                                   TileBackground="YellowGreen" Tag="{Binding Link}" Click="GoToPageLink"
-                                    ImageSource="/Rider;component/Images/panorama.jpg" 
-                                  Stretch="Fill" Style="{StaticResource TileSliderStyle}" HorizontalAlignment="Center" FontWeight="Normal"/>
-                                <StackPanel Width="311">
-                                    <HyperlinkButton Tag="{Binding Link}" Content="{Binding Title}" VerticalAlignment="Center" HorizontalAlignment="Left" BorderThickness="0" FontSize="48" 
-                                                     Style="{StaticResource HyperlinkButtonStyle}" Click="GoToPageLink"/>
-                                    <TextBlock Text="{Binding Details}" TextWrapping="Wrap" Margin="12,-6,67,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
-                                </StackPanel>
-                            </StackPanel>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
-
-            </controls:PanoramaItem>
-
-            <controls:PanoramaItem Header="{Binding PanoramaGalleryTitle}" Width="446">
-                <ListBox Margin="0,0,0,0" ItemsSource="{Binding Gallery}"  >
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel Orientation="Horizontal" Margin="0,0,0,17">
-                                <ts:TileSlider 
-                                    Margin="12,60,9,0"
-                                    TextSlidesFrom="Top"
-                                    Size="173" Width="173"
-                                   Text="{Binding Title}" 
-                                    Foreground="#FFFFFF"
-                                    LongText="{Binding SmartInfo}" 
-                                   TextStyle="{StaticResource PhoneTextLargeStyle}" 
-                                   TileBackground="Crimson" 
-                                   ImageSource="/Rider;component/Images/panorama.jpg" 
-                                   Stretch="Fill" Style="{StaticResource TileSliderStyle}"/>
-                                <StackPanel Width="310">
-                                    <HyperlinkButton Content="{Binding Title}" VerticalAlignment="Center" HorizontalAlignment="Left" BorderThickness="0" FontSize="48" Style="{StaticResource HyperlinkButtonStyle}"/>
-                                    <TextBlock Text="{Binding Details}" TextWrapping="Wrap" Margin="12,-6,90,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
-                                </StackPanel>
-                            </StackPanel>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
-            </controls:PanoramaItem>
 
         </controls:Panorama>-->
 

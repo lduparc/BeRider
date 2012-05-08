@@ -60,16 +60,16 @@ namespace Rider.Views
             if (nextModeButton != null)
                 nextModeButton.Text = AppResource.ResourceManager.GetString("NextMapTileAppBarTitle");
 
-            ApplicationBarMenuItem aboutButton = ApplicationBar.MenuItems[0] as ApplicationBarMenuItem;
-            ApplicationBarMenuItem settingsButton = ApplicationBar.MenuItems[1] as ApplicationBarMenuItem;
-            ApplicationBarMenuItem loadSessionButton = ApplicationBar.MenuItems[2] as ApplicationBarMenuItem;
+            ApplicationBarMenuItem aboutButton = ApplicationBar.MenuItems[3] as ApplicationBarMenuItem;
+            ApplicationBarMenuItem settingsButton = ApplicationBar.MenuItems[2] as ApplicationBarMenuItem;
+            ApplicationBarMenuItem loadSessionButton = ApplicationBar.MenuItems[0] as ApplicationBarMenuItem;
             if (aboutButton != null)
                 aboutButton.Text = AppResource.ResourceManager.GetString("AboutAppBarTitle");
             if (settingsButton != null)
                 settingsButton.Text = AppResource.ResourceManager.GetString("SettingsAppBarTitle");
             if (loadSessionButton != null)
                 loadSessionButton.Text = AppResource.ResourceManager.GetString("SessionLoadAppBarTitle");
-            ApplicationBarMenuItem unloadSessionButton = ApplicationBar.MenuItems[3] as ApplicationBarMenuItem;
+            ApplicationBarMenuItem unloadSessionButton = ApplicationBar.MenuItems[1] as ApplicationBarMenuItem;
             if (unloadSessionButton != null)
             {
                 unloadSessionButton.IsEnabled = ViewModelController.MapViewModel.SessionPolylineLoaded;
@@ -79,6 +79,7 @@ namespace Rider.Views
 
         private void PhoneApplicationPage_Loaded(object sender, RoutedEventArgs e)
         {
+            //ViewModelController.MapViewModel.RefreshCurrentMap();
             Messenger.Default.Register<Pushpin>(this, MapViewModel.PinLocationChanged, pin => OnPinLocationChanged(pin));
 
             if (!UserData.Get<bool>(UserData.LocationToggleKey))
@@ -89,6 +90,8 @@ namespace Rider.Views
                 string cancel = AppResource.ResourceManager.GetString("LocationServiceRefuse");
                 Guide.BeginShowMessageBox(title, content, new string[] { accept, cancel }, 0, MessageBoxIcon.Alert, MessageBoxAcceptLocationService, null);
             }
+
+            LoadSession(UserData.Get<int>(UserData.SessionSelectedIndexKey));
         }
 
         private void PhoneApplicationPage_Unloaded(object sender, RoutedEventArgs e)
@@ -136,10 +139,32 @@ namespace Rider.Views
             lockMode = !lockMode;
         }
 
+        private void LoadSession(int sessionIndex)
+        {
+            if (sessionIndex > -1 && ViewModelController.Sessions.Count > sessionIndex && ViewModelController.Sessions[sessionIndex] != null)
+            {
+                if (sessionPolyline == null)
+                {
+                    sessionPolyline = new MapPolyline();
+                    sessionPolyline.Stroke = new SolidColorBrush(Colors.Red);
+                    sessionPolyline.StrokeThickness = 10;
+                }
+
+                LocationCollection collec = new LocationCollection();
+                App.database.FindClosestCoordForSessionId(ViewModelController.Sessions[sessionIndex].Identifer, collec);
+
+                sessionPolyline.Locations = collec;
+                if (!Map.Children.Contains(sessionPolyline)) Map.Children.Insert(0, sessionPolyline);
+                ViewModelController.MapViewModel.SessionPolylineLoaded = true;
+                ApplicationBarMenuItem unloadSessionButton = ApplicationBar.MenuItems[1] as ApplicationBarMenuItem;
+                if (unloadSessionButton != null) unloadSessionButton.IsEnabled = true;
+            }
+        }
+
         private void session_Click(object sender, EventArgs e)
         {
             bool isStarted = ViewModelController.TrackingService.IsRunning;
-            ApplicationBarIconButton sessionButton = ApplicationBar.Buttons[2] as ApplicationBarIconButton;
+            ApplicationBarIconButton sessionButton = ApplicationBar.Buttons[0] as ApplicationBarIconButton;
 
             if (isStarted)
             {
@@ -169,33 +194,17 @@ namespace Rider.Views
 
         private void ApplicationBarMenuItemLoadSession_Click(object sender, EventArgs e)
         {
-            if (ViewModelController.MainViewModel.Sessions.Count > 0)
-            {
-                if (sessionPolyline == null)
-                {
-                    sessionPolyline = new MapPolyline();
-                    sessionPolyline.Stroke = new SolidColorBrush(Colors.Red);
-                    sessionPolyline.StrokeThickness = 10;
-                }
-
-                LocationCollection collec = ViewModelController.TrackingService.currentSession.Coords;
-
-                sessionPolyline.Locations = collec;
-                if (!Map.Children.Contains(sessionPolyline))
-                    Map.Children.Add(sessionPolyline);
-                ViewModelController.MapViewModel.SessionPolylineLoaded = true;
-                ApplicationBarMenuItem unloadSessionButton = ApplicationBar.MenuItems[3] as ApplicationBarMenuItem;
-                if (unloadSessionButton != null)
-                    unloadSessionButton.IsEnabled = true;
-            }
+            NavigationService.Navigate(new Uri("/Views/SessionsPageSelection.xaml", UriKind.Relative));
         }
 
         private void ApplicationBarMenuItemUnloadSession_Click(object sender, EventArgs e)
         {
+            UserData.Add<int>(UserData.SessionSelectedIndexKey, -1);
             if (Map.Children.Contains(sessionPolyline))
                 Map.Children.Remove(sessionPolyline);
+            sessionPolyline = null;
             ViewModelController.MapViewModel.SessionPolylineLoaded = false;
-            ApplicationBarMenuItem unloadSessionButton = ApplicationBar.MenuItems[3] as ApplicationBarMenuItem;
+            ApplicationBarMenuItem unloadSessionButton = ApplicationBar.MenuItems[1] as ApplicationBarMenuItem;
             if (unloadSessionButton != null)
                 unloadSessionButton.IsEnabled = false;
         }
@@ -213,6 +222,8 @@ namespace Rider.Views
                     mapPoly = (this.DataContext as MapViewModel).PolylineMapping;
                 if (!pinLocationLoaded)
                 {
+                    if (sessionPolyline != null && !Map.Children.Contains(sessionPolyline))
+                        Map.Children.Add(sessionPolyline);
                     if (!Map.Children.Contains(mapPoly))
                         Map.Children.Add(mapPoly);
                     if (!Map.Children.Contains(currentLocationPin))

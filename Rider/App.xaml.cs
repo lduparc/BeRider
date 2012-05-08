@@ -78,6 +78,7 @@ namespace Rider
             if (UserData.Get<bool>(UserData.LocationToggleKey))
                 ViewModelController.StartLocationService();
 
+            UserData.Add<int>(UserData.SessionSelectedIndexKey, -1);
         }
 
         private void Application_Activated(object sender, ActivatedEventArgs e)

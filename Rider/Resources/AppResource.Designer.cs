@@ -252,6 +252,15 @@ namespace Rider.Resources {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Chargement des session en cours ....
+        /// </summary>
+        public static string LoadingSessions {
+            get {
+                return ResourceManager.GetString("LoadingSessions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à acceder.
         /// </summary>
         public static string LocationServiceAccept {
@@ -387,11 +396,38 @@ namespace Rider.Resources {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Sauvegarde de la session en cours ....
+        /// </summary>
+        public static string SaveSession {
+            get {
+                return ResourceManager.GetString("SaveSession", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Charger une session.
         /// </summary>
         public static string SessionLoadAppBarTitle {
             get {
                 return ResourceManager.GetString("SessionLoadAppBarTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Charger un itineraire.
+        /// </summary>
+        public static string SessionSelectionSubTitle {
+            get {
+                return ResourceManager.GetString("SessionSelectionSubTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Mes sessions.
+        /// </summary>
+        public static string SessionSelectionTitle {
+            get {
+                return ResourceManager.GetString("SessionSelectionTitle", resourceCulture);
             }
         }
         

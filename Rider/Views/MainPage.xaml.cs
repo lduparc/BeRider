@@ -28,7 +28,6 @@ namespace Rider.Views
 {
     public partial class MainPage : PhoneApplicationPage
     {
-
         // Constructeur
         public MainPage()
         {
@@ -61,6 +60,7 @@ namespace Rider.Views
             OnUnitChanged(UserData.Get<Speed.Unit>(UserData.UnitKey));
             Messenger.Default.Register<bool>(this, TrackingService.SessionStatusChanged, status => OnSessionStatusChanged(status));
             Messenger.Default.Register<Speed.Unit>(this, UserData.UnitChanged, unit => OnUnitChanged(unit));
+            Messenger.Default.Register<object>(this, MainViewModel.SessionLoaded, obj => OnSessionLoaded());
 
             if (!ViewModelController.MainViewModel.IsDataLoaded) ViewModelController.MainViewModel.LoadDesignData();
         }
@@ -69,6 +69,13 @@ namespace Rider.Views
         {
             Messenger.Default.Unregister<bool>(this);
             Messenger.Default.Unregister<Speed.Unit>(this);
+            Messenger.Default.Unregister<object>(this);
+            (this.DataContext as MainViewModel).UnRegisterCallback();
+        }
+
+        private void OnSessionLoaded()
+        {
+            shellProgress.IsVisible = false;
         }
 
         private void OnUnitChanged(Speed.Unit unit)
@@ -109,7 +116,11 @@ namespace Rider.Views
             {
                 bool isStarted = ViewModelController.TrackingService.IsRunning;
                 if (isStarted)
+                {
+                    shellProgress.Text = AppResource.ResourceManager.GetString("SaveSession");
+                    shellProgress.IsVisible = true;
                     ViewModelController.TrackingService.StopSession();
+                }
                 else
                     ViewModelController.TrackingService.StartSession();
             }
@@ -138,7 +149,9 @@ namespace Rider.Views
             switch (panorama.SelectedIndex)
             {
                 case 3:
-                    ViewModelController.MainViewModel.LoadSessionsSaved();
+                    shellProgress.Text = AppResource.ResourceManager.GetString("LoadingSessions");
+                    shellProgress.IsVisible = true;
+                    ViewModelController.LoadSessionsSaved();
                     break;
                 case 2:
                     // TODO : news

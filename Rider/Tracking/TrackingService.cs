@@ -133,45 +133,57 @@ namespace Rider.Tracking
             Messenger.Default.Send<bool>(this.isRunnig, TrackingService.SessionStatusChanged);
         }
 
+        private string GenerateId()
+        {
+            long i = 1;
+            foreach (byte b in Guid.NewGuid().ToByteArray())
+            {
+                i *= ((int)b + 1);
+            }
+            return string.Format("{0:x}", i - DateTime.Now.Ticks);
+        }
+
         private void SaveCurrentSession()
         {
-            int lastidx = UserData.Get<int>(UserData.SessionIndexKey);
-            double maxSpeed = (currentSession.AverageSpeeds != null && currentSession.AverageSpeeds.Count > 0) ? currentSession.AverageSpeeds.Max() : 0;
-            double averageSpeed = (currentSession.AverageSpeeds != null && currentSession.AverageSpeeds.Count > 0) ? currentSession.AverageSpeeds.Average() : 0;
-            Dictionary<string, object> dictSession = new Dictionary<string, object>();
-            dictSession.Add(SessionViewModel.ID_COLUMN_NAME, lastidx == -1 ? 0 : lastidx);
-            dictSession.Add(SessionViewModel.TITLE_COLUMN_NAME, currentSession.Title);
-            dictSession.Add(SessionViewModel.DETAILS_COLUMN_NAME, currentSession.Details);
-            dictSession.Add(SessionViewModel.DISTANCE_COLUMN_NAME, currentSession.Distance);
-            dictSession.Add(SessionViewModel.DURATION_COLUMN_NAME, currentSession.FormatedSpentTime);
-            dictSession.Add(SessionViewModel.AVERAGE_SPEED_COLUMN_NAME, averageSpeed);
-            dictSession.Add(SessionViewModel.MAX_SPEED_COLUMN_NAME, maxSpeed);
-            dictSession.Add(SessionViewModel.KCAL_COLUMN_NAME, currentSession.KCal);
-            dictSession.Add(SessionViewModel.SPORT_COLUMN_NAME, currentSession.Sport);
-            bool success = App.database.InsertWithContent(SessionViewModel.TABLE_NAME, dictSession);
-
-            Dictionary<string, object> dictLocations = new Dictionary<string, object>();
-            foreach (GeoCoordinate loc in currentSession.Coords)
+            if (currentSession != null && currentSession.Coords != null)
             {
-                dictLocations.Clear();
-                if (loc != null)
+
+                currentSession.Identifer = GenerateId();
+                double maxSpeed = (currentSession.AverageSpeeds != null && currentSession.AverageSpeeds.Count > 0) ? currentSession.AverageSpeeds.Max() : 0;
+                double averageSpeed = (currentSession.AverageSpeeds != null && currentSession.AverageSpeeds.Count > 0) ? currentSession.AverageSpeeds.Average() : 0;
+                Dictionary<string, object> dictSession = new Dictionary<string, object>();
+                dictSession.Add(SessionViewModel.ID_COLUMN_NAME, currentSession.Identifer);
+                dictSession.Add(SessionViewModel.TITLE_COLUMN_NAME, currentSession.Title);
+                dictSession.Add(SessionViewModel.DETAILS_COLUMN_NAME, currentSession.Details);
+                dictSession.Add(SessionViewModel.DISTANCE_COLUMN_NAME, currentSession.Distance);
+                dictSession.Add(SessionViewModel.DURATION_COLUMN_NAME, currentSession.FormatedSpentTime);
+                dictSession.Add(SessionViewModel.AVERAGE_SPEED_COLUMN_NAME, averageSpeed);
+                dictSession.Add(SessionViewModel.MAX_SPEED_COLUMN_NAME, maxSpeed);
+                dictSession.Add(SessionViewModel.DATE_COLUMN_NAME, string.Format("{0:00}/{1:00}/{2:0000}", currentSession.StartTime.Day, currentSession.StartTime.Month, currentSession.StartTime.Year));
+                dictSession.Add(SessionViewModel.KCAL_COLUMN_NAME, currentSession.KCal);
+                dictSession.Add(SessionViewModel.SPORT_COLUMN_NAME, currentSession.Sport);
+                bool success = App.database.InsertWithContent(SessionViewModel.TABLE_NAME, dictSession);
+
+                Dictionary<string, object> dictLocations = new Dictionary<string, object>();
+                foreach (GeoCoordinate loc in currentSession.Coords)
                 {
-                    dictLocations.Add(LocationService.SESSION_ID_COLUMN_NAME, lastidx == -1 ? 0 : lastidx);
-                    dictLocations.Add(LocationService.LAT_COLUMN_NAME, loc.Latitude);
-                    dictLocations.Add(LocationService.LNG_COLUMN_NAME, loc.Longitude);
-                    success = App.database.InsertWithContent(LocationService.TABLE_NAME, dictLocations);
+                    dictLocations.Clear();
+                    if (loc != null)
+                    {
+                        dictLocations.Add(LocationService.SESSION_ID_COLUMN_NAME, currentSession.Identifer);
+                        dictLocations.Add(LocationService.LAT_COLUMN_NAME, loc.Latitude);
+                        dictLocations.Add(LocationService.LNG_COLUMN_NAME, loc.Longitude);
+                        success = App.database.InsertWithContent(LocationService.TABLE_NAME, dictLocations);
+                    }
                 }
             }
-
-            if (success)
-                UserData.Add<int>(UserData.SessionIndexKey, lastidx + 1);
-            
             currentSession = null;
             currentSpeed = 0;
             NotifyPropertyChanged("TimeSpent");
             NotifyPropertyChanged("CurrentSpeed");
             NotifyPropertyChanged("DistanceSession");
             NotifyPropertyChanged("KCal");
+            Messenger.Default.Send<object>(null, MainViewModel.SessionLoaded);
         }
         #endregion
 

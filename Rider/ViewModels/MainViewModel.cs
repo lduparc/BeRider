@@ -30,20 +30,53 @@ namespace Rider.ViewModels
 {
     public class MainViewModel : BaseViewModel
     {
-        public ObservableCollection<SessionViewModel> Sessions { get; private set; }
+        public static readonly string SessionLoaded = "SessionLoaded";
+
         private string _panoramaHomeTitle = "";
         private string _panoramaHistoryTitle = "";
         private string _panoramaSpotlightsTitle = "";
         private string _panoramaNewsTitle = "";
         private ICommand removeCommand = null;
         private ICommand shareCommand = null;
+        private ObservableCollection<SessionViewModel> sessions;
 
         public MainViewModel()
         {
-            this.Sessions = new ObservableCollection<SessionViewModel>();
             this.removeCommand = new RelayCommand<SessionViewModel>(this.RemoveAction);
             this.shareCommand = new RelayCommand<SessionViewModel>(this.ShareAction);
             Messenger.Default.Register<Speed.Unit>(this, UserData.UnitChanged, unit => OnUnitChanged(unit));
+            Messenger.Default.Register<bool>(this, SessionPageSelectionViewModel.sessionLoaded, status => OnSessionsLoaded(status));
+        }
+
+        public void UnRegisterCallback()
+        {
+            Messenger.Default.Unregister<bool>(this);
+            Messenger.Default.Unregister<Speed.Unit>(this);
+        }
+
+        private void OnSessionsLoaded(bool status)
+        {
+            if (status)
+                Sessions = ViewModelController.Sessions;
+        }
+
+        #region properties
+
+        public ObservableCollection<SessionViewModel> Sessions
+        {
+            get
+            {
+                return this.sessions;
+            }
+            set
+            {
+                if (value != null)
+                {
+                    this.sessions = value;
+                    NotifyPropertyChanged("Sessions");
+                    Messenger.Default.Send<object>(null, MainViewModel.SessionLoaded);
+                }
+            }
         }
 
         private void OnUnitChanged(Speed.Unit unit)
@@ -51,8 +84,6 @@ namespace Rider.ViewModels
             NotifyPropertyChanged("UnitChanged");
         }
         
-        #region properties
-
         public string UnitChanged
         {
             get
@@ -151,8 +182,11 @@ namespace Rider.ViewModels
         {
             if (session != null)
             {
-                this.Sessions.Remove(session);
-                App.database.DeleteWithIdentifier(SessionViewModel.TABLE_NAME, session.Identifer); 
+                bool success = App.database.DeleteWithIdentifier(SessionViewModel.TABLE_NAME, session.Identifer);
+                if (success)
+                {
+                    ViewModelController.Sessions.Remove(session);
+                }
             }
         }
 
@@ -160,7 +194,7 @@ namespace Rider.ViewModels
         {
             if (session != null)
             {
-                MessageBox.Show(string.Format("Session Distance: {0}", session.Identifer));
+                MessageBox.Show(string.Format("Session Identifier: {0}", session.Identifer));
             }
         }
 
@@ -175,17 +209,6 @@ namespace Rider.ViewModels
             this.PanoramaSpotlightsTitle = AppResource.ResourceManager.GetString("PanoramaSpotlightsTitle");
             this.PanoramaNewsTitle = AppResource.ResourceManager.GetString("PanoramaNewsTItle");
             this.IsDataLoaded = true;
-        }
-
-        public void LoadSessionsSaved()
-        {
-            Sessions.Clear();
-//            ObservableCollection<SessionViewModel> sessionList = UserData.Get<ObservableCollection<SessionViewModel>>(UserData.ListSessionKey);
-            App.database.FindClosestSessions(Sessions);
-            if (Sessions.Count == 0)
-            {
-                // TODO : afficher text pas de sessions sauvegardees
-            }
         }
 
         #endregion

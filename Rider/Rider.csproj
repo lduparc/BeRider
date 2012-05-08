@@ -111,6 +111,7 @@
     <Compile Include="Maps\OsmaRender.cs" />
     <Compile Include="Models\Distance.cs" />
     <Compile Include="Utils\DatabaseManager.cs" />
+    <Compile Include="ViewModels\SessionPageSelectionViewModel.cs" />
     <Compile Include="ViewModels\SessionViewModel.cs" />
     <Compile Include="Persistent\Configuration.cs" />
     <Compile Include="Resources\AppResource.Designer.cs">
@@ -158,6 +159,9 @@
     <Compile Include="Views\MapPage.xaml.cs">
       <DependentUpon>MapPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\SessionsPageSelection.xaml.cs">
+      <DependentUpon>SessionsPageSelection.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>
     </Compile>
@@ -192,6 +196,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\MapPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SessionsPageSelection.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
