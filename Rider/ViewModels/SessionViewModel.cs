@@ -40,7 +40,7 @@ namespace Rider.ViewModels
         private string identifier;
         private int kcal;
         private string title = "Session #1";
-        private string details = "some description";
+        private string details = "";
         private int sport;
         private double maxSpeed;
         private string duration;

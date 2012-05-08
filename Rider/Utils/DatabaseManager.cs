@@ -336,8 +336,18 @@ namespace Rider.Utils
                     {
                         SessionViewModel session = new SessionViewModel();
                         session.Identifer = reader.GetString(idColumnIndex);
-                        session.Title = reader.GetString(titleColumnIndex);
-                        session.Details = reader.GetString(detailsColumnIndex);
+                        string title;
+                        string details;
+
+                        try { title = reader.GetString(titleColumnIndex); }
+                        catch (NullReferenceException e) { title = ""; }
+
+                        try { details = reader.GetString(detailsColumnIndex); }
+                        catch (NullReferenceException e) { details = ""; }
+
+                        session.Title = title;
+                        session.Details = details;
+
                         session.Distance = (double)reader[SessionViewModel.DISTANCE_COLUMN_NAME];
                         session.DurationHistory = reader.GetString(durationColumnIndex);
                         session.DateHistory = reader.GetString(dateColumnIndex);
