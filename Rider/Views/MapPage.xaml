@@ -39,6 +39,7 @@
                 </StackPanel>
             </StackPanel>
         </StackPanel>
+
         <!--ContentPanel - place additional content here-->
         <Microsoft_Phone_Controls_Maps:Map x:Name="Map" Grid.Row="1"               
 	            CredentialsProvider="Aprdz297lJHaf70RDy9aaAHe2P1BzIUNQHcya3xG7mhbqgmtYY5c43gePEdyqrjx" 

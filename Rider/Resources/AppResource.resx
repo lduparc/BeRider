@@ -287,4 +287,10 @@ IOS - Android - Windows Phone 7</value>
   <data name="SaveSession" xml:space="preserve">
     <value>Sauvegarde de la session en cours ...</value>
   </data>
+  <data name="ShareSubTitle" xml:space="preserve">
+    <value>partager avec vos amis</value>
+  </data>
+  <data name="ShareTitle" xml:space="preserve">
+    <value>Partage</value>
+  </data>
 </root>

@@ -8,16 +8,16 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     xmlns:ts="clr-namespace:ScottIsAFool.Controls;assembly=TileSlider"
-     xmlns:toolbox="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"    
-    xmlns:toolkitPrimitives="clr-namespace:Microsoft.Phone.Controls.Primitives;assembly=Microsoft.Phone.Controls.Toolkit" 
-   d:DataContext="{d:DesignData DesignData/MainViewModelData.xaml}" 
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"    
+    d:DataContext="{d:DesignData DesignData/MainViewModelData.xaml}" 
     mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="696" 
     xmlns:local="clr-namespace:Rider.ViewModels"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait"  Orientation="Portrait"
-    shell:SystemTray.IsVisible="True">
+    shell:SystemTray.IsVisible="True"
+    toolkit:TiltEffect.IsTiltEnabled="True">
 
     <phone:PhoneApplicationPage.Resources>
         <Style x:Key="HyperlinkButtonStyle" TargetType="HyperlinkButton">
@@ -300,7 +300,7 @@
                         </StackPanel>
                     </StackPanel>
 
-                    <Button toolbox:TiltEffect.IsTiltEnabled="True" Click="Session_Click" Content="" x:Name="sessionButton" Grid.Row="3" Margin="58,10,14,0"  HorizontalAlignment="Center" VerticalAlignment="Top" Width="363" />
+                    <Button Click="Session_Click" Content="" x:Name="sessionButton" Grid.Row="3" Margin="58,10,14,0"  HorizontalAlignment="Center" VerticalAlignment="Top" Width="363" />
 
                 </Grid>
             </controls:PanoramaItem>
@@ -331,17 +331,17 @@
                 <ListBox Margin="0,0,0,0" ItemsSource="{Binding Sessions}"  >
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <StackPanel toolbox:TiltEffect.IsTiltEnabled="True" Orientation="Horizontal" Margin="20,0,0,20">
-                                <toolbox:ContextMenuService.ContextMenu>
-                                    <toolbox:ContextMenu Name="HistoryContextMenu" IsEnabled="True">
-                                        <toolbox:MenuItem Header="{Binding LocalizedValue.HistoryHeaderShare, Source={StaticResource LocalizedStrings}}" 
+                            <StackPanel Orientation="Horizontal" Margin="20,0,0,20">
+                                <toolkit:ContextMenuService.ContextMenu>
+                                    <toolkit:ContextMenu Name="HistoryContextMenu" IsEnabled="True">
+                                        <toolkit:MenuItem Header="{Binding LocalizedValue.HistoryHeaderShare, Source={StaticResource LocalizedStrings}}" 
                                                           Command="{Binding MainViewModel.ShareCommand, Source={StaticResource Locator}}"
                                                           CommandParameter="{Binding}"/>
-                                        <toolbox:MenuItem Header="{Binding LocalizedValue.HistoryHeaderDelete, Source={StaticResource LocalizedStrings}}" 
+                                        <toolkit:MenuItem Header="{Binding LocalizedValue.HistoryHeaderDelete, Source={StaticResource LocalizedStrings}}" 
                                                           Command="{Binding MainViewModel.RemoveCommand, Source={StaticResource Locator}}"
                                                           CommandParameter="{Binding}"/>
-                                    </toolbox:ContextMenu>
-                                </toolbox:ContextMenuService.ContextMenu>
+                                    </toolkit:ContextMenu>
+                                </toolkit:ContextMenuService.ContextMenu>
                                 <ts:TileSlider TextSlidesFrom="Top" Size="150" Width="150"
                                    Text="{Binding Title}" Foreground="#FFFFFF"
                                     LongText="{Binding Details}" TextStyle="{StaticResource PhoneTextLargeStyle}" 

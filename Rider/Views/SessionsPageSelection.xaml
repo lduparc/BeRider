@@ -7,7 +7,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ts="clr-namespace:ScottIsAFool.Controls;assembly=TileSlider"
-    xmlns:toolbox="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"    
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"    
     xmlns:toolkitPrimitives="clr-namespace:Microsoft.Phone.Controls.Primitives;assembly=Microsoft.Phone.Controls.Toolkit" 
   d:DataContext="{d:DesignData DesignData/MainViewModelData.xaml}" 
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
@@ -16,7 +16,8 @@
     SupportedOrientations="Portrait" Orientation="Portrait"
     Loaded="PhoneApplicationPage_Loaded" Unloaded="PhoneApplicationPage_Unloaded"
     mc:Ignorable="d" d:DesignHeight="768" d:DesignWidth="480"
-    shell:SystemTray.IsVisible="True">
+    shell:SystemTray.IsVisible="True"
+    toolkit:TiltEffect.IsTiltEnabled="True">
 
     <phone:PhoneApplicationPage.Resources>
     <Style x:Key="TileSliderStyle" TargetType="ts:TileSlider">
@@ -227,17 +228,17 @@
         <ListBox Margin="12,0,12,0" Grid.Row="1" x:Name="sessionsList" ItemsSource="{Binding Sessions}" SelectionMode="Single" SelectionChanged="sessionsList_SelectionChanged" Loaded="sessionsList_Loaded"   >
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel toolbox:TiltEffect.IsTiltEnabled="True" Orientation="Horizontal" Margin="20,0,0,20">
-                        <toolbox:ContextMenuService.ContextMenu>
-                            <toolbox:ContextMenu Name="HistoryContextMenu" IsEnabled="True">
-                                <toolbox:MenuItem Header="{Binding LocalizedValue.HistoryHeaderShare, Source={StaticResource LocalizedStrings}}" 
+                    <StackPanel Orientation="Horizontal" Margin="20,0,0,20">
+                        <toolkit:ContextMenuService.ContextMenu>
+                            <toolkit:ContextMenu Name="HistoryContextMenu" IsEnabled="True">
+                                <toolkit:MenuItem Header="{Binding LocalizedValue.HistoryHeaderShare, Source={StaticResource LocalizedStrings}}" 
                                                           Command="{Binding SessionPageSelectionViewModel.ShareCommand, Source={StaticResource Locator}}"
                                                           CommandParameter="{Binding}"/>
-                                <toolbox:MenuItem Header="{Binding LocalizedValue.HistoryHeaderDelete, Source={StaticResource LocalizedStrings}}" 
+                                <toolkit:MenuItem Header="{Binding LocalizedValue.HistoryHeaderDelete, Source={StaticResource LocalizedStrings}}" 
                                                           Command="{Binding SessionPageSelectionViewModel.RemoveCommand, Source={StaticResource Locator}}"
                                                           CommandParameter="{Binding}"/>
-                            </toolbox:ContextMenu>
-                        </toolbox:ContextMenuService.ContextMenu>
+                            </toolkit:ContextMenu>
+                        </toolkit:ContextMenuService.ContextMenu>
                         <ts:TileSlider TextSlidesFrom="Top" Size="150" Width="150"
                                    Text="{Binding Title}" Foreground="#FFFFFF"
                                     LongText="{Binding Details}" TextStyle="{StaticResource PhoneTextLargeStyle}" 

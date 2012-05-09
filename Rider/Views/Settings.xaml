@@ -5,7 +5,7 @@
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:toolbox="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"    
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"    
     xmlns:toolkitPrimitives="clr-namespace:Microsoft.Phone.Controls.Primitives;assembly=Microsoft.Phone.Controls.Toolkit" 
     x:Class="Rider.Views.Settings"
     SupportedOrientations="Portrait" Orientation="Portrait"
@@ -38,46 +38,46 @@
         <!--ContentPanel - placez tout contenu supplémentaire ici-->
         <ScrollViewer Grid.Row="1">
             <StackPanel Margin="12,0,12,0" VerticalAlignment="Top" Orientation="Vertical">
-                <toolbox:ToggleSwitch x:Name="ToggleLocationService" Loaded="ToggleLocationService_Loaded"
+                <toolkit:ToggleSwitch x:Name="ToggleLocationService" Loaded="ToggleLocationService_Loaded"
                           Header="{Binding LocalizedValue.SettingsLocationServiceTitle, Source={StaticResource LocalizedStrings}}"
                           IsChecked="true"
                           Checked="ToggleLocationService_Checked" 
                           Unchecked="ToggleLocationService_Unchecked" FontFamily="Segoe WP Light" Style="{StaticResource ToggleSwitchStyle}" />
 
                 <StackPanel Grid.Row="0" VerticalAlignment="Bottom" Orientation="Vertical">
-                    <toolbox:ListPicker Name="WeightPicker" Header="{Binding LocalizedValue.SettingsWeight, Source={StaticResource LocalizedStrings}}" Width="Auto" Style="{StaticResource ListPickerStyle}" Loaded="WeightPicker_Loaded" SelectionChanged="WeightPicker_SelectionChanged">
-                        <toolbox:ListPicker.FullModeItemTemplate>
+                    <toolkit:ListPicker Name="WeightPicker" Header="{Binding LocalizedValue.SettingsWeight, Source={StaticResource LocalizedStrings}}" Width="Auto" Style="{StaticResource ListPickerStyle}" Loaded="WeightPicker_Loaded" SelectionChanged="WeightPicker_SelectionChanged">
+                        <toolkit:ListPicker.FullModeItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Vertical">
                                     <TextBlock Margin="0, 5, 0, 5" FontSize="32" Text="{Binding BindsDirectlyToSource=True, StringFormat='\{0\} Kg'}" Width="Auto"/>
                                 </StackPanel>
                             </DataTemplate>
-                        </toolbox:ListPicker.FullModeItemTemplate>
-                    </toolbox:ListPicker>
+                        </toolkit:ListPicker.FullModeItemTemplate>
+                    </toolkit:ListPicker>
                 </StackPanel>
 
                 <StackPanel Margin="0, 5, 0, 0" VerticalAlignment="Top" Orientation="Vertical">
-                    <toolbox:ListPicker Name="UnitPicker" Header="{Binding LocalizedValue.SettingsUnit, Source={StaticResource LocalizedStrings}}" Width="Auto" SelectionChanged="UnitPicker_SelectionChanged" Loaded="UnitPicker_Loaded" Style="{StaticResource ListPickerStyle}">
-                        <toolbox:ListPicker.FullModeItemTemplate>
+                    <toolkit:ListPicker Name="UnitPicker" Header="{Binding LocalizedValue.SettingsUnit, Source={StaticResource LocalizedStrings}}" Width="Auto" SelectionChanged="UnitPicker_SelectionChanged" Loaded="UnitPicker_Loaded" Style="{StaticResource ListPickerStyle}">
+                        <toolkit:ListPicker.FullModeItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Vertical">
                                     <TextBlock Margin="0, 5, 0, 5" FontSize="32" Text="{Binding BindsDirectlyToSource=True, StringFormat='\{0\} kg'}" Width="Auto"/>
                                 </StackPanel>
                             </DataTemplate>
-                        </toolbox:ListPicker.FullModeItemTemplate>
-                    </toolbox:ListPicker>
+                        </toolkit:ListPicker.FullModeItemTemplate>
+                    </toolkit:ListPicker>
                 </StackPanel>
 
                 <StackPanel Margin="0, 5, 0, 0" VerticalAlignment="Top" Orientation="Vertical">
-                    <toolbox:ListPicker Name="LanguagePicker" Header="{Binding LocalizedValue.SettingsLanguage, Source={StaticResource LocalizedStrings}}" Width="Auto" SelectionChanged="LanguagePicker_SelectionChanged" Loaded="LanguagePicker_Loaded" Style="{StaticResource ListPickerStyle}">
-                        <toolbox:ListPicker.FullModeItemTemplate>
+                    <toolkit:ListPicker Name="LanguagePicker" Header="{Binding LocalizedValue.SettingsLanguage, Source={StaticResource LocalizedStrings}}" Width="Auto" SelectionChanged="LanguagePicker_SelectionChanged" Loaded="LanguagePicker_Loaded" Style="{StaticResource ListPickerStyle}">
+                        <toolkit:ListPicker.FullModeItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Vertical">
                                     <TextBlock Margin="0, 5, 0, 5" FontSize="32" Text="{Binding BindsDirectlyToSource=True}" Width="Auto"/>
                                 </StackPanel>
                             </DataTemplate>
-                        </toolbox:ListPicker.FullModeItemTemplate>
-                    </toolbox:ListPicker>
+                        </toolkit:ListPicker.FullModeItemTemplate>
+                    </toolkit:ListPicker>
                 </StackPanel>
 
 

@@ -61,7 +61,7 @@ namespace Rider.Views
             Messenger.Default.Register<bool>(this, TrackingService.SessionStatusChanged, status => OnSessionStatusChanged(status));
             Messenger.Default.Register<Speed.Unit>(this, UserData.UnitChanged, unit => OnUnitChanged(unit));
             Messenger.Default.Register<object>(this, MainViewModel.SessionLoaded, obj => OnSessionLoaded());
-
+            Messenger.Default.Register<Uri>(this, MainViewModel.ShareSessionKey, uri => OnShareSessionReceived(uri));
             if (!ViewModelController.MainViewModel.IsDataLoaded) ViewModelController.MainViewModel.LoadDesignData();
         }
 
@@ -70,7 +70,13 @@ namespace Rider.Views
             Messenger.Default.Unregister<bool>(this);
             Messenger.Default.Unregister<Speed.Unit>(this);
             Messenger.Default.Unregister<object>(this);
+            Messenger.Default.Unregister<Uri>(this);
             (this.DataContext as MainViewModel).UnRegisterCallback();
+        }
+
+        private void OnShareSessionReceived(Uri uri)
+        {
+            NavigationService.Navigate(uri);
         }
 
         private void OnSessionLoaded()

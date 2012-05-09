@@ -47,20 +47,36 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Caliburn.Micro">
+      <HintPath>..\packages\Caliburn.Micro.1.2.0\lib\SL40-wp\Caliburn.Micro.dll</HintPath>
+    </Reference>
+    <Reference Include="Caliburn.Micro.Extensions">
+      <HintPath>..\packages\Caliburn.Micro.1.2.0\lib\SL40-wp\Caliburn.Micro.Extensions.dll</HintPath>
+    </Reference>
     <Reference Include="Community.CsharpSqlite.SqlLiteClient.WP7">
       <HintPath>..\..\wikango-wp7\wikango-wp7\Libraries\Community.CsharpSqlite.SqlLiteClient.WP7.dll</HintPath>
     </Reference>
     <Reference Include="Community.CsharpSqlite.WP7">
       <HintPath>..\..\wikango-wp7\wikango-wp7\Libraries\Community.CsharpSqlite.WP7.dll</HintPath>
     </Reference>
-    <Reference Include="Facebook">
-      <HintPath>..\packages\Facebook.6.0.16\lib\sl4-windowsphone71\Facebook.dll</HintPath>
+    <Reference Include="CompiledExperience.Phone.Toolkit.Rest">
+      <HintPath>..\packages\CompiledExperience.Phone.Toolkit.Rest.0.1\lib\sl40-wp71\CompiledExperience.Phone.Toolkit.Rest.dll</HintPath>
+    </Reference>
+    <Reference Include="Facebook, Version=5.0.10.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Resources\Facebook.dll</HintPath>
     </Reference>
     <Reference Include="GalaSoft.MvvmLight.Extras.WP71">
       <HintPath>..\packages\MvvmLight.3.1.1\lib\sl4-windowsphone71\GalaSoft.MvvmLight.Extras.WP71.dll</HintPath>
     </Reference>
     <Reference Include="GalaSoft.MvvmLight.WP71">
       <HintPath>..\packages\MvvmLight.3.1.1\lib\sl4-windowsphone71\GalaSoft.MvvmLight.WP71.dll</HintPath>
+    </Reference>
+    <Reference Include="Hammock.WindowsPhone.Mango">
+      <HintPath>..\packages\Hammock.1.3.0\lib\sl4-wp71\Hammock.WindowsPhone.Mango.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib.WindowsPhone">
+      <HintPath>..\packages\Hammock.1.3.0\lib\sl4-wp71\ICSharpCode.SharpZipLib.WindowsPhone.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Phone" />
     <Reference Include="Microsoft.Phone.Controls" />
@@ -83,8 +99,8 @@
     <Reference Include="system" />
     <Reference Include="System.Core" />
     <Reference Include="System.Net" />
-    <Reference Include="System.Windows.Interactivity, Version=3.8.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\MvvmLight.3.1.1\lib\sl4-windowsphone71\System.Windows.Interactivity.dll</HintPath>
+    <Reference Include="System.Windows.Interactivity, Version=3.7.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Caliburn.Micro.1.2.0\lib\SL40-wp\System.Windows.Interactivity.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="mscorlib.extensions" />
@@ -110,7 +126,9 @@
     <Compile Include="Maps\Mapnik.cs" />
     <Compile Include="Maps\OsmaRender.cs" />
     <Compile Include="Models\Distance.cs" />
+    <Compile Include="Models\TwitterAccess.cs" />
     <Compile Include="Utils\DatabaseManager.cs" />
+    <Compile Include="Utils\TwitterHelper.cs" />
     <Compile Include="ViewModels\SessionPageSelectionViewModel.cs" />
     <Compile Include="ViewModels\SessionViewModel.cs" />
     <Compile Include="Persistent\Configuration.cs" />
@@ -165,6 +183,9 @@
     <Compile Include="Views\Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ShareSelectionPage.xaml.cs">
+      <DependentUpon>ShareSelectionPage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -207,8 +228,13 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\ShareSelectionPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
     <None Include="Properties\AppManifest.xml" />
     <None Include="Properties\WMAppManifest.xml" />

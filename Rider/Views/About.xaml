@@ -6,14 +6,14 @@
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:toolbox="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"    
-    xmlns:toolkitPrimitives="clr-namespace:Microsoft.Phone.Controls.Primitives;assembly=Microsoft.Phone.Controls.Toolkit" 
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait" Orientation="Portrait"
     mc:Ignorable="d" d:DesignHeight="768" d:DesignWidth="480"
-    shell:SystemTray.IsVisible="True">
+    shell:SystemTray.IsVisible="True"
+    toolkit:TiltEffect.IsTiltEnabled="True">
 
     <!--LayoutRoot est la grille racine où tout le contenu de la page est placé-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
@@ -50,9 +50,9 @@
                     </StackPanel>
                 </StackPanel>
                 <TextBlock FontSize="24" TextWrapping="Wrap" Text="{Binding LocalizedValue.AboutSupportTitle, Source={StaticResource LocalizedStrings}}" Style="{StaticResource PhoneTextNormalStyle}" Foreground="{StaticResource PhoneContrastBackgroundBrush}"/>
-                <Button toolbox:TiltEffect.IsTiltEnabled="True" Click="Contact_Click" Style="{StaticResource ButtonStyle}" Margin="0,0,0,12" Content="{Binding LocalizedValue.AboutSupportContent, Source={StaticResource LocalizedStrings}}" />
+                <Button Click="Contact_Click" Style="{StaticResource ButtonStyle}" Margin="0,0,0,12" Content="{Binding LocalizedValue.AboutSupportContent, Source={StaticResource LocalizedStrings}}" />
                 <TextBlock FontSize="24" TextWrapping="Wrap" Text="{Binding LocalizedValue.AboutRateAppTitle, Source={StaticResource LocalizedStrings}}" Style="{StaticResource PhoneTextNormalStyle}" Foreground="{StaticResource PhoneContrastBackgroundBrush}"/>
-                <Button toolbox:TiltEffect.IsTiltEnabled="True" Click="Rate_Click" Style="{StaticResource ButtonStyle}" Margin="0,0,0,12" Content="{Binding LocalizedValue.AboutRateAppContent, Source={StaticResource LocalizedStrings}}" />
+                <Button Click="Rate_Click" Style="{StaticResource ButtonStyle}" Margin="0,0,0,12" Content="{Binding LocalizedValue.AboutRateAppContent, Source={StaticResource LocalizedStrings}}" />
                 <TextBlock FontSize="24" TextWrapping="Wrap" Text="{Binding LocalizedValue.AboutLocationServicePolicyTitle, Source={StaticResource LocalizedStrings}}" Style="{StaticResource PhoneTextNormalStyle}" Foreground="{StaticResource PhoneContrastBackgroundBrush}"/>
                 <TextBlock Margin="12,0,0,12" FontSize="20" TextWrapping="Wrap" Text="{Binding LocalizedValue.AboutLocationServicePolicy, Source={StaticResource LocalizedStrings}}" Style="{StaticResource PhoneTextNormalStyle}" Foreground="{StaticResource PhoneSubtleBrush}"/>
                 <TextBlock FontSize="24" TextWrapping="Wrap" Text="{Binding LocalizedValue.AboutPersonalTitle, Source={StaticResource LocalizedStrings}}" Style="{StaticResource PhoneTextNormalStyle}" Foreground="{StaticResource PhoneContrastBackgroundBrush}"/>

@@ -19,7 +19,7 @@
             <Setter Property="FontSize" Value="{StaticResource PhoneFontSizeMediumLarge}"/>
             <Setter Property="HorizontalContentAlignment" Value="Left"/>
             <Setter Property="Margin" Value="{StaticResource PhoneTouchTargetOverhang}"/>
-            <Setter Property="PickerPageUri" Value="/Microsoft.Phone.Controls.Toolkit;component/ListPicker/ListPickerPage.xaml"/>
+            <Setter Property="PickerPageUri" Value="/Microsoft.Phone.Controls.toolkit;component/ListPicker/ListPickerPage.xaml"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="toolkit:ListPicker">

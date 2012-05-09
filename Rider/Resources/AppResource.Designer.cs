@@ -540,6 +540,24 @@ namespace Rider.Resources {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à partager avec vos amis.
+        /// </summary>
+        public static string ShareSubTitle {
+            get {
+                return ResourceManager.GetString("ShareSubTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Partage.
+        /// </summary>
+        public static string ShareTitle {
+            get {
+                return ResourceManager.GetString("ShareTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Vitesse.
         /// </summary>
         public static string SpeedTitle {

@@ -24,6 +24,7 @@ using Rider.Tracking;
 using Rider.Utils;
 using GalaSoft.MvvmLight.Command;
 using System.Threading;
+using System.Windows.Navigation;
 
 
 namespace Rider.ViewModels
@@ -31,6 +32,7 @@ namespace Rider.ViewModels
     public class MainViewModel : BaseViewModel
     {
         public static readonly string SessionLoaded = "SessionLoaded";
+        public static readonly string ShareSessionKey = "ShareSessionKey";
 
         private string _panoramaHomeTitle = "";
         private string _panoramaHistoryTitle = "";
@@ -194,7 +196,12 @@ namespace Rider.ViewModels
         {
             if (session != null)
             {
-                MessageBox.Show(string.Format("Session Identifier: {0}", session.Identifer));
+                string title = "", link = "";
+                    link = session.Identifer;
+                    title = session.Title;
+                Uri uri = new Uri("/Views/ShareSelectionPage.xaml?link=" + HttpUtility.HtmlEncode(link) + "&title=" + title, UriKind.Relative);
+                Messenger.Default.Send<Uri>(uri, ShareSessionKey);
+                //MessageBox.Show(string.Format("Session Identifier: {0}", session.Identifer));
             }
         }
 
