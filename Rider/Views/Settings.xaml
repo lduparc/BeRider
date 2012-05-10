@@ -44,7 +44,19 @@
                           Checked="ToggleLocationService_Checked" 
                           Unchecked="ToggleLocationService_Unchecked" FontFamily="Segoe WP Light" Style="{StaticResource ToggleSwitchStyle}" />
 
-                <StackPanel Grid.Row="0" VerticalAlignment="Bottom" Orientation="Vertical">
+                <StackPanel VerticalAlignment="Bottom" Orientation="Vertical">
+                    <toolkit:ListPicker Name="SportPicker" Header="{Binding LocalizedValue.SettingsSport, Source={StaticResource LocalizedStrings}}" Width="Auto" Style="{StaticResource ListPickerStyle}" Loaded="SportPicker_Loaded" SelectionChanged="SportPicker_SelectionChanged">
+                        <toolkit:ListPicker.FullModeItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Vertical">
+                                    <TextBlock Margin="0, 5, 0, 5" FontSize="32" Text="{Binding BindsDirectlyToSource=True}" Width="Auto"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </toolkit:ListPicker.FullModeItemTemplate>
+                    </toolkit:ListPicker>
+                </StackPanel>
+
+                <StackPanel VerticalAlignment="Bottom" Orientation="Vertical">
                     <toolkit:ListPicker Name="WeightPicker" Header="{Binding LocalizedValue.SettingsWeight, Source={StaticResource LocalizedStrings}}" Width="Auto" Style="{StaticResource ListPickerStyle}" Loaded="WeightPicker_Loaded" SelectionChanged="WeightPicker_SelectionChanged">
                         <toolkit:ListPicker.FullModeItemTemplate>
                             <DataTemplate>

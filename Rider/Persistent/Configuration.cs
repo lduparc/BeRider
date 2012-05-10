@@ -6,4 +6,38 @@
         public static readonly string RequestTokenUri = "https://api.twitter.com/oauth/request_token";        public static readonly string OAuthVersion = "1.0";
         public static readonly string CallbackUri = "http://applicationswindowsphone.com";
         public static readonly string AuthorizeUri = "https://api.twitter.com/oauth/authorize";
-        public static readonly string AccessTokenUri = "https://api.twitter.com/oauth/access_token";        #endregion    }}
+        public static readonly string AccessTokenUri = "https://api.twitter.com/oauth/access_token";        #endregion
+
+        #region sport scale factor
+
+        public static double[] SportsFactor = new double[] {
+        8.5,            //>Cycling BMX or mountain
+        8,              //>Cycling 12-13.9 MPH
+        10,             //>Cycling 14-15.9 MPH
+        12.0,           //>Cycling 16-19 MPH
+        16.0,           //">Cycling 20 MPH
+        6,              //>Hiking cross-country
+        4.5,            //>Jog 4 MPH, level
+        7,              //>Rollerblade skating
+        3.5,            //>Rowing, stationary light
+        7,              //>Rowing, stationary moderate
+        8.5,            //>Rowing, stationary vigorous
+        8,              //>Running 5 MPH 12 min/mile
+        10,             //>Running 6 MPH 10 min/mile
+        12.5,           //>Running 7.5 MPH 8 min/mile
+        14,             //>Running 8.6 MPH 7 min/mile
+        16,             //>Running 10 MPH 6 min/mile
+        5,              //>Skateboarding
+        8,              //>Skiing cross-country, moderate speed
+        6,              //>Skiing downhill, moderate effort
+        9.5,            //>Ski machine general
+        4,              //>Walk 3.5 MPH, level, brisk pace
+        4,              //>Walk 4 MPH, level, very brisk pace
+        4.5,            //>Walk 4.5 MPH, level, very, very brisk
+        6,              //>Walk / Jog 6MPH alternating
+        3.5,            //>Walk pleasure, walking dog
+        };
+       
+        #endregion
+
+    }}

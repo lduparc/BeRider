@@ -295,7 +295,7 @@
                         			<CompositeTransform Rotation="-90"/>
                         		</TextBlock.RenderTransform>
                             </TextBlock>
-                            <TextBlock FontSize="48" Text="{Binding TrackingService.KCal, Source={StaticResource Locator}}" TextWrapping="Wrap"  Style="{StaticResource PhoneTextLargeStyle}" Margin="5,0" VerticalAlignment="Bottom"/>
+                            <TextBlock FontSize="48" Text="{Binding TrackingService.KCalFormated, Source={StaticResource Locator}}" TextWrapping="Wrap"  Style="{StaticResource PhoneTextLargeStyle}" Margin="5,0" VerticalAlignment="Bottom"/>
                             <TextBlock Text="Kcal" TextWrapping="Wrap"  Style="{StaticResource PhoneTextSubtleStyle}" VerticalAlignment="Bottom" Margin="0,0,0,7" FontSize="21.333"/>
                         </StackPanel>
                     </StackPanel>
@@ -331,7 +331,7 @@
                 <ListBox Margin="0,0,0,0" ItemsSource="{Binding Sessions}"  >
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <StackPanel Orientation="Horizontal" Margin="20,0,0,20">
+                            <StackPanel Orientation="Horizontal" Margin="10,0,0,20">
                                 <toolkit:ContextMenuService.ContextMenu>
                                     <toolkit:ContextMenu Name="HistoryContextMenu" IsEnabled="True">
                                         <toolkit:MenuItem Header="{Binding LocalizedValue.HistoryHeaderShare, Source={StaticResource LocalizedStrings}}" 
@@ -342,12 +342,12 @@
                                                           CommandParameter="{Binding}"/>
                                     </toolkit:ContextMenu>
                                 </toolkit:ContextMenuService.ContextMenu>
-                                <ts:TileSlider TextSlidesFrom="Top" Size="150" Width="150"
-                                   Text="{Binding Title}" Foreground="#FFFFFF"
+                                <ts:TileSlider TextSlidesFrom="Top" Size="165" Width="155"
+                                   Text="{Binding SportFormated}" Foreground="#FFFFFF"
                                     LongText="{Binding Details}" TextStyle="{StaticResource PhoneTextLargeStyle}" 
                                    TileBackground="{StaticResource PhoneAccentBrush}"
                                      ImageSource="/Rider;component/Images/panorama.jpg" Stretch="Fill" Style="{StaticResource TileSliderStyle}"/>
-                                <StackPanel Orientation="Vertical" Margin="15,0,0,0">
+                                <StackPanel Orientation="Vertical" Margin="10,0,0,0">
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock Text="Distance" FontSize="26" VerticalAlignment="Bottom" HorizontalAlignment="Left" />
                                         <TextBlock Text="{Binding DistanceFormated}" Margin="0, 0, 0, -1" FontSize="26" VerticalAlignment="Bottom" HorizontalAlignment="Left" />
@@ -363,7 +363,7 @@
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock Text="Calorie" TextWrapping="Wrap" FontSize="26" Margin="0, 0, 0, 0" VerticalAlignment="Bottom" HorizontalAlignment="Left" />
-                                        <TextBlock Text="{Binding KCal, StringFormat='\{0\} Kcal'}"  TextWrapping="Wrap"  FontSize="26" Margin="10, 0, 0, 0" VerticalAlignment="Bottom" HorizontalAlignment="Left" />
+                                        <TextBlock Text="{Binding KCal, StringFormat='\{0:0.0\} Kcal'}"  TextWrapping="Wrap"  FontSize="26" Margin="10, 0, 0, 0" VerticalAlignment="Bottom" HorizontalAlignment="Left" />
                                     </StackPanel>
                                     <TextBlock Text="{Binding DateHistory}" VerticalAlignment="Bottom" HorizontalAlignment="Left" Foreground="{StaticResource PhoneAccentBrush}" />
                                 </StackPanel>

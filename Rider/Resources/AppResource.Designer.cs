@@ -513,6 +513,15 @@ namespace Rider.Resources {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Sport.
+        /// </summary>
+        public static string SettingsSport {
+            get {
+                return ResourceManager.GetString("SettingsSport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Configuration de l&apos;application.
         /// </summary>
         public static string SettingsSubTitle {
@@ -563,6 +572,231 @@ namespace Rider.Resources {
         public static string SpeedTitle {
             get {
                 return ResourceManager.GetString("SpeedTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Vélo BMX ou VTT.
+        /// </summary>
+        public static string Sport_0 {
+            get {
+                return ResourceManager.GetString("Sport_0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Cyclisme 19 a 21 km.
+        /// </summary>
+        public static string Sport_1 {
+            get {
+                return ResourceManager.GetString("Sport_1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Aviron, effort vigoureux.
+        /// </summary>
+        public static string Sport_10 {
+            get {
+                return ResourceManager.GetString("Sport_10", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Course à pied 8 km en 12 min / km.
+        /// </summary>
+        public static string Sport_11 {
+            get {
+                return ResourceManager.GetString("Sport_11", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Course à pied 9 a 10 km en 10 min /  km.
+        /// </summary>
+        public static string Sport_12 {
+            get {
+                return ResourceManager.GetString("Sport_12", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Course à pied 12 km en 8 min /  km.
+        /// </summary>
+        public static string Sport_13 {
+            get {
+                return ResourceManager.GetString("Sport_13", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Course à pied 14 km en 7 min /  km.
+        /// </summary>
+        public static string Sport_14 {
+            get {
+                return ResourceManager.GetString("Sport_14", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Course à pied 16 km en 6 min /  km.
+        /// </summary>
+        public static string Sport_15 {
+            get {
+                return ResourceManager.GetString("Sport_15", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Skate.
+        /// </summary>
+        public static string Sport_16 {
+            get {
+                return ResourceManager.GetString("Sport_16", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Ski hors piste, à vitesse modérée.
+        /// </summary>
+        public static string Sport_17 {
+            get {
+                return ResourceManager.GetString("Sport_17", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Ski alpin, effort modéré.
+        /// </summary>
+        public static string Sport_18 {
+            get {
+                return ResourceManager.GetString("Sport_18", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Raquette a ski.
+        /// </summary>
+        public static string Sport_19 {
+            get {
+                return ResourceManager.GetString("Sport_19", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Cyclisme 22 a 25 km.
+        /// </summary>
+        public static string Sport_2 {
+            get {
+                return ResourceManager.GetString("Sport_2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Marche 6 km,  rythme constant.
+        /// </summary>
+        public static string Sport_20 {
+            get {
+                return ResourceManager.GetString("Sport_20", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Marche 6 a 7 km, rythme très soutenu.
+        /// </summary>
+        public static string Sport_21 {
+            get {
+                return ResourceManager.GetString("Sport_21", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Marche 7 km, le niveau, très, très rapide.
+        /// </summary>
+        public static string Sport_22 {
+            get {
+                return ResourceManager.GetString("Sport_22", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Marche / Jogging de  9 a 10 km en alternance.
+        /// </summary>
+        public static string Sport_23 {
+            get {
+                return ResourceManager.GetString("Sport_23", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Promenade.
+        /// </summary>
+        public static string Sport_24 {
+            get {
+                return ResourceManager.GetString("Sport_24", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Cyclisme 26 a 31 km.
+        /// </summary>
+        public static string Sport_3 {
+            get {
+                return ResourceManager.GetString("Sport_3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Cyclisme 32 km.
+        /// </summary>
+        public static string Sport_4 {
+            get {
+                return ResourceManager.GetString("Sport_4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Randonnée.
+        /// </summary>
+        public static string Sport_5 {
+            get {
+                return ResourceManager.GetString("Sport_5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Jogging 6 a 7 km.
+        /// </summary>
+        public static string Sport_6 {
+            get {
+                return ResourceManager.GetString("Sport_6", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Roller/Patinage.
+        /// </summary>
+        public static string Sport_7 {
+            get {
+                return ResourceManager.GetString("Sport_7", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Aviron, vitesse constante.
+        /// </summary>
+        public static string Sport_8 {
+            get {
+                return ResourceManager.GetString("Sport_8", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Aviron, effort modérée fixe.
+        /// </summary>
+        public static string Sport_9 {
+            get {
+                return ResourceManager.GetString("Sport_9", resourceCulture);
             }
         }
         

@@ -1,8 +1,8 @@
-﻿<xapCache source="C:\Users\Administrator\documents\visual studio 2010\Projects\Rider\Rider\Bin\Debug\Rider.xap" wasSigned="False" certificateThumbprint="" TimeStampUrl="" lastWriteTime="09/05/2012 23:47:44">
+﻿<xapCache source="C:\Users\Administrator\documents\visual studio 2010\Projects\Rider\Rider\Bin\Debug\Rider.xap" wasSigned="False" certificateThumbprint="" TimeStampUrl="" lastWriteTime="11/05/2012 00:04:08">
   <file source="C:\Users\Administrator\documents\visual studio 2010\Projects\Rider\Rider\Bin\Debug\WMAppManifest.xml" archivePath="WMAppManifest.xml" lastWriteTime="05/05/2012 11:39:18" />
   <file source="C:\Users\Administrator\documents\visual studio 2010\Projects\Rider\Rider\Background.png" archivePath="Background.png" lastWriteTime="28/04/2012 15:10:30" />
   <file source="C:\Users\Administrator\documents\visual studio 2010\Projects\Rider\Rider\ApplicationIcon.png" archivePath="ApplicationIcon.png" lastWriteTime="28/04/2012 15:10:30" />
-  <file source="C:\Users\Administrator\documents\visual studio 2010\Projects\Rider\Rider\obj\Debug\Rider.dll" archivePath="Rider.dll" lastWriteTime="09/05/2012 23:47:42" />
+  <file source="C:\Users\Administrator\documents\visual studio 2010\Projects\Rider\Rider\obj\Debug\Rider.dll" archivePath="Rider.dll" lastWriteTime="11/05/2012 00:04:06" />
   <file source="C:\Users\Administrator\documents\visual studio 2010\Projects\Rider\packages\Caliburn.Micro.1.2.0\lib\SL40-wp\Caliburn.Micro.dll" archivePath="Caliburn.Micro.dll" lastWriteTime="08/05/2012 18:32:28" />
   <file source="C:\Users\Administrator\documents\visual studio 2010\Projects\Rider\packages\Caliburn.Micro.1.2.0\lib\SL40-wp\Caliburn.Micro.Extensions.dll" archivePath="Caliburn.Micro.Extensions.dll" lastWriteTime="08/05/2012 18:32:28" />
   <file source="C:\Users\Administrator\documents\visual studio 2010\Projects\wikango-wp7\wikango-wp7\Libraries\Community.CsharpSqlite.SqlLiteClient.WP7.dll" archivePath="Community.CsharpSqlite.SqlLiteClient.WP7.dll" lastWriteTime="10/04/2012 17:55:45" />
@@ -20,14 +20,14 @@
   <file source="C:\Users\Administrator\Desktop\ODataClient_BinariesAndCodeGenToolForWinPhone7\System.Data.Services.Client.dll" archivePath="System.Data.Services.Client.dll" lastWriteTime="28/10/2010 11:45:18" />
   <file source="C:\Users\Administrator\documents\visual studio 2010\Projects\Rider\packages\Caliburn.Micro.1.2.0\lib\SL40-wp\System.Windows.Interactivity.dll" archivePath="System.Windows.Interactivity.dll" lastWriteTime="08/05/2012 18:32:28" />
   <file source="C:\Users\Administrator\documents\visual studio 2010\Projects\Rider\packages\TileSlider.1.0.2.0\lib\sl3-wp\TileSlider.dll" archivePath="TileSlider.dll" lastWriteTime="29/04/2012 15:38:01" />
-  <file source="C:\Users\Administrator\documents\visual studio 2010\Projects\Rider\Rider\obj\Debug\en-US\Rider.resources.dll" archivePath="en-US\Rider.resources.dll" lastWriteTime="09/05/2012 23:47:42" />
+  <file source="C:\Users\Administrator\documents\visual studio 2010\Projects\Rider\Rider\obj\Debug\en-US\Rider.resources.dll" archivePath="en-US\Rider.resources.dll" lastWriteTime="11/05/2012 00:04:06" />
   <file source="C:\Users\Administrator\documents\visual studio 2010\Projects\Rider\Rider\Images\maps\arrow.png" archivePath="Images\maps\arrow.png" lastWriteTime="01/05/2012 18:05:54" />
-  <file source="C:\Users\Administrator\documents\visual studio 2010\Projects\Rider\Rider\Resources\Database\rider0.db" archivePath="Resources\Database\rider0.db" lastWriteTime="08/05/2012 18:03:43" />
+  <file source="C:\Users\Administrator\documents\visual studio 2010\Projects\Rider\Rider\Resources\Database\rider0.db" archivePath="Resources\Database\rider0.db" lastWriteTime="10/05/2012 23:28:21" />
   <file source="C:\Users\Administrator\documents\visual studio 2010\Projects\Rider\Rider\Images\maps\params.png" archivePath="Images\maps\params.png" lastWriteTime="05/05/2012 13:00:20" />
   <file source="C:\Users\Administrator\documents\visual studio 2010\Projects\Rider\Rider\Resources\JsonRoads\bordeaux_rocade.json" archivePath="Resources\JsonRoads\bordeaux_rocade.json" lastWriteTime="01/05/2012 15:44:30" />
   <file source="C:\Users\Administrator\documents\visual studio 2010\Projects\Rider\Rider\Resources\JsonRoads\thiers.json" archivePath="Resources\JsonRoads\thiers.json" lastWriteTime="01/05/2012 15:44:30" />
   <file source="C:\Users\Administrator\documents\visual studio 2010\Projects\Rider\Rider\SplashScreenImage.jpg" archivePath="SplashScreenImage.jpg" lastWriteTime="28/04/2012 15:10:30" />
-  <file source="C:\Users\Administrator\documents\visual studio 2010\Projects\Rider\Rider\Bin\Debug\AppManifest.xaml" archivePath="AppManifest.xaml" lastWriteTime="08/05/2012 18:47:37" />
+  <file source="C:\Users\Administrator\documents\visual studio 2010\Projects\Rider\Rider\Bin\Debug\AppManifest.xaml" archivePath="AppManifest.xaml" lastWriteTime="10/05/2012 23:01:19" />
   <file source="C:\Users\Administrator\documents\visual studio 2010\Projects\Rider\Rider\Bin\Debug\Images\maps\arrow.png" archivePath="Images\maps\arrow.png" lastWriteTime="01/05/2012 18:05:54" />
   <file source="C:\Users\Administrator\documents\visual studio 2010\Projects\Rider\Rider\Bin\Debug\Images\maps\params.png" archivePath="Images\maps\params.png" lastWriteTime="05/05/2012 13:00:20" />
 </xapCache>

@@ -23,6 +23,7 @@ namespace Rider.Views
     {
         private LocalizedStrings _resources = Application.Current.Resources["LocalizedStrings"] as LocalizedStrings;
         private bool languagePickerLoaded;
+        private bool sportPickerLoaded;
         private bool weightPickerLoaded;
         private bool unitPickerLoaded;
         private bool locationToggleLoaded;
@@ -37,6 +38,7 @@ namespace Rider.Views
             WeightPicker.ItemsSource = UserData.WeightPickerSource;
             UnitPicker.ItemsSource = UserData.UnitPickerSource;
             LanguagePicker.ItemsSource = UserData.LanguagePickerSource;
+            SportPicker.ItemsSource = UserData.SportPickerSource;
         }
 
         #region locationService
@@ -70,6 +72,27 @@ namespace Rider.Views
         }
 
         #endregion
+
+        #region sportPicker
+
+        private void SportPicker_Loaded(object sender, RoutedEventArgs e)
+        {
+            int idx = UserData.Get<int>(UserData.SportKey);
+            this.SportPicker.SelectedItem = UserData.SportPickerSource[idx == -1 ? 0 : idx];
+            this.sportPickerLoaded = true;
+        }
+
+        private void SportPicker_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (this.sportPickerLoaded)
+            {
+                int idx = UserData.SportPickerSource.IndexOf(this.SportPicker.SelectedItem.ToString());
+                UserData.Add<int>(UserData.SportKey, idx);
+            }
+        }
+
+        #endregion
+
 
         #region weightPicker
 

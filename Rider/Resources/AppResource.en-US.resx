@@ -126,4 +126,82 @@
   <data name="Settings" xml:space="preserve">
     <value>Settings</value>
   </data>
+  <data name="SettingsSport" xml:space="preserve">
+    <value>Sport</value>
+  </data>
+  <data name="Sport_0" xml:space="preserve">
+    <value>Bicycling 12-13.9 MPH</value>
+  </data>
+  <data name="Sport_1" xml:space="preserve">
+    <value>Bicycling 14-15.9 MPH</value>
+  </data>
+  <data name="Sport_10" xml:space="preserve">
+    <value>Rowing, stationary vigorous</value>
+  </data>
+  <data name="Sport_11" xml:space="preserve">
+    <value>Running 5 MPH 12 min/mile</value>
+  </data>
+  <data name="Sport_12" xml:space="preserve">
+    <value>Running 6 MPH 10 min/mile</value>
+  </data>
+  <data name="Sport_13" xml:space="preserve">
+    <value>Running 7.5 MPH 8 min/mile</value>
+  </data>
+  <data name="Sport_14" xml:space="preserve">
+    <value>Running 8.6 MPH 7 min/mile</value>
+  </data>
+  <data name="Sport_15" xml:space="preserve">
+    <value>Running 10 MPH 6 min/mile</value>
+  </data>
+  <data name="Sport_16" xml:space="preserve">
+    <value>Skateboarding</value>
+  </data>
+  <data name="Sport_17" xml:space="preserve">
+    <value>Skiing cross-country, moderate speed</value>
+  </data>
+  <data name="Sport_18" xml:space="preserve">
+    <value>Skiing downhill, moderate effort</value>
+  </data>
+  <data name="Sport_19" xml:space="preserve">
+    <value>Ski machine general</value>
+  </data>
+  <data name="Sport_2" xml:space="preserve">
+    <value>Bicycling 16-19 MPH</value>
+  </data>
+  <data name="Sport_20" xml:space="preserve">
+    <value>Walk 3.5 MPH, level, brisk pace</value>
+  </data>
+  <data name="Sport_21" xml:space="preserve">
+    <value>Walk 4 MPH, level, very brisk pace</value>
+  </data>
+  <data name="Sport_22" xml:space="preserve">
+    <value>Walk 4.5 MPH, level, very, very brisk</value>
+  </data>
+  <data name="Sport_23" xml:space="preserve">
+    <value>Walk / Jog 6MPH alternating</value>
+  </data>
+  <data name="Sport_24" xml:space="preserve">
+    <value>Walk pleasure, walking dog</value>
+  </data>
+  <data name="Sport_3" xml:space="preserve">
+    <value>Bicycling 20 MPH</value>
+  </data>
+  <data name="Sport_4" xml:space="preserve">
+    <value>Bicycling BMX or mountain</value>
+  </data>
+  <data name="Sport_5" xml:space="preserve">
+    <value>Hiking cross-country</value>
+  </data>
+  <data name="Sport_6" xml:space="preserve">
+    <value>Jog 4 MPH, level</value>
+  </data>
+  <data name="Sport_7" xml:space="preserve">
+    <value>Rollerblade skating</value>
+  </data>
+  <data name="Sport_8" xml:space="preserve">
+    <value>Rowing, stationary light</value>
+  </data>
+  <data name="Sport_9" xml:space="preserve">
+    <value>Rowing, stationary moderate</value>
+  </data>
 </root>

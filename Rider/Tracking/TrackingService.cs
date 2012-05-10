@@ -34,6 +34,7 @@ namespace Rider.Tracking
         private GeoCoordinate lastLocation;
         private DispatcherTimer timer;
         private double currentSpeed;
+        private double kcal;
 
         #region constructors
 
@@ -100,11 +101,23 @@ namespace Rider.Tracking
             }
         }
 
-        public int KCal
+        public string KCalFormated
         {
             get
             {
-                return currentSession == null ? 0 : currentSession.KCal;
+                return KCal.ToString("0.0").Replace(',', '.');
+            }
+        }
+
+        public double KCal
+        {
+            get
+            {
+                return currentSession == null ? 0.0 : currentSession.KCal;
+            }
+            set
+            {
+                this.kcal = value;
             }
         }
 
@@ -117,6 +130,7 @@ namespace Rider.Tracking
             Messenger.Default.Register<GeoCoordinate>(this, Location.LocationService.locationChanged, newLocation => OnLocationChanged(newLocation));
             currentSession = new SessionViewModel();
             currentSession.StartTime = DateTime.Now;
+            currentSession.Sport = UserData.Get<int>(UserData.SportKey);
             timer.Start();
             this.isRunnig = true;
             DebugUtils.Log("trololo", "currentSession started");
@@ -177,11 +191,13 @@ namespace Rider.Tracking
                     }
                 }
             }
+            currentSession.Distance = 0.0;
             currentSession = null;
             currentSpeed = 0;
             NotifyPropertyChanged("TimeSpent");
             NotifyPropertyChanged("CurrentSpeed");
             NotifyPropertyChanged("DistanceSession");
+            NotifyPropertyChanged("KCalFormated");
             NotifyPropertyChanged("KCal");
             Messenger.Default.Send<object>(null, MainViewModel.SessionLoaded);
         }
@@ -197,6 +213,14 @@ namespace Rider.Tracking
                     currentSession.AddNewDistance(newLocation.GetDistanceTo(lastLocation));
                 this.currentSpeed = newLocation.Speed;
                 lastLocation = newLocation;
+
+                double weight = UserData.Get<int>(UserData.WeightKey) * 2.204;
+                double sportFactor = Configuration.SportsFactor[currentSession.Sport];
+                
+                TimeSpan currentTimeSpan = (DateTime.Now - currentSession.StartTime);
+                double min = currentTimeSpan.TotalMinutes;
+                min += (currentTimeSpan.Seconds / 60.0) / 60.0;
+                currentSession.KCal = (weight * sportFactor * min) / 1000.0;
             }
         }
 
@@ -204,9 +228,8 @@ namespace Rider.Tracking
         {
             NotifyPropertyChanged("TimeSpent");
             NotifyPropertyChanged("CurrentSpeed");
-            NotifyPropertyChanged("CurrentSpeed");
             NotifyPropertyChanged("DistanceSession");
-            NotifyPropertyChanged("KCal");
+            NotifyPropertyChanged("KCalFormated");
         }
     }
 }

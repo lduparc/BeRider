@@ -70,6 +70,8 @@ namespace Rider
 
             if (!UserData.Get<bool>(UserData.AlreadyLaunchedKey))
             {
+                UserData.Add<int>(UserData.WeightKey, 65);
+                UserData.Add<int>(UserData.SportKey, 7);
                 UserData.Add<bool>(UserData.LocationToggleKey, true);
                 UserData.Add<bool>(UserData.ShowWizardKey, true);
                 UserData.Add<bool>(UserData.AlreadyLaunchedKey, true);

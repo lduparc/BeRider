@@ -38,7 +38,7 @@ namespace Rider.ViewModels
         private double averageSpeed;
         private LocationCollection coords;
         private string identifier;
-        private int kcal;
+        private double kcal;
         private string title = "Session #1";
         private string details = "";
         private int sport;
@@ -220,6 +220,14 @@ namespace Rider.ViewModels
             }
         }
 
+        public string SportFormated
+        {
+            get
+            { 
+                return UserData.SportPickerSource[sport];
+            }
+        }
+
         public double AverageSpeedHistory
         {
             get
@@ -234,7 +242,7 @@ namespace Rider.ViewModels
         }
 
         // TODO : calculate KCal
-        public int KCal
+        public double KCal
         {
             get
             { return this.kcal; }

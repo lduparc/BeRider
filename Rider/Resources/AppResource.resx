@@ -293,4 +293,82 @@ IOS - Android - Windows Phone 7</value>
   <data name="ShareTitle" xml:space="preserve">
     <value>Partage</value>
   </data>
+  <data name="SettingsSport" xml:space="preserve">
+    <value>Sport</value>
+  </data>
+  <data name="Sport_0" xml:space="preserve">
+    <value>Vélo BMX ou VTT</value>
+  </data>
+  <data name="Sport_1" xml:space="preserve">
+    <value>Cyclisme 19 a 21 km</value>
+  </data>
+  <data name="Sport_10" xml:space="preserve">
+    <value>Aviron, effort vigoureux</value>
+  </data>
+  <data name="Sport_11" xml:space="preserve">
+    <value>Course à pied 8 km en 12 min / km</value>
+  </data>
+  <data name="Sport_12" xml:space="preserve">
+    <value>Course à pied 9 a 10 km en 10 min /  km</value>
+  </data>
+  <data name="Sport_13" xml:space="preserve">
+    <value>Course à pied 12 km en 8 min /  km</value>
+  </data>
+  <data name="Sport_14" xml:space="preserve">
+    <value>Course à pied 14 km en 7 min /  km</value>
+  </data>
+  <data name="Sport_15" xml:space="preserve">
+    <value>Course à pied 16 km en 6 min /  km</value>
+  </data>
+  <data name="Sport_16" xml:space="preserve">
+    <value>Skate</value>
+  </data>
+  <data name="Sport_17" xml:space="preserve">
+    <value>Ski hors piste, à vitesse modérée</value>
+  </data>
+  <data name="Sport_18" xml:space="preserve">
+    <value>Ski alpin, effort modéré</value>
+  </data>
+  <data name="Sport_19" xml:space="preserve">
+    <value>Raquette a ski</value>
+  </data>
+  <data name="Sport_2" xml:space="preserve">
+    <value>Cyclisme 22 a 25 km</value>
+  </data>
+  <data name="Sport_20" xml:space="preserve">
+    <value>Marche 6 km,  rythme constant</value>
+  </data>
+  <data name="Sport_21" xml:space="preserve">
+    <value>Marche 6 a 7 km, rythme très soutenu</value>
+  </data>
+  <data name="Sport_22" xml:space="preserve">
+    <value>Marche 7 km, le niveau, très, très rapide</value>
+  </data>
+  <data name="Sport_23" xml:space="preserve">
+    <value>Marche / Jogging de  9 a 10 km en alternance</value>
+  </data>
+  <data name="Sport_24" xml:space="preserve">
+    <value>Promenade</value>
+  </data>
+  <data name="Sport_3" xml:space="preserve">
+    <value>Cyclisme 26 a 31 km</value>
+  </data>
+  <data name="Sport_4" xml:space="preserve">
+    <value>Cyclisme 32 km</value>
+  </data>
+  <data name="Sport_5" xml:space="preserve">
+    <value>Randonnée</value>
+  </data>
+  <data name="Sport_6" xml:space="preserve">
+    <value>Jogging 6 a 7 km</value>
+  </data>
+  <data name="Sport_7" xml:space="preserve">
+    <value>Roller/Patinage</value>
+  </data>
+  <data name="Sport_8" xml:space="preserve">
+    <value>Aviron, vitesse constante</value>
+  </data>
+  <data name="Sport_9" xml:space="preserve">
+    <value>Aviron, effort modérée fixe</value>
+  </data>
 </root>

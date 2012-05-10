@@ -232,7 +232,7 @@ namespace Rider.Utils
                 cmd.Parameters[distanceSessionColumn].Value = (double)content[SessionViewModel.DISTANCE_COLUMN_NAME];
                 cmd.Parameters[timeSessionColumn].Value = (string)content[SessionViewModel.DURATION_COLUMN_NAME];
                 cmd.Parameters[averageSpeedSessionColumn].Value = (double)content[SessionViewModel.AVERAGE_SPEED_COLUMN_NAME];
-                cmd.Parameters[kcalSessionColumn].Value = (int)content[SessionViewModel.KCAL_COLUMN_NAME];
+                cmd.Parameters[kcalSessionColumn].Value = (double)content[SessionViewModel.KCAL_COLUMN_NAME];
                 cmd.Parameters[sportSessionColumn].Value = (int)content[SessionViewModel.SPORT_COLUMN_NAME];
                 cmd.Parameters[maxSpeedSessionColumn].Value = (double)content[SessionViewModel.MAX_SPEED_COLUMN_NAME];
                 cmd.Parameters[dateSessionColumn].Value = (string)content[SessionViewModel.DATE_COLUMN_NAME];
@@ -353,7 +353,7 @@ namespace Rider.Utils
                         session.DateHistory = reader.GetString(dateColumnIndex);
                         session.AverageSpeedHistory = (double)reader[SessionViewModel.AVERAGE_SPEED_COLUMN_NAME];
                         session.MaxSpeed = reader.GetInt32(maxColumnIndex);
-                        session.KCal = reader.GetInt32(kcalColumnIndex);
+                        session.KCal = (double)reader[kcalColumnIndex];
                         session.Sport = reader.GetInt32(sportColumnIndex);
 
                         sessions.Add(session);
