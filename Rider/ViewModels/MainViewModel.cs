@@ -196,10 +196,13 @@ namespace Rider.ViewModels
         {
             if (session != null)
             {
-                string title = "", link = "";
-                    link = session.Identifer;
-                    title = session.Title;
-                Uri uri = new Uri("/Views/ShareSelectionPage.xaml?link=" + HttpUtility.HtmlEncode(link) + "&title=" + title, UriKind.Relative);
+                string sport = "", duration = "", distance = "", kcal = "", average_speed = "";
+                    sport = session.SportFormated;
+                    duration = session.FormatedSpentTime;
+                    distance = session.DistanceFormated;
+                    kcal = session.KCalFormated;
+                    average_speed = session.AverageSpeedFormated;
+                    Uri uri = new Uri("/Views/ShareSelectionPage.xaml?sport=" + sport + "&duration=" + duration + "&distance=" + distance + "&kcal=" + kcal + "&average_speed=" + average_speed, UriKind.Relative);
                 Messenger.Default.Send<Uri>(uri, ShareSessionKey);
                 //MessageBox.Show(string.Format("Session Identifier: {0}", session.Identifer));
             }

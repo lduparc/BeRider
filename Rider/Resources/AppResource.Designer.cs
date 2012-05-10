@@ -333,6 +333,15 @@ namespace Rider.Resources {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Nouvelle session.
+        /// </summary>
+        public static string NewSession {
+            get {
+                return ResourceManager.GetString("NewSession", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Mode suivant.
         /// </summary>
         public static string NextMapTileAppBarTitle {

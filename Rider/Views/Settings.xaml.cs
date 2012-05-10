@@ -34,12 +34,24 @@ namespace Rider.Views
         public Settings()
         {
             InitializeComponent();
-
             WeightPicker.ItemsSource = UserData.WeightPickerSource;
             UnitPicker.ItemsSource = UserData.UnitPickerSource;
             LanguagePicker.ItemsSource = UserData.LanguagePickerSource;
             SportPicker.ItemsSource = UserData.SportPickerSource;
         }
+
+        protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            string refresh = "";
+            NavigationContext.QueryString.TryGetValue("Refresh", out refresh);
+
+            if (refresh != null && refresh.Equals("true"))
+            {
+                NavigationService.RemoveBackEntry();
+            }
+        }
+
 
         #region locationService
 

@@ -105,7 +105,7 @@ namespace Rider.Tracking
         {
             get
             {
-                return KCal.ToString("0.0").Replace(',', '.');
+                return currentSession == null ? "0.0" : currentSession.KCalFormated;
             }
         }
 
@@ -114,10 +114,6 @@ namespace Rider.Tracking
             get
             {
                 return currentSession == null ? 0.0 : currentSession.KCal;
-            }
-            set
-            {
-                this.kcal = value;
             }
         }
 

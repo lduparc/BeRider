@@ -293,6 +293,9 @@ IOS - Android - Windows Phone 7</value>
   <data name="ShareTitle" xml:space="preserve">
     <value>Partage</value>
   </data>
+  <data name="NewSession" xml:space="preserve">
+    <value>Nouvelle session</value>
+  </data>
   <data name="SettingsSport" xml:space="preserve">
     <value>Sport</value>
   </data>

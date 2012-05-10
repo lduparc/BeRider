@@ -253,6 +253,15 @@ namespace Rider.ViewModels
 
         }
 
+        public string KCalFormated
+        {
+            get
+            {
+                return KCal.ToString("0.0").Replace(',', '.');
+            }
+        }
+
+
         #endregion
 
         #region utils

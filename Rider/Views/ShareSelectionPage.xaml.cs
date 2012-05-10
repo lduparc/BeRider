@@ -17,12 +17,13 @@ using Rider.Models;
 using Rider.Persistent;
 using Rider.Utils;
 using Hammock.Silverlight.Compat;
+using Rider.Resources;
 
 namespace Rider.Views
 {
     public partial class ShareSelectionPage : PhoneApplicationPage
     {
-        private string link, title;
+        private string sport, duration, distance, kcal;
 
         public ShareSelectionPage()
         {
@@ -32,10 +33,11 @@ namespace Rider.Views
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            NavigationContext.QueryString.TryGetValue("link", out link);
-            NavigationContext.QueryString.TryGetValue("title", out title);
-            link = HttpUtility.HtmlDecode(link);
-            title = HttpUtility.HtmlDecode(title);
+
+            NavigationContext.QueryString.TryGetValue("sport", out sport);
+            NavigationContext.QueryString.TryGetValue("duration", out duration);
+            NavigationContext.QueryString.TryGetValue("distance", out distance);
+            NavigationContext.QueryString.TryGetValue("kcal", out kcal);
         }
 
         private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -47,13 +49,13 @@ namespace Rider.Views
                 {
                     case "Sms":
                         Microsoft.Phone.Tasks.SmsComposeTask sms = new Microsoft.Phone.Tasks.SmsComposeTask();
-                        sms.Body = title + " - " + link;
+                        sms.Body = AppResource.ResourceManager.GetString("ApplicationName");
                         sms.Show();
                         break;
                     case "Email":
                         Microsoft.Phone.Tasks.EmailComposeTask email = new Microsoft.Phone.Tasks.EmailComposeTask();
-                        email.Subject = title;
-                        email.Body = "Read all about it" + link;
+                        email.Subject = AppResource.ResourceManager.GetString("ApplicationName");
+                        email.Body = AppResource.ResourceManager.GetString("NewSession") + " : " + "\n" + sport;
                         email.Show();
                         break;
                     case "Facebook":
@@ -145,9 +147,8 @@ loginParameters["redirect_uri"] = "https://www.facebook.com/connect/login_succes
 
             var parameters = new Dictionary<string, object>
                  {
-                     {"description", "trololo"},
-                     {"link", "trololo link"},
-                     {"name", "trololo name"}
+                     {"message", AppResource.ResourceManager.GetString("NewSession") + "\n" + "trotlerkfx"},
+                     {"name", AppResource.ResourceManager.GetString("ApplicationName")}
                  };
             _fbClient.PostCompleted += new EventHandler<FacebookApiEventArgs>(fbApp_PostCompleted);
             _fbClient.PostAsync("me/feed", parameters);
@@ -155,8 +156,6 @@ loginParameters["redirect_uri"] = "https://www.facebook.com/connect/login_succes
 
         void fbApp_PostCompleted(object sender, FacebookApiEventArgs e)
         {
-            if (e.Error != null)
-                DebugUtils.Log("trololololololololo", "facebook response : " + e.Error);
             Dispatcher.BeginInvoke(() =>
             {
                 shellProgress.IsVisible = false;
@@ -189,7 +188,7 @@ loginParameters["redirect_uri"] = "https://www.facebook.com/connect/login_succes
                 !String.IsNullOrEmpty(twitterSettings.AccessToken) &&
                 !String.IsNullOrEmpty(twitterSettings.AccessTokenSecret)))
             {
-                PostTweet(link, twitterSettings);
+                PostTweet(AppResource.ResourceManager.GetString("NewSession"), twitterSettings);
                 return;
             }
 
@@ -304,6 +303,7 @@ loginParameters["redirect_uri"] = "https://www.facebook.com/connect/login_succes
             var requestToken = GetQueryParameter(uri, "oauth_token");
             if (requestToken != _oAuthToken)
             {
+                shellProgress.IsVisible = false;
                 MessageBox.Show("Authentication error.");
             }
 
@@ -348,13 +348,17 @@ loginParameters["redirect_uri"] = "https://www.facebook.com/connect/login_succes
 
             if (String.IsNullOrEmpty(twitteruser.AccessToken) || String.IsNullOrEmpty(twitteruser.AccessTokenSecret))
             {
-                Dispatcher.BeginInvoke(() => MessageBox.Show("Authentication error."));
+                Dispatcher.BeginInvoke(() =>
+                {
+                    shellProgress.IsVisible = false;
+                    MessageBox.Show("Authentication error.");
+                });
                 return;
             }
 
             TwitterHelper.SaveSetting("TwitterAccess", twitteruser);
 
-            PostTweet(link, twitteruser);
+            PostTweet(AppResource.ResourceManager.GetString("NewSession"), twitteruser);
 
 
 

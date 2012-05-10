@@ -209,6 +209,9 @@ IOS - Android - Windows Phone 7</value>
   <data name="MapSubTitle" xml:space="preserve">
     <value>Realtime navigation</value>
   </data>
+  <data name="NewSession" xml:space="preserve">
+    <value>New session</value>
+  </data>
   <data name="NextMapTileAppBarTitle" xml:space="preserve">
     <value>Next view</value>
   </data>
