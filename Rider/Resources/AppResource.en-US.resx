@@ -117,17 +117,178 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="About" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="AboutAppBarTitle" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="AboutCollaboratorContent" xml:space="preserve">
+    <value>Web developer - Bordeaux (France) 
+Ruby on Rails</value>
+  </data>
+  <data name="AboutCollaboratorTitle" xml:space="preserve">
+    <value>Thanks to Pierre Jambet</value>
+  </data>
+  <data name="AboutLocationServicePolicy" xml:space="preserve">
+    <value>BeRider uses GPS data to your phone in order to determine the equipment centers closest to your position. This information is recorded only if you want to save your career. No broadcasts are made ​​on our part. Enable or disable this feature at any time.</value>
+  </data>
+  <data name="AboutLocationServicePolicyTitle" xml:space="preserve">
+    <value>Location service</value>
+  </data>
+  <data name="AboutPersonalContent" xml:space="preserve">
+    <value>Mobile developer - Bordeaux (France)
+IOS - Android - Windows Phone 7</value>
+  </data>
+  <data name="AboutPersonalTitle" xml:space="preserve">
+    <value>By Loic Duparc</value>
+  </data>
+  <data name="AboutRateAppContent" xml:space="preserve">
+    <value>Review</value>
+  </data>
+  <data name="AboutRateAppTitle" xml:space="preserve">
+    <value>Your evaluation ?</value>
+  </data>
+  <data name="AboutSubTitle" xml:space="preserve">
+    <value>Policy</value>
+  </data>
+  <data name="AboutSupportContent" xml:space="preserve">
+    <value>Contact</value>
+  </data>
+  <data name="AboutSupportTitle" xml:space="preserve">
+    <value>Suggestions, comments, support?</value>
+  </data>
+  <data name="ApplicationName" xml:space="preserve">
+    <value>BeRider</value>
+  </data>
   <data name="ApplicationTitleFirst" xml:space="preserve">
     <value>be</value>
   </data>
   <data name="ApplicationTitleSecond" xml:space="preserve">
     <value>Rider</value>
   </data>
+  <data name="CaloriesTitle" xml:space="preserve">
+    <value>Calories</value>
+  </data>
+  <data name="DistanceTitle" xml:space="preserve">
+    <value>Distance</value>
+  </data>
+  <data name="FeedBack" xml:space="preserve">
+    <value>support</value>
+  </data>
+  <data name="HistoryHeaderDelete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="HistoryHeaderShare" xml:space="preserve">
+    <value>Share</value>
+  </data>
+  <data name="LoadingSessions" xml:space="preserve">
+    <value>Loading sessions ....</value>
+  </data>
+  <data name="LocationServiceAccept" xml:space="preserve">
+    <value>go</value>
+  </data>
+  <data name="LocationServiceContent" xml:space="preserve">
+    <value>The application needs location service activate to record the course of a session. If the service is not active, the session will not start up. Would you like to access the settings to enable the location service?</value>
+  </data>
+  <data name="LocationServiceRefuse" xml:space="preserve">
+    <value>refuse</value>
+  </data>
+  <data name="LocationServiceTitle" xml:space="preserve">
+    <value>Location service</value>
+  </data>
+  <data name="LockerAppBarTitle" xml:space="preserve">
+    <value>Center</value>
+  </data>
+  <data name="Map" xml:space="preserve">
+    <value>Mode Map</value>
+  </data>
+  <data name="MapAppBarTitle" xml:space="preserve">
+    <value>Map</value>
+  </data>
+  <data name="MapSubTitle" xml:space="preserve">
+    <value>Realtime navigation</value>
+  </data>
+  <data name="NextMapTileAppBarTitle" xml:space="preserve">
+    <value>Next view</value>
+  </data>
+  <data name="PanoramaHistoryTitle" xml:space="preserve">
+    <value>History</value>
+  </data>
+  <data name="PanoramaHomeTitle" xml:space="preserve">
+    <value>Session</value>
+  </data>
+  <data name="PanoramaNewsTItle" xml:space="preserve">
+    <value>News</value>
+  </data>
+  <data name="PanoramaSpotlightsTitle" xml:space="preserve">
+    <value>Spotlights</value>
+  </data>
+  <data name="PhotosAppBarTitle" xml:space="preserve">
+    <value>Take photo</value>
+  </data>
+  <data name="PreviousMapTileAppBarTitle" xml:space="preserve">
+    <value>Previous view</value>
+  </data>
+  <data name="SaveSession" xml:space="preserve">
+    <value>Save in progress ...</value>
+  </data>
+  <data name="SessionLoadAppBarTitle" xml:space="preserve">
+    <value>Load session</value>
+  </data>
+  <data name="SessionSelectionSubTitle" xml:space="preserve">
+    <value>Load itinerary</value>
+  </data>
+  <data name="SessionSelectionTitle" xml:space="preserve">
+    <value>My sessions</value>
+  </data>
+  <data name="sessionStartAppBarTitle" xml:space="preserve">
+    <value>start record</value>
+  </data>
+  <data name="sessionStopAppBarTitle" xml:space="preserve">
+    <value>stop record</value>
+  </data>
+  <data name="SessionUnloadAppBarTitle" xml:space="preserve">
+    <value>Unload session</value>
+  </data>
   <data name="Settings" xml:space="preserve">
     <value>Settings</value>
   </data>
+  <data name="SettingsAppBarTitle" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="SettingsLanguage" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="SettingsLocationServiceModeDisabled" xml:space="preserve">
+    <value>Off</value>
+  </data>
+  <data name="SettingsLocationServiceModeEnabled" xml:space="preserve">
+    <value>On</value>
+  </data>
+  <data name="SettingsLocationServiceTitle" xml:space="preserve">
+    <value>Location service</value>
+  </data>
   <data name="SettingsSport" xml:space="preserve">
     <value>Sport</value>
+  </data>
+  <data name="SettingsSubTitle" xml:space="preserve">
+    <value>Configuration</value>
+  </data>
+  <data name="SettingsUnit" xml:space="preserve">
+    <value>Units</value>
+  </data>
+  <data name="SettingsWeight" xml:space="preserve">
+    <value>Weight (kg)</value>
+  </data>
+  <data name="ShareSubTitle" xml:space="preserve">
+    <value>Share with your friends</value>
+  </data>
+  <data name="ShareTitle" xml:space="preserve">
+    <value>Share</value>
+  </data>
+  <data name="SpeedTitle" xml:space="preserve">
+    <value>Speed</value>
   </data>
   <data name="Sport_0" xml:space="preserve">
     <value>Bicycling 12-13.9 MPH</value>
@@ -203,5 +364,8 @@
   </data>
   <data name="Sport_9" xml:space="preserve">
     <value>Rowing, stationary moderate</value>
+  </data>
+  <data name="TimeTitle" xml:space="preserve">
+    <value>Duration</value>
   </data>
 </root>
